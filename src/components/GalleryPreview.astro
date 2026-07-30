@@ -1,0 +1,88 @@
+---
+interface Props {
+  images?: string[];
+}
+
+const { images = [
+  '/images/gallery-1.jpeg',
+  '/images/gallery-2.jpeg',
+  '/images/gallery-3.jpeg',
+  '/images/gallery-4.jpeg',
+  '/images/gallery-5.jpeg',
+  '/images/gallery-6.jpeg',
+  '/images/gallery-7.jpeg',
+  '/images/gallery-8.jpeg',
+] } = Astro.props;
+---
+
+<section class="gallery-preview section">
+  <div class="container">
+    <div class="section-title">
+      <h2>UKÁZKA Z AKCÍ</h2>
+      <p>Podívejte se na naši práci v akci</p>
+    </div>
+    
+    <div class="gallery-preview__grid">
+      {images.map((src, index) => (
+        <div class="gallery-preview__item">
+          <img src={src} alt={`Ukázka vystoupení ${index + 1}`} loading="lazy" />
+        </div>
+      ))}
+    </div>
+    
+    <div class="gallery-preview__cta">
+      <a href="/galerie" class="btn btn--ghost">
+        Zobrazit celou galerii →
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .gallery-preview__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  
+  .gallery-preview__item {
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+  
+  .gallery-preview__item:hover {
+    transform: scale(1.02);
+  }
+  
+  .gallery-preview__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s ease;
+  }
+  
+  .gallery-preview__item:hover img {
+    filter: brightness(1.1);
+  }
+  
+  .gallery-preview__cta {
+    text-align: center;
+  }
+  
+  @media (max-width: 1024px) {
+    .gallery-preview__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .gallery-preview__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+  }
+</style>

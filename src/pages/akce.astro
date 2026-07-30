@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Akce" description="Nadcházející a proběhlé akce SHŠ Heretik.">
+  <section class="page-hero">
+    <div class="container">
+      <h1>AKCE</h1>
+      <p>Naše vystoupení a události</p>
+    </div>
+  </section>
+  
+  <section class="content section">
+    <div class="container container--narrow">
+      <div class="content__block">
+        <h2>Nadcházející akce</h2>
+        <p class="text-muted">
+          Kalendář nadcházejících akcí připravujeme. Sledujte nás nebo nás kontaktujte 
+          pro informace o aktuálních vystoupeních.
+        </p>
+      </div>
+      
+      <div class="content__block">
+        <h2>Proběhlé akce</h2>
+        <p>
+          V průběhu roku vystupujeme na různých akcích po celé České republice. 
+          Ukázky z našich vystoupení najdete v <a href="/galerie">galerii</a>.
+        </p>
+      </div>
+      
+      <div class="content__block">
+        <h2>Chcete nás na vaší akci?</h2>
+        <p>
+          Rádi pro vás připravíme vystoupení na míru. Kontaktujte nás a domluvíme 
+          detaily.
+        </p>
+        <a href="/kontakt" class="btn btn--primary">
+          Domluvit vystoupení
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding: 10rem 0 4rem;
+    background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
+    text-align: center;
+  }
+  
+  .page-hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1rem;
+  }
+  
+  .page-hero p {
+    color: var(--color-text-muted);
+    font-size: 1.25rem;
+  }
+  
+  .content__block {
+    margin-bottom: 3rem;
+  }
+  
+  .content__block h2 {
+    margin-bottom: 1.5rem;
+  }
+  
+  .content__block a:not(.btn) {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>

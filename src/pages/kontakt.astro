@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Kontakt" description="Kontaktujte SHŠ Heretik pro domluvení vystoupení.">
+  <section class="page-hero">
+    <div class="container">
+      <h1>KONTAKT</h1>
+      <p>Domluvte si s námi vystoupení</p>
+    </div>
+  </section>
+  
+  <section class="contact section">
+    <div class="container">
+      <div class="contact__grid">
+        <div class="contact__form-wrapper">
+          <h2>Napište nám</h2>
+          <p class="text-muted mb-3">
+            Vyplňte formulář a my se vám ozveme co nejdříve.
+          </p>
+          
+          <form class="contact__form" action="mailto:info@shsheretik.cz" method="POST" enctype="text/plain">
+            <div class="form-group">
+              <label for="name">Jméno a příjmení *</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+            
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+            
+            <div class="form-group">
+              <label for="event-type">Typ akce</label>
+              <select id="event-type" name="event-type">
+                <option value="">Vyberte typ akce</option>
+                <option value="mestska-slavnost">Městská slavnost</option>
+                <option value="historicky-den">Historický den</option>
+                <option value="ples">Ples</option>
+                <option value="firemni-akce">Firemní večírek</option>
+                <option value="oslava">Oslava narozenin</option>
+                <option value="deticky-tabor">Dětský tábor</option>
+                <option value="skolni-program">Školní program</option>
+                <option value="jine">Jiné</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="date">Předpokládaný termín</label>
+              <input type="date" id="date" name="date" />
+            </div>
+            
+            <div class="form-group">
+              <label for="message">Zpráva *</label>
+              <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn--primary btn--large">
+              Odeslat zprávu
+            </button>
+          </form>
+        </div>
+        
+        <div class="contact__info">
+          <h2>Kontaktní údaje</h2>
+          
+          <div class="contact__info-block">
+            <h4>Email</h4>
+            <a href="mailto:info@shsheretik.cz">info@shsheretik.cz</a>
+          </div>
+          
+          <div class="contact__info-block">
+            <h4>Region</h4>
+            <p>Mohelnice a celá Česká republika</p>
+          </div>
+          
+          <div class="contact__info-block">
+            <h4>Sociální sítě</h4>
+            <p class="text-muted">
+              Sledujte nás na sociálních sítích pro aktuální informace o vystoupeních.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding: 10rem 0 4rem;
+    background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
+    text-align: center;
+  }
+  
+  .page-hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1rem;
+  }
+  
+  .page-hero p {
+    color: var(--color-text-muted);
+    font-size: 1.25rem;
+  }
+  
+  .contact__grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 4rem;
+  }
+  
+  .contact__form h2 {
+    margin-bottom: 1rem;
+  }
+  
+  .contact__form {
+    margin-top: 2rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: border-color var(--transition);
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+  
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+  
+  .contact__info h2 {
+    margin-bottom: 2rem;
+  }
+  
+  .contact__info-block {
+    margin-bottom: 2rem;
+  }
+  
+  .contact__info-block h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+  }
+  
+  .contact__info-block a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+  
+  .contact__info-block a:hover {
+    color: var(--color-accent-light);
+  }
+  
+  .contact__info-block p {
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .contact__grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+</style>
