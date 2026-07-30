@@ -1,22 +1,24 @@
 ---
+import { asset, page } from '../utils/paths.js';
+
 const year = new Date().getFullYear();
 
 const footerLinks = [
   {
     title: 'Navigace',
     links: [
-      { href: '/', label: 'Domů' },
-      { href: '/o-nas', label: 'O nás' },
-      { href: '/akce', label: 'Akce' },
-      { href: '/galerie', label: 'Galerie' },
-      { href: '/kontakt', label: 'Kontakt' },
+      { href: page('/'), label: 'Domů' },
+      { href: page('/o-nas'), label: 'O nás' },
+      { href: page('/akce'), label: 'Akce' },
+      { href: page('/galerie'), label: 'Galerie' },
+      { href: page('/kontakt'), label: 'Kontakt' },
     ],
   },
   {
     title: 'Kontakt',
     links: [
       { href: 'mailto:info@shsheretik.cz', label: 'info@shsheretik.cz' },
-      { href: '/kontakt', label: 'Kontaktní formulář' },
+      { href: page('/kontakt'), label: 'Kontaktní formulář' },
     ],
   },
 ];
@@ -26,8 +28,8 @@ const footerLinks = [
   <div class="container">
     <div class="footer__grid">
       <div class="footer__brand">
-        <a href="/" class="footer__logo">
-          <img src="/logo.svg" alt="SHŠ Heretik" />
+        <a href={page('/')} class="footer__logo">
+          <img src={asset('/logo.svg')} alt="SHŠ Heretik" />
         </a>
         <p class="footer__description">
           Šermíři s vášní a uměním. Historický a scénický šerm z Mohelnice.

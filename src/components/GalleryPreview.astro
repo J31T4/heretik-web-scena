@@ -1,17 +1,19 @@
 ---
+import { asset, page } from '../utils/paths.js';
+
 interface Props {
   images?: string[];
 }
 
 const { images = [
-  '/images/gallery-1.jpeg',
-  '/images/gallery-2.jpeg',
-  '/images/gallery-3.jpeg',
-  '/images/gallery-4.jpeg',
-  '/images/gallery-5.jpeg',
-  '/images/gallery-6.jpeg',
-  '/images/gallery-7.jpeg',
-  '/images/gallery-8.jpeg',
+  asset('/images/gallery-1.jpeg'),
+  asset('/images/gallery-2.jpeg'),
+  asset('/images/gallery-3.jpeg'),
+  asset('/images/gallery-4.jpeg'),
+  asset('/images/gallery-5.jpeg'),
+  asset('/images/gallery-6.jpeg'),
+  asset('/images/gallery-7.jpeg'),
+  asset('/images/gallery-8.jpeg'),
 ] } = Astro.props;
 ---
 
@@ -31,7 +33,7 @@ const { images = [
     </div>
     
     <div class="gallery-preview__cta">
-      <a href="/galerie" class="btn btn--ghost">
+      <a href={page('/galerie')} class="btn btn--ghost">
         Zobrazit celou galerii →
       </a>
     </div>

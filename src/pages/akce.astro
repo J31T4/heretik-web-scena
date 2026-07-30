@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { page } from '../utils/paths.js';
 ---
 
 <BaseLayout title="Akce" description="Nadcházející a proběhlé akce SHŠ Heretik.">
@@ -24,7 +25,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <h2>Proběhlé akce</h2>
         <p>
           V průběhu roku vystupujeme na různých akcích po celé České republice. 
-          Ukázky z našich vystoupení najdete v <a href="/galerie">galerii</a>.
+          Ukázky z našich vystoupení najdete v <a href={page('/galerie')}>galerii</a>.
         </p>
       </div>
       
@@ -34,7 +35,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           Rádi pro vás připravíme vystoupení na míru. Kontaktujte nás a domluvíme 
           detaily.
         </p>
-        <a href="/kontakt" class="btn btn--primary">
+        <a href={page('/kontakt')} class="btn btn--primary">
           Domluvit vystoupení
         </a>
       </div>

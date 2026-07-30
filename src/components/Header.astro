@@ -1,19 +1,21 @@
 ---
+import { asset, page } from '../utils/paths.js';
+
 const currentPath = Astro.url.pathname;
 
 const navLinks = [
-  { href: '/', label: 'Domů' },
-  { href: '/o-nas', label: 'O nás' },
-  { href: '/akce', label: 'Akce' },
-  { href: '/galerie', label: 'Galerie' },
-  { href: '/kontakt', label: 'Kontakt' },
+  { href: page('/'), label: 'Domů' },
+  { href: page('/o-nas'), label: 'O nás' },
+  { href: page('/akce'), label: 'Akce' },
+  { href: page('/galerie'), label: 'Galerie' },
+  { href: page('/kontakt'), label: 'Kontakt' },
 ];
 ---
 
 <header class="header">
   <div class="container header__inner">
-    <a href="/" class="header__logo">
-      <img src="/logo.svg" alt="SHŠ Heretik" class="header__logo-img" />
+    <a href={page('/')} class="header__logo">
+      <img src={asset('/logo.svg')} alt="SHŠ Heretik" class="header__logo-img" />
       <span class="header__logo-text">SHŠ Heretik</span>
     </a>
     
@@ -28,7 +30,7 @@ const navLinks = [
       ))}
     </nav>
     
-    <a href="/kontakt" class="btn btn--primary header__cta">
+    <a href={page('/kontakt')} class="btn btn--primary header__cta">
       Domluvit vystoupení
     </a>
     

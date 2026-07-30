@@ -1,9 +1,11 @@
 ---
+import { asset, page } from '../utils/paths.js';
+
 interface Props {
   backgroundImage?: string;
 }
 
-const { backgroundImage = '/images/hero-1.jpeg' } = Astro.props;
+const { backgroundImage = asset('/images/hero-1.jpeg') } = Astro.props;
 ---
 
 <section class="hero">
@@ -19,10 +21,10 @@ const { backgroundImage = '/images/hero-1.jpeg' } = Astro.props;
       a přenášíme ho do současnosti.
     </p>
     <div class="hero__cta">
-      <a href="/kontakt" class="btn btn--primary btn--large">
+      <a href={page('/kontakt')} class="btn btn--primary btn--large">
         Domluvit vystoupení
       </a>
-      <a href="/galerie" class="btn btn--ghost btn--large">
+      <a href={page('/galerie')} class="btn btn--ghost btn--large">
         Prohlédnout galerii
       </a>
     </div>

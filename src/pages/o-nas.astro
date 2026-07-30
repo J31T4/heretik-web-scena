@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { page } from '../utils/paths.js';
 ---
 
 <BaseLayout title="O nás" description="Příběh skupiny SHŠ Heretik. Šermíři s vášní a uměním z Mohelnice.">
@@ -50,6 +51,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </ul>
         <p>
           Naše hlavní sídlo je v Mohelnici, ale rádi cestujeme po celé České republice.
+        </p>
+        <p>
+          <a href={page('/kontakt')} class="btn btn--primary">Domluvit vystoupení</a>
         </p>
       </div>
     </div>

@@ -1,4 +1,5 @@
 ---
+import { page } from '../utils/paths.js';
 ---
 
 <section class="cta section">
@@ -8,7 +9,7 @@
       Ať už plánujete městskou slavnost, historický den, ples, firemní večírek 
       nebo rodinnou oslavu – rádi pro vás připravíme nezapomenutelné vystoupení.
     </p>
-    <a href="/kontakt" class="btn btn--primary btn--large">
+    <a href={page('/kontakt')} class="btn btn--primary btn--large">
       Domluvit vystoupení
     </a>
   </div>
