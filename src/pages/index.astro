@@ -1,14 +1,24 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import Services from '../components/Services.astro';
-import GalleryPreview from '../components/GalleryPreview.astro';
-import CTA from '../components/CTA.astro';
+import ScenaLayout from '../layouts/ScenaLayout.astro';
+import ScenaHeader from '../components/ScenaHeader.astro';
+import ScenaHero from '../components/ScenaHero.astro';
+import ScenaMarquee from '../components/ScenaMarquee.astro';
+import ScenaShows from '../components/ScenaShows.astro';
+import ScenaTimeline from '../components/ScenaTimeline.astro';
+import ScenaGallery from '../components/ScenaGallery.astro';
+import ScenaCTA from '../components/ScenaCTA.astro';
+import ScenaFooter from '../components/ScenaFooter.astro';
 ---
 
-<BaseLayout title="Domů">
-  <Hero />
-  <Services />
-  <GalleryPreview />
-  <CTA />
-</BaseLayout>
+<ScenaLayout title="Domů">
+  <ScenaHeader />
+  <main>
+    <ScenaHero />
+    <ScenaMarquee />
+    <ScenaShows />
+    <ScenaTimeline />
+    <ScenaGallery />
+    <ScenaCTA />
+  </main>
+  <ScenaFooter />
+</ScenaLayout>

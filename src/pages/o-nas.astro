@@ -1,97 +1,152 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { page } from '../utils/paths.js';
+import ScenaLayout from '../layouts/ScenaLayout.astro';
+import ScenaHeader from '../components/ScenaHeader.astro';
+import ScenaFooter from '../components/ScenaFooter.astro';
+import { asset } from '../utils/paths.js';
 ---
 
-<BaseLayout title="O nás" description="Příběh skupiny SHŠ Heretik. Šermíři s vášní a uměním z Mohelnice.">
-  <section class="page-hero">
-    <div class="container">
-      <h1>O NÁS</h1>
-      <p>Šermíři s vášní a uměním</p>
-    </div>
-  </section>
-  
-  <section class="content section">
-    <div class="container container--narrow">
-      <div class="content__block">
-        <h2>Náš příběh</h2>
-        <p>
-          Spolek HERETIK vznikl v roce 2020. Zabývá se tvorbou vystoupení, studiem 
-          dobových technik, nácvikem a předváděním šermu. Naši členové mají letitou 
-          praxi a zkušenosti z jiných šermířských skupin.
-        </p>
-        <p>
-          Tvoříme si vlastní choreografie, vtipné texty a scénky z odlišných druhů 
-          performancí – od commedie dell'arte až po různé fantastické povídky.
-        </p>
+<ScenaLayout title="O nás">
+  <ScenaHeader />
+  <main>
+    <section class="scena-page-hero">
+      <div class="container">
+        <p class="section-label reveal">Dějství I</p>
+        <h1 class="page-title reveal">O NÁS</h1>
+        <p class="page-subtitle reveal">Příběh naší vášně pro historii a šerm</p>
       </div>
-      
-      <div class="content__block">
-        <h2>Naše škola</h2>
-        <p>
-          V nácviku nám pomáhají jak dochované učebnice starých šermířských mistrů, 
-          tak i různé školy šermu. Absolvovali jsme několik seminářů, které se drží 
-          odkazu šermířského mistra Petra Kozy, který nám předal zkušený lektor 
-          Martin Tureček.
-        </p>
-        <p>
-          Dále někteří z nás měli možnost nahlédnout do školy Cechu Svatého Michaela, 
-          která nám také rozšířila studijní možnosti.
-        </p>
+    </section>
+
+    <section class="about-block section">
+      <div class="container about__grid">
+        <div class="about__image reveal">
+          <img src={asset('/images/gallery-1.jpeg')} alt="Naše historie" />
+        </div>
+        <div class="about__text reveal">
+          <h2 class="about__title">Naše historie</h2>
+          <p>
+            Spolek HERETIK vznikl v roce 2020. Zabývá se tvorbou vystoupení, studiem
+            dobových technik, nácvikem a předváděním šermu. Naši členové mají letitou
+            praxi a zkušenosti z jiných šermířských skupin.
+          </p>
+          <p>
+            Tvoříme si vlastní choreografie, vtipné texty a scénky z odlišných druhů
+            performancí – od commedie dell'arte až po různé fantastické povídky.
+          </p>
+        </div>
       </div>
-      
-      <div class="content__block">
-        <h2>Pro koho vystupujeme</h2>
-        <p>Dle vašich potřeb jsme schopni připravit vystoupení pro:</p>
-        <ul>
-          <li>Městské slavnosti a historické dny</li>
-          <li>Plesy a firemní večírky</li>
-          <li>Oslavy narozenin a rodinné akce</li>
-          <li>Dětské tábory a programy pro ZŠ</li>
-        </ul>
-        <p>
-          Naše hlavní sídlo je v Mohelnici, ale rádi cestujeme po celé České republice.
-        </p>
-        <p>
-          <a href={page('/kontakt')} class="btn btn--primary">Domluvit vystoupení</a>
-        </p>
+    </section>
+
+    <section class="about-block section section--card">
+      <div class="container about__grid reverse">
+        <div class="about__text reveal">
+          <h2 class="about__title">Šermířská škola</h2>
+          <p>
+            V nácviku nám pomáhají dochované učebnice starých šermířských mistrů
+            i různé školy šermu. Absolvovali jsme několik seminářů, které se drží
+            odkazu šermířského mistra Petra Kozy, který nám předal zkušený lektor
+            Martin Tureček.
+          </p>
+          <p>
+            Šerm není jen bojové umění – je to forma choreografického vystoupení,
+            kde každý pohyb, každá pozice a každý výraz má svůj význam.
+          </p>
+        </div>
+        <div class="about__image reveal">
+          <img src={asset('/images/gallery-2.jpeg')} alt="Šermířská škola" />
+        </div>
       </div>
-    </div>
-  </section>
-</BaseLayout>
+    </section>
+
+    <section class="about-block section">
+      <div class="container about__grid">
+        <div class="about__image reveal">
+          <img src={asset('/images/gallery-3.jpeg')} alt="Autenticita" />
+        </div>
+        <div class="about__text reveal">
+          <h2 class="about__title">Autenticita</h2>
+          <p>
+            Věrně reproduktujeme oblečení a zbraně 15.–16. století s důrazem na detail.
+            Naše repliky zbraní a autentické kostýmy vám umožní zažít historii zblízka.
+          </p>
+          <p>
+            Někteří z nás měli možnost nahlédnout do školy Cechu Svatého Michaela,
+            která nám rozšířila studijní možnosti. Naše hlavní sídlo je v Mohelnici,
+            ale rádi cestujeme po celé České republice.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <ScenaFooter />
+</ScenaLayout>
 
 <style>
-  .page-hero {
-    padding: 10rem 0 4rem;
-    background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
-    text-align: center;
+  .scena-page-hero {
+    padding: clamp(5rem, 12vw, 8rem) 0 3rem;
+    background:
+      linear-gradient(180deg, rgba(10,10,10,0.9), var(--bg)),
+      url('/images/hero-1.jpeg') center/cover;
+    border-bottom: 1px solid var(--border);
   }
-  
-  .page-hero h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    margin-bottom: 1rem;
-  }
-  
-  .page-hero p {
-    color: var(--color-text-muted);
-    font-size: 1.25rem;
-  }
-  
-  .content__block {
-    margin-bottom: 3rem;
-  }
-  
-  .content__block h2 {
-    margin-bottom: 1.5rem;
-  }
-  
-  .content__block ul {
-    margin: 1rem 0 1.5rem 1.5rem;
-    color: var(--color-text-muted);
-  }
-  
-  .content__block li {
+
+  .page-title {
+    font-size: clamp(2.5rem, 7vw, 5rem);
     margin-bottom: 0.5rem;
-    line-height: 1.6;
+  }
+
+  .page-subtitle {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+  }
+
+  .about__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .about__grid.reverse .about__text { order: 2; }
+  .about__grid.reverse .about__image { order: 1; }
+
+  .about__image {
+    border-radius: 4px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    border: 1px solid var(--border);
+  }
+
+  .about__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--ease);
+  }
+
+  .about__image:hover img { transform: scale(1.05); }
+
+  .about__title {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin-bottom: 1.2rem;
+    position: relative;
+    padding-left: 1.2rem;
+  }
+
+  .about__title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.35em;
+    bottom: 0.35em;
+    width: 4px;
+    background: var(--red);
+  }
+
+  .about__text p { margin-bottom: 1rem; }
+
+  @media (max-width: 900px) {
+    .about__grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about__grid.reverse .about__text { order: 1; }
+    .about__grid.reverse .about__image { order: 2; }
   }
 </style>

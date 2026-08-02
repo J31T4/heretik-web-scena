@@ -1,36 +1,25 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { page } from '../utils/paths.js';
+import ScenaLayout from '../layouts/ScenaLayout.astro';
+import ScenaHeader from '../components/ScenaHeader.astro';
+import ScenaFooter from '../components/ScenaFooter.astro';
 ---
 
-<BaseLayout title="Kontakt" description="Kontaktujte SHŠ Heretik pro domluvení vystoupení.">
-  <section class="page-hero">
-    <div class="container">
-      <h1>KONTAKT</h1>
-      <p>Domluvte si s námi vystoupení</p>
-    </div>
-  </section>
-  
-  <section class="contact section">
-    <div class="container">
-      <div class="contact__grid">
-        <div class="contact__form-wrapper">
-          <h2>Napište nám</h2>
-          <p class="text-muted mb-3">
-            Vyplňte formulář a my se vám ozveme co nejdříve.
-          </p>
-          
+<ScenaLayout title="Kontakt">
+  <ScenaHeader />
+  <main>
+    <section class="scena-page-hero">
+      <div class="container">
+        <p class="section-label reveal">Dějství IV</p>
+        <h1 class="page-title reveal">KONTAKT</h1>
+        <p class="page-subtitle reveal">Domluvte si s námi představení</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container contact__grid">
+        <div class="contact__form-wrap reveal">
+          <h2 class="contact__heading">Poptat vystoupení</h2>
           <form class="contact__form" action="mailto:info@shsheretik.cz" method="POST" enctype="text/plain">
-            <div class="form-group">
-              <label for="name">Jméno a příjmení *</label>
-              <input type="text" id="name" name="name" required />
-            </div>
-            
-            <div class="form-group">
-              <label for="email">Email *</label>
-              <input type="email" id="email" name="email" required />
-            </div>
-            
             <div class="form-group">
               <label for="event-type">Typ akce</label>
               <select id="event-type" name="event-type">
@@ -45,149 +34,178 @@ import { page } from '../utils/paths.js';
                 <option value="jine">Jiné</option>
               </select>
             </div>
-            
+
             <div class="form-group">
-              <label for="date">Předpokládaný termín</label>
+              <label for="date">Datum</label>
               <input type="date" id="date" name="date" />
             </div>
-            
+
             <div class="form-group">
-              <label for="message">Zpráva *</label>
-              <textarea id="message" name="message" rows="5" required></textarea>
+              <label for="location">Lokalita</label>
+              <input type="text" id="location" name="location" placeholder="Město nebo místo" />
             </div>
-            
-            <button type="submit" class="btn btn--primary btn--large">
-              Odeslat zprávu
-            </button>
+
+            <div class="form-group">
+              <label for="message">Zpráva</label>
+              <textarea id="message" name="message" rows="5" placeholder="Popište svou akci..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn--primary">Odeslat poptávku →</button>
           </form>
         </div>
-        
-        <div class="contact__info">
-          <h2>Kontaktní údaje</h2>
-          
-          <div class="contact__info-block">
-            <h4>Email</h4>
-            <a href="mailto:info@shsheretik.cz">info@shsheretik.cz</a>
+
+        <div class="contact__info reveal">
+          <div class="info-card">
+            <h3>Kontaktní údaje</h3>
+            <div class="info-item">
+              <span class="info-icon">✉</span>
+              <a href="mailto:info@shsheretik.cz">info@shsheretik.cz</a>
+            </div>
+            <div class="info-item">
+              <span class="info-icon">◈</span>
+              <p>Mohelnice, Česká republika</p>
+            </div>
           </div>
-          
-          <div class="contact__info-block">
-            <h4>Region</h4>
-            <p>Mohelnice a celá Česká republika</p>
+
+          <div class="info-card">
+            <h3>Technické info</h3>
+            <ul class="info-list">
+              <li>Prostor pro vystoupení: min. 6×6 m</li>
+              <li>Rovný povrch (tráva nebo dlažba)</li>
+              <li>Přístup k elektřině</li>
+              <li>Možnost převlékání</li>
+            </ul>
           </div>
-          
-          <div class="contact__info-block">
-            <h4>Sociální sítě</h4>
-            <p class="text-muted">
-              Sledujte nás na sociálních sítích pro aktuální informace o vystoupeních.
-            </p>
+
+          <div class="info-card">
+            <h3>Sledujte nás</h3>
+            <div class="info-social">
+              <a href="#" aria-label="Facebook">FB</a>
+              <a href="#" aria-label="Instagram">IG</a>
+              <a href="#" aria-label="YouTube">YT</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-</BaseLayout>
+    </section>
+  </main>
+  <ScenaFooter />
+</ScenaLayout>
 
 <style>
-  .page-hero {
-    padding: 10rem 0 4rem;
-    background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
-    text-align: center;
+  .scena-page-hero {
+    padding: clamp(5rem, 12vw, 8rem) 0 3rem;
+    background:
+      linear-gradient(180deg, rgba(10,10,10,0.9), var(--bg)),
+      url('/images/hero-1.jpeg') center/cover;
+    border-bottom: 1px solid var(--border);
   }
-  
-  .page-hero h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    margin-bottom: 1rem;
-  }
-  
-  .page-hero p {
-    color: var(--color-text-muted);
-    font-size: 1.25rem;
-  }
-  
+
+  .page-title { font-size: clamp(2.5rem, 7vw, 5rem); margin-bottom: 0.5rem; }
+  .page-subtitle { font-size: 1.15rem; color: var(--text-secondary); }
+
   .contact__grid {
     display: grid;
     grid-template-columns: 1.5fr 1fr;
     gap: 4rem;
+    max-width: 1100px;
   }
-  
-  .contact__form h2 {
-    margin-bottom: 1rem;
-  }
-  
+
+  .contact__heading { margin-bottom: 2rem; }
+
   .contact__form {
-    margin-top: 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
   }
-  
-  .form-group {
-    margin-bottom: 1.5rem;
-  }
-  
+
+  .form-group { margin-bottom: 1.5rem; }
+
   .form-group label {
     display: block;
-    font-weight: 500;
     margin-bottom: 0.5rem;
-    color: var(--color-text);
+    font-weight: 600;
+    font-size: 0.95rem;
   }
-  
+
   .form-group input,
   .form-group select,
   .form-group textarea {
     width: 100%;
-    padding: 0.875rem 1rem;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    color: var(--color-text);
+    padding: 0.9rem 1rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text);
     font-family: var(--font-body);
     font-size: 1rem;
-    transition: border-color var(--transition);
+    transition: border-color 0.3s var(--ease);
+    border-radius: 0;
   }
-  
+
   .form-group input:focus,
   .form-group select:focus,
   .form-group textarea:focus {
     outline: none;
-    border-color: var(--color-accent);
+    border-color: var(--red);
   }
-  
-  .form-group textarea {
-    resize: vertical;
-    min-height: 120px;
+
+  .form-group textarea { resize: vertical; min-height: 120px; }
+
+  .contact__info { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .info-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 2rem;
   }
-  
-  .contact__info h2 {
-    margin-bottom: 2rem;
+
+  .info-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+    color: var(--gold);
   }
-  
-  .contact__info-block {
-    margin-bottom: 2rem;
+
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
   }
-  
-  .contact__info-block h4 {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-    color: var(--color-text);
+
+  .info-icon { color: var(--red); font-weight: 700; font-size: 1.2rem; }
+
+  .info-item a { color: var(--text); }
+  .info-item a:hover { color: var(--red); }
+
+  .info-list { list-style: none; }
+
+  .info-list li {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 0.95rem;
   }
-  
-  .contact__info-block a {
-    color: var(--color-accent);
-    text-decoration: none;
-    transition: color var(--transition);
+
+  .info-list li:last-child { border-bottom: none; }
+
+  .info-social { display: flex; gap: 1rem; }
+
+  .info-social a {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 0.5rem 0.8rem;
+    border: 1px solid var(--border);
+    transition: all 0.3s var(--ease);
   }
-  
-  .contact__info-block a:hover {
-    color: var(--color-accent-light);
+
+  .info-social a:hover {
+    border-color: var(--red);
+    color: var(--red);
   }
-  
-  .contact__info-block p {
-    color: var(--color-text-muted);
-    margin-bottom: 0;
-  }
-  
-  @media (max-width: 768px) {
-    .contact__grid {
-      grid-template-columns: 1fr;
-      gap: 3rem;
-    }
+
+  @media (max-width: 900px) {
+    .contact__grid { grid-template-columns: 1fr; gap: 3rem; }
   }
 </style>

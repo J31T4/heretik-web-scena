@@ -1,0 +1,39 @@
+---
+import { page } from '../utils/paths.js';
+---
+
+<section class="scena-cta section">
+  <div class="container">
+    <div class="cta__inner reveal">
+      <p class="section-label">Dějství IV</p>
+      <h2 class="cta__title">Rezervujte si<br /><span class="fire-text">své představení</span></h2>
+      <p class="cta__subtitle">
+        Městská slavnost, ples, firemní večírek nebo školní den –
+        připravíme vystoupení přesně pro vaši akci.
+      </p>
+      <a href={page('/kontakt')} class="btn btn--primary btn--large">Poptat vystoupení →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scena-cta {
+    background:
+      radial-gradient(ellipse at 50% 100%, rgba(228, 6, 7, 0.15) 0%, transparent 60%),
+      var(--bg-card);
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .cta__inner { max-width: 700px; margin: 0 auto; }
+
+  .cta__title { margin-bottom: 1.2rem; font-size: clamp(2.2rem, 5vw, 3.5rem); }
+
+  .cta__subtitle {
+    font-size: 1.1rem;
+    max-width: 520px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .btn--large { padding: 1.2rem 3rem; font-size: 1.05rem; }
+</style>

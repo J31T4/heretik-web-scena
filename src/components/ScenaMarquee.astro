@@ -1,0 +1,41 @@
+---
+const words = ['ŠERM', 'DIVADLO', 'OHEŇ', 'PŘÍBĚH', 'CHOREOGRAFIE', 'HISTORIE', 'VÁŠEŇ', 'SCÉNA'];
+---
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    {[...words, ...words].map((w) => (
+      <span><span class="dot">◆</span> {w}</span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .marquee {
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 1.1rem 0;
+    background: var(--bg-card);
+    white-space: nowrap;
+  }
+
+  .marquee__track {
+    display: inline-block;
+    animation: marquee 28s linear infinite;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  .marquee__track span { margin: 0 1.2rem; }
+
+  .marquee__track .dot { color: var(--red); }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+</style>

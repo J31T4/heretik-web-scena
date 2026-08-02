@@ -1,116 +1,34 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { asset } from '../utils/paths.js';
-
-const images = [
-  asset('/images/gallery-1.jpeg'),
-  asset('/images/gallery-2.jpeg'),
-  asset('/images/gallery-3.jpeg'),
-  asset('/images/gallery-4.jpeg'),
-  asset('/images/gallery-5.jpeg'),
-  asset('/images/gallery-6.jpeg'),
-  asset('/images/gallery-7.jpeg'),
-  asset('/images/gallery-8.jpeg'),
-];
+import ScenaLayout from '../layouts/ScenaLayout.astro';
+import ScenaHeader from '../components/ScenaHeader.astro';
+import ScenaGallery from '../components/ScenaGallery.astro';
+import ScenaFooter from '../components/ScenaFooter.astro';
 ---
 
-<BaseLayout title="Galerie" description="Fotogalerie z vystoupení SHŠ Heretik.">
-  <section class="page-hero">
-    <div class="container">
-      <h1>GALERIE</h1>
-      <p>Fotky z našich vystoupení</p>
-    </div>
-  </section>
-  
-  <section class="gallery section">
-    <div class="container">
-      <div class="gallery__grid">
-        {images.map((src, index) => (
-          <div class="gallery__item">
-            <img src={src} alt={`Fotografie z vystoupení ${index + 1}`} loading="lazy" />
-          </div>
-        ))}
+<ScenaLayout title="Galerie">
+  <ScenaHeader />
+  <main>
+    <section class="scena-page-hero">
+      <div class="container">
+        <p class="section-label reveal">Dějství III</p>
+        <h1 class="page-title reveal">GALERIE</h1>
+        <p class="page-subtitle reveal">Scény z našich představení</p>
       </div>
-      
-      <div class="gallery__info">
-        <h2>Videa připravujeme</h2>
-        <p>
-          Pracujeme na videosekvencích z našich vystoupení. Brzy je zde přidáme, 
-          abyste si mohli užít atmosféru i z pohyblivých záznamů.
-        </p>
-      </div>
-    </div>
-  </section>
-</BaseLayout>
+    </section>
+    <ScenaGallery />
+  </main>
+  <ScenaFooter />
+</ScenaLayout>
 
 <style>
-  .page-hero {
-    padding: 10rem 0 4rem;
-    background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
-    text-align: center;
+  .scena-page-hero {
+    padding: clamp(5rem, 12vw, 8rem) 0 3rem;
+    background:
+      linear-gradient(180deg, rgba(10,10,10,0.9), var(--bg)),
+      url('/images/hero-1.jpeg') center/cover;
+    border-bottom: 1px solid var(--border);
   }
-  
-  .page-hero h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    margin-bottom: 1rem;
-  }
-  
-  .page-hero p {
-    color: var(--color-text-muted);
-    font-size: 1.25rem;
-  }
-  
-  .gallery__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1rem;
-    margin-bottom: 4rem;
-  }
-  
-  .gallery__item {
-    aspect-ratio: 1;
-    overflow: hidden;
-    border-radius: var(--radius-lg);
-    transition: all var(--transition);
-  }
-  
-  .gallery__item:hover {
-    transform: scale(1.02);
-  }
-  
-  .gallery__item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: all 0.3s ease;
-  }
-  
-  .gallery__item:hover img {
-    filter: brightness(1.1);
-  }
-  
-  .gallery__info {
-    text-align: center;
-    padding: 3rem 2rem;
-    background: var(--color-surface);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--color-border);
-  }
-  
-  .gallery__info h2 {
-    margin-bottom: 1rem;
-  }
-  
-  .gallery__info p {
-    color: var(--color-text-muted);
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  @media (max-width: 640px) {
-    .gallery__grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.75rem;
-    }
-  }
+
+  .page-title { font-size: clamp(2.5rem, 7vw, 5rem); margin-bottom: 0.5rem; }
+  .page-subtitle { font-size: 1.15rem; color: var(--text-secondary); }
 </style>

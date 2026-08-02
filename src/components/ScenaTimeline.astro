@@ -1,0 +1,79 @@
+---
+const milestones = [
+  { year: '2020', text: 'Spolek HERETIK vzniká v Mohelnici. Začínáme s vlastními choreografiemi a scénkami.' },
+  { year: '2021', text: 'První veřejná vystoupení – městské slavnosti a historické dny v regionu.' },
+  { year: '2023', text: 'Rozšiřujeme repertoár o commedii dell\'arte a fantastické příběhy.' },
+  { year: '2024', text: 'Semináře pod vedením zkušených lektorů – studium odkazu mistra Petra Kozy.' },
+  { year: 'DNES', text: 'Vystupujeme po celé České republice – plesy, firemní akce, tábory i školy.' },
+];
+---
+
+<section class="scena-timeline section section--card">
+  <div class="container container--narrow">
+    <p class="section-label reveal">Dějství II</p>
+    <h2 class="section-title reveal">Naše cesta</h2>
+    <div class="divider reveal"><span></span></div>
+
+    <div class="timeline">
+      {milestones.map((m, i) => (
+        <div class="timeline__item reveal">
+          <div class="timeline__dot"></div>
+          <div class="timeline__year">{m.year}</div>
+          <p class="timeline__text">{m.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .timeline {
+    position: relative;
+    padding-left: 2.5rem;
+    margin-top: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, var(--red), var(--gold), transparent);
+  }
+
+  .timeline__item {
+    position: relative;
+    padding-bottom: 2.5rem;
+  }
+
+  .timeline__item:last-child { padding-bottom: 0; }
+
+  .timeline__dot {
+    position: absolute;
+    left: -2.5rem;
+    top: 6px;
+    width: 9px;
+    height: 9px;
+    background: var(--bg);
+    border: 2px solid var(--red);
+    transform: rotate(45deg);
+    transition: all 0.3s var(--ease);
+  }
+
+  .timeline__item:hover .timeline__dot {
+    background: var(--red);
+    box-shadow: 0 0 16px rgba(228, 6, 7, 0.6);
+  }
+
+  .timeline__year {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+  }
+
+  .timeline__text { max-width: 560px; }
+</style>

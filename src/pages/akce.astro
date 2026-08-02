@@ -1,76 +1,179 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { page } from '../utils/paths.js';
+import ScenaLayout from '../layouts/ScenaLayout.astro';
+import ScenaHeader from '../components/ScenaHeader.astro';
+import ScenaFooter from '../components/ScenaFooter.astro';
+import { asset, page } from '../utils/paths.js';
+
+const performances = [
+  {
+    title: 'Soubojová show',
+    description: 'Interaktivní choreografický souboj s publikem. Přizpůsobíme prostor i divákům.',
+    details: 'Délka: 10–15 minut · 4 šermíři',
+    image: asset('/images/gallery-4.jpeg'),
+  },
+  {
+    title: 'Dvorský turnaj',
+    description: 'Choreografický turnaj s interaktivními prvky pro publikum.',
+    details: 'Délka: 10–15 minut · 4 šermíři',
+    image: asset('/images/gallery-5.jpeg'),
+  },
+  {
+    title: 'Středověká legenda',
+    description: 'Středověký boj s různými zbraněmi – meče, kopí, štíty.',
+    details: 'Délka: 10–15 minut · 4 šermíři',
+    image: asset('/images/gallery-6.jpeg'),
+  },
+  {
+    title: 'Fantastické příběhy',
+    description: 'Vlastní scénáře a kompozice inspirované fantasy literaturou a mytologií.',
+    details: 'Délka: 15–20 minut · 3–5 účinkujících',
+    image: asset('/images/gallery-7.jpeg'),
+  },
+];
+
+const techRequirements = [
+  'Minimálně 6×6 metrů prostoru',
+  'Rovný povrch – tráva nebo dlažba',
+  'Přístup k elektřině (osvětlení, ozvučení)',
+  'Možnost převlékání (šatna nebo stan)',
+];
 ---
 
-<BaseLayout title="Akce" description="Nadcházející a proběhlé akce SHŠ Heretik.">
-  <section class="page-hero">
-    <div class="container">
-      <h1>AKCE</h1>
-      <p>Naše vystoupení a události</p>
-    </div>
-  </section>
-  
-  <section class="content section">
-    <div class="container container--narrow">
-      <div class="content__block">
-        <h2>Nadcházející akce</h2>
-        <p class="text-muted">
-          Kalendář nadcházejících akcí připravujeme. Sledujte nás nebo nás kontaktujte 
-          pro informace o aktuálních vystoupeních.
-        </p>
+<ScenaLayout title="Co nabízíme">
+  <ScenaHeader />
+  <main>
+    <section class="scena-page-hero">
+      <div class="container">
+        <p class="section-label reveal">Dějství II</p>
+        <h1 class="page-title reveal">CO NABÍZÍME</h1>
+        <p class="page-subtitle reveal">Naše vystoupení a programy</p>
       </div>
-      
-      <div class="content__block">
-        <h2>Proběhlé akce</h2>
-        <p>
-          V průběhu roku vystupujeme na různých akcích po celé České republice. 
-          Ukázky z našich vystoupení najdete v <a href={page('/galerie')}>galerii</a>.
-        </p>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="perf__list">
+          {performances.map((perf, i) => (
+            <article class="perf__card reveal">
+              <div class="perf__image">
+                <img src={perf.image} alt={perf.title} loading="lazy" />
+              </div>
+              <div class="perf__body">
+                <span class="perf__num">{String(i + 1).padStart(2, '0')}</span>
+                <h2 class="perf__title">{perf.title}</h2>
+                <p class="perf__desc">{perf.description}</p>
+                <p class="perf__details">{perf.details}</p>
+                <a href={page('/kontakt')} class="btn btn--ghost">Poptat tento kus →</a>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
-      
-      <div class="content__block">
-        <h2>Chcete nás na vaší akci?</h2>
-        <p>
-          Rádi pro vás připravíme vystoupení na míru. Kontaktujte nás a domluvíme 
-          detaily.
-        </p>
-        <a href={page('/kontakt')} class="btn btn--primary">
-          Domluvit vystoupení
-        </a>
+    </section>
+
+    <section class="section section--card">
+      <div class="container container--narrow">
+        <p class="section-label reveal">Technické požadavky</p>
+        <h2 class="section-title reveal">Co potřebujeme</h2>
+        <div class="divider reveal"><span></span></div>
+        <ul class="tech__list">
+          {techRequirements.map((req) => (
+            <li class="reveal"><span class="tech__check">✓</span> {req}</li>
+          ))}
+        </ul>
       </div>
-    </div>
-  </section>
-</BaseLayout>
+    </section>
+  </main>
+  <ScenaFooter />
+</ScenaLayout>
 
 <style>
-  .page-hero {
-    padding: 10rem 0 4rem;
-    background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
-    text-align: center;
+  .scena-page-hero {
+    padding: clamp(5rem, 12vw, 8rem) 0 3rem;
+    background:
+      linear-gradient(180deg, rgba(10,10,10,0.9), var(--bg)),
+      url('/images/hero-1.jpeg') center/cover;
+    border-bottom: 1px solid var(--border);
   }
-  
-  .page-hero h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    margin-bottom: 1rem;
+
+  .page-title { font-size: clamp(2.5rem, 7vw, 5rem); margin-bottom: 0.5rem; }
+  .page-subtitle { font-size: 1.15rem; color: var(--text-secondary); }
+
+  .perf__list { display: flex; flex-direction: column; gap: 2.5rem; }
+
+  .perf__card {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 2.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    transition: all 0.4s var(--ease);
+    overflow: hidden;
   }
-  
-  .page-hero p {
-    color: var(--color-text-muted);
-    font-size: 1.25rem;
+
+  .perf__card:hover {
+    border-color: var(--red);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
   }
-  
-  .content__block {
-    margin-bottom: 3rem;
+
+  .perf__image { aspect-ratio: 16/10; overflow: hidden; }
+
+  .perf__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--ease);
   }
-  
-  .content__block h2 {
-    margin-bottom: 1.5rem;
+
+  .perf__card:hover .perf__image img { transform: scale(1.06); }
+
+  .perf__body { padding: 2.5rem; position: relative; }
+
+  .perf__num {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 2.2rem;
+    color: var(--border);
   }
-  
-  .content__block a:not(.btn) {
-    color: var(--color-accent);
-    text-decoration: underline;
-    text-underline-offset: 3px;
+
+  .perf__card:hover .perf__num { color: var(--gold); }
+
+  .perf__title { margin-bottom: 1rem; }
+
+  .perf__desc { margin-bottom: 1rem; }
+
+  .perf__details {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 1.8rem;
+  }
+
+  .tech__list { list-style: none; }
+
+  .tech__list li {
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .tech__list li:last-child { border-bottom: none; }
+
+  .tech__check {
+    color: var(--red);
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
+
+  @media (max-width: 900px) {
+    .perf__card { grid-template-columns: 1fr; }
+    .perf__image { aspect-ratio: 16/9; }
   }
 </style>

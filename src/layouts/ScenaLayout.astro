@@ -1,0 +1,46 @@
+---
+import '../styles/scena.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Historický a scénický šerm z Mohelnice. Umění, které přežívá století.' } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#0A0A0A" />
+  <title>{title} | SHŠ Heretik</title>
+  <script>
+    // Progressive enhancement: animace až po načtení JS
+    document.documentElement.classList.add('enhanced');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Safety fallback: vše viditelné po 2.5s
+    setTimeout(() => {
+      document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+        el.classList.add('visible');
+      });
+    }, 2500);
+  </script>
+</head>
+<body>
+  <slot />
+</body>
+</html>

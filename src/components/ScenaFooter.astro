@@ -1,0 +1,129 @@
+---
+import { asset, page } from '../utils/paths.js';
+
+const year = new Date().getFullYear();
+
+const navLinks = [
+  { href: page('/'), label: 'Domů' },
+  { href: page('/o-nas'), label: 'O nás' },
+  { href: page('/akce'), label: 'Co nabízíme' },
+  { href: page('/galerie'), label: 'Galerie' },
+  { href: page('/kontakt'), label: 'Kontakt' },
+];
+---
+
+<footer class="scena-footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img src={asset('/logo.svg')} alt="SHŠ Heretik" class="footer__logo" />
+        <p class="footer__tagline">Historický a scénický šerm<br />z Mohelnice</p>
+      </div>
+
+      <nav class="footer__nav">
+        {navLinks.map((l) => (
+          <a href={l.href}>{l.label}</a>
+        ))}
+      </nav>
+
+      <div class="footer__contact">
+        <a href="mailto:info@shsheretik.cz" class="footer__email">info@shsheretik.cz</a>
+        <p class="footer__place">Mohelnice, Česká republika</p>
+        <div class="footer__social">
+          <a href="#" aria-label="Facebook">FB</a>
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="YouTube">YT</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>© {year} SHŠ Heretik. Všechna práva vyhrazena.</p>
+      <p class="footer__motto">◆ Umění, které přežívá staletí ◆</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .scena-footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 4rem 0 2rem;
+  }
+
+  .footer__top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .footer__logo { height: 56px; width: auto; margin-bottom: 1rem; }
+
+  .footer__tagline {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .footer__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .footer__nav a {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    transition: color 0.3s var(--ease);
+  }
+
+  .footer__nav a:hover { color: var(--red); }
+
+  .footer__email {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--gold);
+  }
+
+  .footer__place { margin: 0.5rem 0 1.2rem; font-size: 0.95rem; }
+
+  .footer__social { display: flex; gap: 1rem; }
+
+  .footer__social a {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 0.4rem 0.7rem;
+    border: 1px solid var(--border);
+    transition: all 0.3s var(--ease);
+  }
+
+  .footer__social a:hover {
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  .footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-top: 2rem;
+  }
+
+  .footer__bottom p { font-size: 0.85rem; color: var(--text-secondary); }
+
+  .footer__motto { color: var(--gold) !important; letter-spacing: 0.1em; }
+
+  @media (max-width: 768px) {
+    .footer__top { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>

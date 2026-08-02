@@ -1,0 +1,133 @@
+---
+import { asset, page } from '../utils/paths.js';
+---
+
+<section class="scena-hero">
+  <div class="hero__bg">
+    <img src={asset('/images/hero-1.jpeg')} alt="" />
+    <div class="hero__overlay"></div>
+  </div>
+
+  <div class="container hero__content">
+    <p class="hero__eyebrow reveal">Historický a scénický šerm · Mohelnice</p>
+    <h1 class="hero__title reveal">
+      PŘEDSTAVENÍ<br />
+      <span class="fire-text">ZAČÍNÁ</span>
+    </h1>
+    <p class="hero__subtitle reveal">
+      Oživujeme dávné bojové umění a přenášíme ho do současnosti.
+      Scénický šerm, historické techniky, vlastní choreografie.
+    </p>
+    <div class="hero__cta reveal">
+      <a href={page('/kontakt')} class="btn btn--primary">Poptat vystoupení</a>
+      <a href={page('/galerie')} class="btn btn--ghost">Prohlédnout galerii</a>
+    </div>
+  </div>
+
+  <div class="hero__scroll" aria-hidden="true">
+    <span>SCROLL</span>
+    <div class="hero__scroll-line"></div>
+  </div>
+</section>
+
+<style>
+  .scena-hero {
+    position: relative;
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.55) 55%, rgba(10,10,10,0.3) 100%),
+      linear-gradient(180deg, rgba(10,10,10,0.3) 0%, transparent 40%, rgba(10,10,10,0.85) 100%);
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    padding-top: 4rem;
+    padding-bottom: 6rem;
+    max-width: 720px;
+  }
+
+  .hero__eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero__title {
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero__subtitle {
+    font-size: 1.15rem;
+    color: rgba(245, 240, 235, 0.85);
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero__cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .hero__scroll {
+    position: absolute;
+    right: 2.5rem;
+    bottom: 3rem;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero__scroll span {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    color: var(--text-secondary);
+    writing-mode: vertical-rl;
+  }
+
+  .hero__scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(180deg, var(--red), transparent);
+    animation: scrollPulse 2s var(--ease) infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  @media (max-width: 768px) {
+    .hero__scroll { display: none; }
+    .hero__content { padding-bottom: 4rem; }
+  }
+</style>

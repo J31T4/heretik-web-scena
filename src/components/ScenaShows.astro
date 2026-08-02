@@ -1,0 +1,137 @@
+---
+import { asset } from '../utils/paths.js';
+
+const shows = [
+  {
+    title: 'Historický šerm',
+    tag: 'autentika',
+    description: 'Autentické vystoupení inspirované dochovanými učebnicemi starých šermířských mistrů.',
+    image: asset('/images/gallery-1.jpeg'),
+  },
+  {
+    title: 'Scénická vystoupení',
+    tag: 'divadlo',
+    description: `Propojení šermu s divadelním uměním. Commedia dell'arte, fantastické příběhy a vlastní choreografie.`,
+    image: asset('/images/gallery-2.jpeg'),
+  },
+  {
+    title: 'Choreografie na míru',
+    tag: 'na zakázku',
+    description: 'Vystoupení pro městské slavnosti, historické dny, plesy, firemní večírky, oslavy, tábory i školy.',
+    image: asset('/images/gallery-3.jpeg'),
+  },
+  {
+    title: 'Živá historie',
+    tag: 'interaktivní',
+    description: 'Interaktivní programy pro školy a rodinné akce – ukázky zbraní, dobového odívání a technik.',
+    image: asset('/images/gallery-4.jpeg'),
+  },
+];
+---
+
+<section class="scena-shows section">
+  <div class="container">
+    <p class="section-label reveal">Dějství I</p>
+    <h2 class="section-title reveal">Co hrajeme</h2>
+    <div class="divider reveal"><span></span></div>
+
+    <div class="shows__grid">
+      {shows.map((show, i) => (
+        <article class="show-card reveal">
+          <div class="show-card__image">
+            <img src={show.image} alt={show.title} loading="lazy" />
+            <span class="show-card__tag">{show.tag}</span>
+          </div>
+          <div class="show-card__body">
+            <span class="show-card__num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{show.title}</h3>
+            <p>{show.description}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .scena-shows { background: var(--bg); }
+
+  .shows__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .show-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    position: relative;
+    transition: all 0.4s var(--ease);
+    overflow: hidden;
+  }
+
+  .show-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--red);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  }
+
+  .show-card__image {
+    position: relative;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+  }
+
+  .show-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s var(--ease);
+  }
+
+  .show-card:hover .show-card__image img { transform: scale(1.08); }
+
+  .show-card__tag {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--red);
+    color: white;
+    font-family: var(--font-display);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.8rem;
+  }
+
+  .show-card__body {
+    padding: 1.5rem;
+    position: relative;
+  }
+
+  .show-card__num {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.5rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--border);
+    transition: color 0.3s var(--ease);
+  }
+
+  .show-card:hover .show-card__num { color: var(--gold); }
+
+  .show-card h3 { margin-bottom: 0.8rem; font-size: 1.25rem; }
+
+  .show-card p { font-size: 0.95rem; line-height: 1.6; }
+
+  @media (max-width: 1024px) {
+    .shows__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 560px) {
+    .shows__grid { grid-template-columns: 1fr; }
+  }
+</style>
