@@ -6,36 +6,29 @@ import { asset, page } from '../utils/paths.js';
 
 const performances = [
   {
-    title: 'Soubojová show',
-    description: 'Interaktivní choreografický souboj s publikem. Přizpůsobíme prostor i divákům.',
-    details: 'Délka: 10–15 minut · 4 šermíři',
+    title: 'Městské slavnosti a historické dny',
+    description: 'Vystoupení, která oživí atmosféru vaší akce a přenesou diváky do minulosti.',
+    details: 'Historický a scénický šerm s vlastní choreografií',
     image: asset('/images/gallery-4.jpeg'),
   },
   {
-    title: 'Dvorský turnaj',
-    description: 'Choreografický turnaj s interaktivními prvky pro publikum.',
-    details: 'Délka: 10–15 minut · 4 šermíři',
+    title: 'Plesy a firemní večírky',
+    description: 'Exkluzivní šermířský program pro reprezentativní i zábavné večery.',
+    details: 'Elegantní vystoupení přímo na míru vaší akci',
     image: asset('/images/gallery-5.jpeg'),
   },
   {
-    title: 'Středověká legenda',
-    description: 'Středověký boj s různými zbraněmi – meče, kopí, štíty.',
-    details: 'Délka: 10–15 minut · 4 šermíři',
+    title: 'Oslavy narozenin',
+    description: 'Neobvyklý zážitek, který udělá z vaší oslavy nezapomenutelnou událost.',
+    details: 'Přizpůsobíme program oslavě',
     image: asset('/images/gallery-6.jpeg'),
   },
   {
-    title: 'Fantastické příběhy',
-    description: 'Vlastní scénáře a kompozice inspirované fantasy literaturou a mytologií.',
-    details: 'Délka: 15–20 minut · 3–5 účinkujících',
+    title: 'Dětské tábory a školy',
+    description: 'Program pro děti, které nejen pobaví, ale také přiučí novým věcem o historii.',
+    details: 'Vzdělávací a zábavný program pro ZŠ i tábory',
     image: asset('/images/gallery-7.jpeg'),
   },
-];
-
-const techRequirements = [
-  'Minimálně 6×6 metrů prostoru',
-  'Rovný povrch – tráva nebo dlažba',
-  'Přístup k elektřině (osvětlení, ozvučení)',
-  'Možnost převlékání (šatna nebo stan)',
 ];
 ---
 
@@ -44,14 +37,21 @@ const techRequirements = [
   <main>
     <section class="scena-page-hero">
       <div class="container">
-        <p class="section-label reveal">Dějství II</p>
+        <p class="section-label reveal">Co děláme</p>
         <h1 class="page-title reveal">CO NABÍZÍME</h1>
-        <p class="page-subtitle reveal">Naše vystoupení a programy</p>
+        <p class="page-subtitle reveal">Vystoupení dle vašich potřeb</p>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
+        <p class="intro reveal">
+          Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti,
+          historické dny a v neposlední řadě také obstaráme program pro plesy,
+          firemní večírky, oslavy narozenin, dětské tábory a dokonce i program
+          pro ZŠ, který děti nejen pobaví, ale také přiučí novým věcem o historii.
+        </p>
+
         <div class="perf__list">
           {performances.map((perf, i) => (
             <article class="perf__card reveal">
@@ -63,24 +63,11 @@ const techRequirements = [
                 <h2 class="perf__title">{perf.title}</h2>
                 <p class="perf__desc">{perf.description}</p>
                 <p class="perf__details">{perf.details}</p>
-                <a href={page('/kontakt')} class="btn btn--ghost">Poptat tento kus →</a>
+                <a href={page('/kontakt')} class="btn btn--ghost">Poptat vystoupení →</a>
               </div>
             </article>
           ))}
         </div>
-      </div>
-    </section>
-
-    <section class="section section--card">
-      <div class="container container--narrow">
-        <p class="section-label reveal">Technické požadavky</p>
-        <h2 class="section-title reveal">Co potřebujeme</h2>
-        <div class="divider reveal"><span></span></div>
-        <ul class="tech__list">
-          {techRequirements.map((req) => (
-            <li class="reveal"><span class="tech__check">✓</span> {req}</li>
-          ))}
-        </ul>
       </div>
     </section>
   </main>
@@ -98,6 +85,15 @@ const techRequirements = [
 
   .page-title { font-size: clamp(2.5rem, 7vw, 5rem); margin-bottom: 0.5rem; }
   .page-subtitle { font-size: 1.15rem; color: var(--text-secondary); }
+
+  .intro {
+    max-width: 800px;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    margin-bottom: 3.5rem;
+    border-left: 4px solid var(--red);
+    padding-left: 1.5rem;
+  }
 
   .perf__list { display: flex; flex-direction: column; gap: 2.5rem; }
 
@@ -150,26 +146,6 @@ const techRequirements = [
     font-style: italic;
     color: var(--gold);
     margin-bottom: 1.8rem;
-  }
-
-  .tech__list { list-style: none; }
-
-  .tech__list li {
-    padding: 1.2rem 0;
-    border-bottom: 1px solid var(--border);
-    color: var(--text-secondary);
-    font-size: 1.05rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .tech__list li:last-child { border-bottom: none; }
-
-  .tech__check {
-    color: var(--red);
-    font-weight: 700;
-    font-size: 1.2rem;
   }
 
   @media (max-width: 900px) {

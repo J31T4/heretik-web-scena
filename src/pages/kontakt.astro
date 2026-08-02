@@ -9,83 +9,55 @@ import ScenaFooter from '../components/ScenaFooter.astro';
   <main>
     <section class="scena-page-hero">
       <div class="container">
-        <p class="section-label reveal">Dějství IV</p>
+        <p class="section-label reveal">Kontakt</p>
         <h1 class="page-title reveal">KONTAKT</h1>
-        <p class="page-subtitle reveal">Domluvte si s námi představení</p>
+        <p class="page-subtitle reveal">Domluvte si s námi vystoupení</p>
       </div>
     </section>
 
     <section class="section">
       <div class="container contact__grid">
-        <div class="contact__form-wrap reveal">
+        <div class="contact__main reveal">
           <h2 class="contact__heading">Poptat vystoupení</h2>
-          <form class="contact__form" action="mailto:info@shsheretik.cz" method="POST" enctype="text/plain">
-            <div class="form-group">
-              <label for="event-type">Typ akce</label>
-              <select id="event-type" name="event-type">
-                <option value="">Vyberte typ akce</option>
-                <option value="mestska-slavnost">Městská slavnost</option>
-                <option value="historicky-den">Historický den</option>
-                <option value="ples">Ples</option>
-                <option value="firemni-akce">Firemní večírek</option>
-                <option value="oslava">Oslava narozenin</option>
-                <option value="deticky-tabor">Dětský tábor</option>
-                <option value="skolni-program">Školní program</option>
-                <option value="jine">Jiné</option>
-              </select>
-            </div>
+          <p class="contact__intro">
+            Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti,
+            historické dny, plesy, firemní večírky, oslavy narozenin, dětské tábory
+            a také program pro základní školy.
+          </p>
+          <p class="contact__intro">
+            Naše hlavní sídlo je v Mohelnici, ale rádi cestujeme po celé České republice.
+          </p>
 
-            <div class="form-group">
-              <label for="date">Datum</label>
-              <input type="date" id="date" name="date" />
+          <div class="contact__box">
+            <h3 class="contact__box-title">Napište nám</h3>
+            <p class="contact__box-text">
+              Kontaktní údaje skupiny vám doplníme – pro domluvení vystoupení
+              nás můžete kontaktovat přes naše sociální sítě.
+            </p>
+            <div class="contact__social">
+              <a href="#" class="contact__social-link" aria-label="Facebook">FB</a>
+              <a href="#" class="contact__social-link" aria-label="Instagram">IG</a>
+              <a href="#" class="contact__social-link" aria-label="YouTube">YT</a>
             </div>
-
-            <div class="form-group">
-              <label for="location">Lokalita</label>
-              <input type="text" id="location" name="location" placeholder="Město nebo místo" />
-            </div>
-
-            <div class="form-group">
-              <label for="message">Zpráva</label>
-              <textarea id="message" name="message" rows="5" placeholder="Popište svou akci..."></textarea>
-            </div>
-
-            <button type="submit" class="btn btn--primary">Odeslat poptávku →</button>
-          </form>
+          </div>
         </div>
 
-        <div class="contact__info reveal">
+        <aside class="contact__side reveal">
           <div class="info-card">
-            <h3>Kontaktní údaje</h3>
-            <div class="info-item">
-              <span class="info-icon">✉</span>
-              <a href="mailto:info@shsheretik.cz">info@shsheretik.cz</a>
-            </div>
-            <div class="info-item">
-              <span class="info-icon">◈</span>
-              <p>Mohelnice, Česká republika</p>
-            </div>
+            <h3 class="info-card__title">Kde nás najdete</h3>
+            <p class="info-card__text">Mohelnice, Česká republika</p>
           </div>
 
           <div class="info-card">
-            <h3>Technické info</h3>
+            <h3 class="info-card__title">Co umíme</h3>
             <ul class="info-list">
-              <li>Prostor pro vystoupení: min. 6×6 m</li>
-              <li>Rovný povrch (tráva nebo dlažba)</li>
-              <li>Přístup k elektřině</li>
-              <li>Možnost převlékání</li>
+              <li>Městské slavnosti a historické dny</li>
+              <li>Plesy a firemní večírky</li>
+              <li>Oslavy narozenin</li>
+              <li>Dětské tábory a program pro ZŠ</li>
             </ul>
           </div>
-
-          <div class="info-card">
-            <h3>Sledujte nás</h3>
-            <div class="info-social">
-              <a href="#" aria-label="Facebook">FB</a>
-              <a href="#" aria-label="Instagram">IG</a>
-              <a href="#" aria-label="YouTube">YT</a>
-            </div>
-          </div>
-        </div>
+        </aside>
       </div>
     </section>
   </main>
@@ -111,86 +83,37 @@ import ScenaFooter from '../components/ScenaFooter.astro';
     max-width: 1100px;
   }
 
-  .contact__heading { margin-bottom: 2rem; }
+  .contact__heading { margin-bottom: 1.5rem; }
 
-  .contact__form {
+  .contact__intro {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--red);
+    padding-left: 1.5rem;
+  }
+
+  .contact__box {
     background: var(--bg-card);
     border: 1px solid var(--border);
     padding: 2.5rem;
+    margin-top: 2rem;
   }
 
-  .form-group { margin-bottom: 1.5rem; }
-
-  .form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    font-size: 0.95rem;
-  }
-
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    width: 100%;
-    padding: 0.9rem 1rem;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-family: var(--font-body);
-    font-size: 1rem;
-    transition: border-color 0.3s var(--ease);
-    border-radius: 0;
-  }
-
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus {
-    outline: none;
-    border-color: var(--red);
-  }
-
-  .form-group textarea { resize: vertical; min-height: 120px; }
-
-  .contact__info { display: flex; flex-direction: column; gap: 1.5rem; }
-
-  .info-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    padding: 2rem;
-  }
-
-  .info-card h3 {
-    font-size: 1.1rem;
-    margin-bottom: 1.2rem;
+  .contact__box-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
     color: var(--gold);
   }
 
-  .info-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .info-icon { color: var(--red); font-weight: 700; font-size: 1.2rem; }
-
-  .info-item a { color: var(--text); }
-  .info-item a:hover { color: var(--red); }
-
-  .info-list { list-style: none; }
-
-  .info-list li {
-    padding: 0.6rem 0;
-    border-bottom: 1px solid var(--border);
+  .contact__box-text {
     color: var(--text-secondary);
-    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
   }
 
-  .info-list li:last-child { border-bottom: none; }
+  .contact__social { display: flex; gap: 1rem; }
 
-  .info-social { display: flex; gap: 1rem; }
-
-  .info-social a {
+  .contact__social-link {
     font-family: var(--font-display);
     font-size: 0.7rem;
     font-weight: 700;
@@ -200,10 +123,48 @@ import ScenaFooter from '../components/ScenaFooter.astro';
     transition: all 0.3s var(--ease);
   }
 
-  .info-social a:hover {
+  .contact__social-link:hover {
     border-color: var(--red);
     color: var(--red);
   }
+
+  .contact__side { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .info-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 2rem;
+  }
+
+  .info-card__title {
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+    color: var(--gold);
+  }
+
+  .info-card__text { color: var(--text-secondary); }
+
+  .info-list { list-style: none; }
+
+  .info-list li {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    position: relative;
+    padding-left: 1.2rem;
+  }
+
+  .info-list li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    color: var(--red);
+    font-size: 0.7rem;
+    top: 0.9rem;
+  }
+
+  .info-list li:last-child { border-bottom: none; }
 
   @media (max-width: 900px) {
     .contact__grid { grid-template-columns: 1fr; gap: 3rem; }

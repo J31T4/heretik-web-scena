@@ -1,21 +1,21 @@
 ---
 const milestones = [
-  { year: '2020', text: 'Spolek HERETIK vzniká v Mohelnici. Začínáme s vlastními choreografiemi a scénkami.' },
-  { year: '2021', text: 'První veřejná vystoupení – městské slavnosti a historické dny v regionu.' },
-  { year: '2023', text: 'Rozšiřujeme repertoár o commedii dell\'arte a fantastické příběhy.' },
-  { year: '2024', text: 'Semináře pod vedením zkušených lektorů – studium odkazu mistra Petra Kozy.' },
-  { year: 'DNES', text: 'Vystupujeme po celé České republice – plesy, firemní akce, tábory i školy.' },
+  { year: '2020', text: 'Spolek HERETIK vzniká. Zabýváme se tvorbou vystoupení, studiem dobových technik a nácvikem šermu.' },
+  { year: 'DODNES', text: 'V nácviku nám pomáhají dochované učebnice starých šermířských mistrů i různé školy šermu.' },
+  { year: 'SEMINÁŘE', text: 'Absolvovali jsme semináře, které se drží odkazu šermířského mistra Petra Kozy – předal nám je zkušený lektor Martin Tureček.' },
+  { year: 'CECH', text: 'Někteří z nás nahlédli do školy Cechu Svatého Michaela, která nám rozšířila studijní možnosti.' },
+  { year: 'DNES', text: 'Cestujeme po celé České republice – vystupujeme na městských slavnostech, historických dnech, plesech i pro školy.' },
 ];
 ---
 
 <section class="scena-timeline section section--card">
   <div class="container container--narrow">
-    <p class="section-label reveal">Dějství II</p>
-    <h2 class="section-title reveal">Naše cesta</h2>
+    <p class="section-label reveal">Naše cesta</p>
+    <h2 class="section-title reveal">Historie skupiny</h2>
     <div class="divider reveal"><span></span></div>
 
     <div class="timeline">
-      {milestones.map((m, i) => (
+      {milestones.map((m) => (
         <div class="timeline__item reveal">
           <div class="timeline__dot"></div>
           <div class="timeline__year">{m.year}</div>
