@@ -1,0 +1,113 @@
+---
+const facts = [
+  { value: '2020', label: 'Od roku 2020' },
+  { value: 'Mohelnice', label: 'Naše sídlo' },
+  { value: 'ČR', label: 'Celá Česká republika' },
+];
+---
+
+<section class="scena-quote section section--card">
+  <div class="container">
+    <div class="quote__mark" aria-hidden="true">„</div>
+    <blockquote class="quote__text reveal">
+      Jsme skupina umělců specializující se na historický a scénický šerm.
+      Snažíme se oživit dávné bojové umění a přenést ho do současnosti
+      prostřednictvím vystoupení a lekcí.
+    </blockquote>
+    <p class="quote__author reveal">— <span class="fire-text">SHŠ Heretik</span></p>
+
+    <div class="quote__facts">
+      {facts.map((fact) => (
+        <div class="fact reveal">
+          <span class="fact__value">{fact.value}</span>
+          <span class="fact__label">{fact.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .scena-quote {
+    position: relative;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .scena-quote::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 120%, rgba(228, 6, 7, 0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 50% -20%, rgba(178, 175, 63, 0.08) 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  .quote__mark {
+    font-family: var(--font-display);
+    font-size: clamp(6rem, 14vw, 10rem);
+    line-height: 0.6;
+    color: var(--red);
+    opacity: 0.5;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .quote__text {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+    font-weight: 500;
+    line-height: 1.5;
+    max-width: 800px;
+    margin: 0 auto 1.5rem;
+    color: var(--text);
+    position: relative;
+  }
+
+  .quote__author {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 3.5rem;
+  }
+
+  .quote__facts {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--border);
+    padding-top: 3rem;
+    position: relative;
+  }
+
+  .fact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .fact__value {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .fact__label {
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 600px) {
+    .quote__facts { gap: 2rem; }
+  }
+</style>
