@@ -51,28 +51,48 @@ const performances = [
 
         <div class="shows__scenes">
           <article class="scene-card reveal">
-            <div class="scene-card__header">
+            <div class="scene-card__top">
               <span class="scene-card__tag">Program</span>
               <h3 class="scene-card__title">Husitská epopej</h3>
             </div>
-            <p class="scene-card__text">
-              Máme na výběr několik různých scén odehrávajících se v naší známé
-              historické Praze. Každý titul je zaměřený na jiné téma, například
-              o papežských vyslancích, kteří prodávají odpustky. O kazatelích,
-              kteří se snaží získat nové spojence, nebo o zvláštním tom poslovi,
-              který dá za vyučenou hříšníkům.
+            <p class="scene-card__lead">
+              Několik scén odehrávajících se v naší známé historické Praze –
+              každý titul je zaměřený na jiné téma.
             </p>
+            <ul class="scene-card__list">
+              <li>
+                <span class="scene-card__num">01</span>
+                <span>Papežští vyslanci, kteří prodávají odpustky</span>
+              </li>
+              <li>
+                <span class="scene-card__num">02</span>
+                <span>Kazatelé, kteří se snaží získat nové spojence</span>
+              </li>
+              <li>
+                <span class="scene-card__num">03</span>
+                <span>Zvláštní posel, který dá za vyučenou hříšníkům</span>
+              </li>
+            </ul>
           </article>
 
           <article class="scene-card reveal">
-            <div class="scene-card__header">
+            <div class="scene-card__top">
               <span class="scene-card__tag">Povídky</span>
               <h3 class="scene-card__title">Pražské povídky</h3>
             </div>
-            <p class="scene-card__text">
-              Povídky o životě Pražanů, třebas jak žoldnéř na hlupácích vydělal,
-              nebo o princezně, která tři mladíky k hrozné zkáze přivedla.
+            <p class="scene-card__lead">
+              Povídky o životě Pražanů.
             </p>
+            <ul class="scene-card__list">
+              <li>
+                <span class="scene-card__num">01</span>
+                <span>Jak žoldnéř na hlupácích vydělal</span>
+              </li>
+              <li>
+                <span class="scene-card__num">02</span>
+                <span>O princezně, která tři mladíky k hrozné zkáze přivedla</span>
+              </li>
+            </ul>
           </article>
         </div>
       </div>
@@ -133,9 +153,11 @@ const performances = [
     position: relative;
     background: var(--bg-card);
     border: 1px solid var(--border);
-    padding: 2.5rem;
+    padding: 2.5rem 2.5rem 2rem;
     overflow: hidden;
     transition: all 0.4s var(--ease);
+    display: flex;
+    flex-direction: column;
   }
 
   .scene-card::before {
@@ -159,7 +181,7 @@ const performances = [
 
   .scene-card:hover::before { transform: scaleX(1); }
 
-  .scene-card__header {
+  .scene-card__top {
     display: flex;
     align-items: center;
     gap: 1.2rem;
@@ -183,10 +205,46 @@ const performances = [
     color: var(--text);
   }
 
-  .scene-card__text {
-    font-size: 1rem;
-    line-height: 1.8;
+  .scene-card__lead {
+    font-size: 0.95rem;
+    line-height: 1.7;
     color: var(--text-secondary);
+    font-style: italic;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .scene-card__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .scene-card__list li {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px dashed rgba(42, 42, 42, 0.6);
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    transition: color 0.3s var(--ease);
+  }
+
+  .scene-card__list li:last-child { border-bottom: none; }
+
+  .scene-card__list li:hover { color: var(--text); }
+
+  .scene-card__num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--red);
+    flex-shrink: 0;
+    min-width: 2ch;
   }
 
   @media (max-width: 900px) {
