@@ -45,6 +45,41 @@ const performances = [
 
     <section class="section">
       <div class="container">
+        <p class="section-label reveal">Naše scény</p>
+        <h2 class="section-title reveal">Programy a povídky</h2>
+        <div class="divider reveal"><span></span></div>
+
+        <div class="shows__scenes">
+          <article class="scene-card reveal">
+            <div class="scene-card__header">
+              <span class="scene-card__tag">Program</span>
+              <h3 class="scene-card__title">Husitská epopej</h3>
+            </div>
+            <p class="scene-card__text">
+              Máme na výběr několik různých scén odehrávajících se v naší známé
+              historické Praze. Každý titul je zaměřený na jiné téma, například
+              o papežských vyslancích, kteří prodávají odpustky. O kazatelích,
+              kteří se snaží získat nové spojence, nebo o zvláštním tom poslovi,
+              který dá za vyučenou hříšníkům.
+            </p>
+          </article>
+
+          <article class="scene-card reveal">
+            <div class="scene-card__header">
+              <span class="scene-card__tag">Povídky</span>
+              <h3 class="scene-card__title">Pražské povídky</h3>
+            </div>
+            <p class="scene-card__text">
+              Povídky o životě Pražanů, třebas jak žoldnéř na hlupácích vydělal,
+              nebo o princezně, která tři mladíky k hrozné zkáze přivedla.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--card">
+      <div class="container">
         <p class="intro reveal">
           Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti,
           historické dny a v neposlední řadě také obstaráme program pro plesy,
@@ -85,6 +120,78 @@ const performances = [
 
   .page-title { font-size: clamp(2.5rem, 7vw, 5rem); margin-bottom: 0.5rem; }
   .page-subtitle { font-size: 1.15rem; color: var(--text-secondary); }
+
+  /* Karty scén – Husitská epopej + Pražské povídky */
+  .shows__scenes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .scene-card {
+    position: relative;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    overflow: hidden;
+    transition: all 0.4s var(--ease);
+  }
+
+  .scene-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--red), var(--gold));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s var(--ease);
+  }
+
+  .scene-card:hover {
+    border-color: var(--red);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+    transform: translateY(-4px);
+  }
+
+  .scene-card:hover::before { transform: scaleX(1); }
+
+  .scene-card__header {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .scene-card__tag {
+    background: var(--red);
+    color: white;
+    font-family: var(--font-display);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.8rem;
+    flex-shrink: 0;
+  }
+
+  .scene-card__title {
+    font-size: 1.6rem;
+    color: var(--text);
+  }
+
+  .scene-card__text {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 900px) {
+    .shows__scenes { grid-template-columns: 1fr; }
+  }
 
   .intro {
     max-width: 800px;
