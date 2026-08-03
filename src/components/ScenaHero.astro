@@ -8,6 +8,8 @@ import { asset, page } from '../utils/paths.js';
     <div class="hero__overlay"></div>
   </div>
 
+  <canvas class="hero__sparks" id="sparksCanvas" aria-hidden="true"></canvas>
+
   <div class="container hero__content">
     <p class="hero__eyebrow reveal">Historický a scénický šerm · Mohelnice</p>
     <h1 class="hero__title reveal">
@@ -29,6 +31,66 @@ import { asset, page } from '../utils/paths.js';
     <div class="hero__scroll-line"></div>
   </div>
 </section>
+
+<script>
+  // Jiskry ohně – canvas particle efekt
+  (function () {
+    const canvas = document.getElementById('sparksCanvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    let width, height, particles = [];
+    const MAX_PARTICLES = 70;
+
+    function resize() {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      width = canvas.width = rect.width;
+      height = canvas.height = rect.height;
+    }
+
+    function spawn() {
+      return {
+        x: Math.random() * width,
+        y: height + Math.random() * 40,
+        size: Math.random() * 2.5 + 0.8,
+        speed: Math.random() * 1.8 + 0.6,
+        drift: (Math.random() - 0.5) * 0.6,
+        life: 1,
+        decay: Math.random() * 0.008 + 0.004,
+        hue: Math.random() > 0.4 ? 0 : 45, // červená nebo zlatá
+      };
+    }
+
+    function tick() {
+      ctx.clearRect(0, 0, width, height);
+
+      if (particles.length < MAX_PARTICLES && Math.random() < 0.4) {
+        particles.push(spawn());
+      }
+
+      particles = particles.filter(p => p.life > 0);
+
+      for (const p of particles) {
+        p.y -= p.speed;
+        p.x += p.drift + Math.sin(p.y * 0.02) * 0.5;
+        p.life -= p.decay;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+        ctx.fillStyle = p.hue === 0
+          ? `rgba(228, 6, 7, ${p.life})`
+          : `rgba(178, 175, 63, ${p.life})`;
+        ctx.fill();
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+    tick();
+  })();
+</script>
 
 <style>
   .scena-hero {
@@ -104,6 +166,13 @@ import { asset, page } from '../utils/paths.js';
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+  }
+
+  .hero__sparks {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
   }
 
   .hero__scroll span {

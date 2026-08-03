@@ -37,7 +37,7 @@ const shows = [
 
     <div class="shows__grid">
       {shows.map((show, i) => (
-        <article class="show-card reveal">
+        <article class="show-card reveal" data-tilt>
           <div class="show-card__image">
             <img src={show.image} alt={show.title} loading="lazy" />
             <span class="show-card__tag">{show.tag}</span>
@@ -52,6 +52,31 @@ const shows = [
     </div>
   </div>
 </section>
+
+<script>
+  // 3D tilt na kartách – jemný náklon podle myši
+  (function () {
+    const cards = document.querySelectorAll('[data-tilt]');
+    if (!cards.length) return;
+
+    const MAX_TILT = 6;
+
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(800px) rotateY(${x * MAX_TILT}deg) rotateX(${-y * MAX_TILT}deg) translateY(-6px)`;
+        card.style.transition = 'transform 0.1s ease-out';
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+        card.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+      });
+    });
+  })();
+</script>
 
 <style>
   .scena-shows { background: var(--bg); }

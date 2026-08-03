@@ -21,7 +21,7 @@ const images = [
 
     <div class="gallery__grid">
       {images.map((src, i) => (
-        <figure class="gallery__item reveal">
+        <figure class="gallery__item reveal" data-lightbox>
           <img src={src} alt={`Scéna ${i + 1}`} loading="lazy" />
           <figcaption>
             <span>Scéna {String(i + 1).padStart(2, '0')}</span>
@@ -30,7 +30,47 @@ const images = [
       ))}
     </div>
   </div>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox__close" id="lightboxClose" aria-label="Zavřít">✕</button>
+    <img class="lightbox__img" id="lightboxImg" src="" alt="" />
+  </div>
 </section>
+
+<script>
+  // Lightbox – kliknutí na fotku ji zvětší
+  (function () {
+    const items = document.querySelectorAll('[data-lightbox]');
+    const box = document.getElementById('lightbox');
+    const img = document.getElementById('lightboxImg');
+    const close = document.getElementById('lightboxClose');
+    if (!box || !img || !close) return;
+
+    items.forEach(item => {
+      item.addEventListener('click', () => {
+        const src = item.querySelector('img').src;
+        img.src = src;
+        box.classList.add('open');
+        box.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeBox() {
+      box.classList.remove('open');
+      box.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    close.addEventListener('click', closeBox);
+    box.addEventListener('click', (e) => {
+      if (e.target === box) closeBox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeBox();
+    });
+  })();
+</script>
 
 <style>
   .gallery__grid {
@@ -80,6 +120,54 @@ const images = [
     letter-spacing: 0.25em;
     text-transform: uppercase;
     color: var(--gold);
+  }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(10, 10, 10, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s var(--ease), visibility 0.35s var(--ease);
+    cursor: zoom-out;
+  }
+
+  .lightbox.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .lightbox__img {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    border: 1px solid var(--border);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.8);
+  }
+
+  .lightbox__close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 1.2rem;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    transition: all 0.3s var(--ease);
+    z-index: 201;
+  }
+
+  .lightbox__close:hover {
+    border-color: var(--red);
+    color: var(--red);
   }
 
   @media (max-width: 1024px) {
