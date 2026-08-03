@@ -82,20 +82,24 @@ import { asset, page } from '../utils/paths.js';
         const isRed = p.hue === 0;
         const color = isRed ? '228, 6, 7' : '178, 175, 63';
 
+        // Jiskra drží plnou velikost a jas po většinu života,
+        // dohasíná (fade) až na konci – žádné náhlé zmizení
+        const fade = Math.min(p.life * 1.8, 1);
+
         // Glow efekt
         ctx.shadowBlur = p.size * 6;
-        ctx.shadowColor = `rgba(${color}, ${Math.min(p.life * 1.2, 1)})`;
+        ctx.shadowColor = `rgba(${color}, ${fade})`;
 
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${color}, ${p.life})`;
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${color}, ${fade})`;
         ctx.fill();
 
         // Jasné jádro
         ctx.shadowBlur = 0;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size * p.life * 0.4, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 240, 210, ${p.life * 0.9})`;
+        ctx.arc(p.x, p.y, p.size * 0.4, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 240, 210, ${fade * 0.9})`;
         ctx.fill();
       }
 
