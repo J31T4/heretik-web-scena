@@ -33,14 +33,14 @@ import { asset, page } from '../utils/paths.js';
 </section>
 
 <script>
-  // Jiskry ohně – canvas particle efekt
+  // Jiskry ohně – canvas particle efekt s glow a delší životností
   (function () {
     const canvas = document.getElementById('sparksCanvas');
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
     let width, height, particles = [];
-    const MAX_PARTICLES = 70;
+    const MAX_PARTICLES = 130;
 
     function resize() {
       const rect = canvas.parentElement.getBoundingClientRect();
@@ -49,22 +49,26 @@ import { asset, page } from '../utils/paths.js';
     }
 
     function spawn() {
+      const big = Math.random() < 0.18; // občasná velká jiskra
       return {
         x: Math.random() * width,
-        y: height + Math.random() * 40,
-        size: Math.random() * 2.5 + 0.8,
-        speed: Math.random() * 1.8 + 0.6,
-        drift: (Math.random() - 0.5) * 0.6,
+        y: height + Math.random() * 60,
+        size: big ? Math.random() * 4 + 3 : Math.random() * 2.2 + 0.8,
+        speed: Math.random() * 1.4 + 0.5,
+        drift: (Math.random() - 0.5) * 0.8,
         life: 1,
-        decay: Math.random() * 0.008 + 0.004,
-        hue: Math.random() > 0.4 ? 0 : 45, // červená nebo zlatá
+        decay: big
+          ? Math.random() * 0.0008 + 0.0004  // velké jiskry žijí ~20-40s
+          : Math.random() * 0.002 + 0.001,   // malé ~7-15s
+        hue: Math.random() > 0.35 ? 0 : 45,  // červená nebo zlatá
+        flicker: Math.random() * 0.15,
       };
     }
 
     function tick() {
       ctx.clearRect(0, 0, width, height);
 
-      if (particles.length < MAX_PARTICLES && Math.random() < 0.4) {
+      if (particles.length < MAX_PARTICLES && Math.random() < 0.6) {
         particles.push(spawn());
       }
 
@@ -72,14 +76,26 @@ import { asset, page } from '../utils/paths.js';
 
       for (const p of particles) {
         p.y -= p.speed;
-        p.x += p.drift + Math.sin(p.y * 0.02) * 0.5;
+        p.x += p.drift + Math.sin(p.y * 0.02 + p.flicker) * 0.6;
         p.life -= p.decay;
+
+        const isRed = p.hue === 0;
+        const color = isRed ? '228, 6, 7' : '178, 175, 63';
+
+        // Glow efekt
+        ctx.shadowBlur = p.size * 6;
+        ctx.shadowColor = `rgba(${color}, ${Math.min(p.life * 1.2, 1)})`;
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
-        ctx.fillStyle = p.hue === 0
-          ? `rgba(228, 6, 7, ${p.life})`
-          : `rgba(178, 175, 63, ${p.life})`;
+        ctx.fillStyle = `rgba(${color}, ${p.life})`;
+        ctx.fill();
+
+        // Jasné jádro
+        ctx.shadowBlur = 0;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size * p.life * 0.4, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 240, 210, ${p.life * 0.9})`;
         ctx.fill();
       }
 

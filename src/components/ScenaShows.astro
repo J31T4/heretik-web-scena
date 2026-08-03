@@ -131,26 +131,40 @@ const shows = [
   }
 
   .show-card__body {
-    padding: 1.5rem;
+    padding: 1.5rem 1.5rem 1.8rem;
     position: relative;
   }
 
   .show-card__num {
     position: absolute;
-    top: 1.2rem;
+    top: 1.1rem;
     right: 1.5rem;
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 1.8rem;
-    color: var(--border);
-    transition: color 0.3s var(--ease);
+    font-size: 2.6rem;
+    line-height: 1;
+    color: rgba(245, 240, 235, 0.14);
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
   }
 
-  .show-card:hover .show-card__num { color: var(--gold); }
+  .show-card:hover .show-card__num { color: rgba(178, 175, 63, 0.3); }
 
-  .show-card h3 { margin-bottom: 0.8rem; font-size: 1.25rem; }
+  .show-card h3 {
+    margin-bottom: 0.8rem;
+    font-size: 1.25rem;
+    padding-right: 3.5rem; /* rezerva pro číslo vpravo */
+    position: relative;
+    z-index: 2;
+  }
 
-  .show-card p { font-size: 0.95rem; line-height: 1.6; }
+  .show-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    position: relative;
+    z-index: 2;
+  }
 
   @media (max-width: 1024px) {
     .shows__grid { grid-template-columns: repeat(2, 1fr); }

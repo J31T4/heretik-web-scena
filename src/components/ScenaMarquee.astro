@@ -3,9 +3,14 @@ const words = ['ŠERM', 'DIVADLO', 'OHEŇ', 'PŘÍBĚH', 'CHOREOGRAFIE', 'HISTOR
 ---
 
 <div class="marquee" aria-hidden="true">
-  <div class="marquee__track">
-    {[...words, ...words].map((w) => (
+  <div class="marquee__track marquee__track--top">
+    {[...words, ...words, ...words, ...words].map((w) => (
       <span><span class="dot">◆</span> {w}</span>
+    ))}
+  </div>
+  <div class="marquee__track marquee__track--bottom">
+    {[...words, ...words, ...words, ...words].map((w) => (
+      <span><span class="dot">✦</span> {w}</span>
     ))}
   </div>
 </div>
@@ -15,27 +20,46 @@ const words = ['ŠERM', 'DIVADLO', 'OHEŇ', 'PŘÍBĚH', 'CHOREOGRAFIE', 'HISTOR
     overflow: hidden;
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
-    padding: 1.1rem 0;
     background: var(--bg-card);
     white-space: nowrap;
+    padding: 0.4rem 0;
   }
 
   .marquee__track {
     display: inline-block;
-    animation: marquee 28s linear infinite;
     font-family: var(--font-display);
-    font-size: 0.95rem;
-    letter-spacing: 0.2em;
+    font-size: 0.85rem;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
+    white-space: nowrap;
+    width: max-content;
+  }
+
+  .marquee__track span { margin: 0 1.4rem; }
+
+  .marquee__track--top {
+    animation: marquee-top 32s linear infinite;
     color: var(--text-secondary);
   }
 
-  .marquee__track span { margin: 0 1.2rem; }
+  .marquee__track--bottom {
+    animation: marquee-bottom 26s linear infinite;
+    color: rgba(178, 175, 63, 0.55);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+  }
 
   .marquee__track .dot { color: var(--red); }
 
-  @keyframes marquee {
+  .marquee__track--bottom .dot { color: var(--gold); }
+
+  @keyframes marquee-top {
     from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    to { transform: translateX(-25%); }
+  }
+
+  @keyframes marquee-bottom {
+    from { transform: translateX(-25%); }
+    to { transform: translateX(0); }
   }
 </style>
