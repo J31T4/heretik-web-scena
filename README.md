@@ -42,15 +42,19 @@ heretik-web/
 │   ├── pages/           # Domů, O nás, Akce, Galerie, Kontakt
 │   └── styles/          # global.css
 ├── public/
-│   ├── images/          # Fotky z vystoupení
+│   ├── images/opt/      # Optimalizované webové assety (webp + jpg, generované skriptem)
 │   └── logo.svg         # Logo skupiny
+├── assets-src/
+│   └── originals/       # Původní fotografie (zůstávají v Gitu, nekopírují se do dist/)
 └── dist/                # Build výstup (po npm run build)
 ```
 
 ## Editace obsahu
 
 Texty jsou přímo v `.astro` souborech v `src/pages/` a `src/components/`.
-Fotky se přidávají do `public/images/` a reference v komponentech.
+Fotky se přidávají jako originály do `assets-src/originals/`, pak se spustí
+`python3 scripts/optimize-images.py`, který vygeneruje optimalizované varianty
+(webp + jpg) do `public/images/opt/` – ty se teprve kopírují do buildu.
 
 ## Deployment
 

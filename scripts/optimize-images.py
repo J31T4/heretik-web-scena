@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
-"""Optimalizace fotek SHŠ Heretik do public/images/opt/ (webp + jpeg)."""
+"""Optimalizace fotek SHŠ Heretik do public/images/opt/ (webp + jpeg).
+
+Zdrojové originály: assets-src/originals/ (zůstávají v Gitu, nekopírují se do buildu).
+Optimalizované webové assety: public/images/opt/ (kopírují se do dist/).
+"""
 from PIL import Image
 import os
 
 LANCZOS = getattr(Image, 'Resampling', Image).LANCZOS
 
-SRC = 'public/images'
+SRC = 'assets-src/originals'
 DST = 'public/images/opt'
 os.makedirs(DST, exist_ok=True)
 
