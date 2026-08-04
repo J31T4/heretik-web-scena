@@ -1,6 +1,12 @@
 ---
 import { asset } from '../utils/paths.js';
 
+interface Props {
+  act?: string;
+}
+
+const { act = 'III. dějství' } = Astro.props;
+
 const images = [
   { src: 'gallery-1', caption: 'Tábořiště', area: 'g1' },
   { src: 'gallery-2', caption: 'Stanové ležení', area: 'g2' },
@@ -16,7 +22,7 @@ const images = [
 <section class="scena-gallery act-section section section--tint">
   <span class="act-node" aria-hidden="true"></span>
   <div class="container">
-    <p class="act-label reveal">III. dějství</p>
+    {act && <p class="act-label reveal">{act}</p>}
     <div class="section-head reveal">
       <p class="section-label">Galerie</p>
       <h2 class="section-title">Scény z představení</h2>
