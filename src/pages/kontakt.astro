@@ -39,8 +39,13 @@ import { asset } from '../utils/paths.js';
           </p>
           <p class="contact__intro">
             Naše hlavní sídlo je v Mohelnici, ale rádi cestujeme po celé České republice.
-            Nejrychleji nás zastihnete přes sociální sítě.
+            Nejrychleji nás zastihnete na emailu nebo přes sociální sítě.
           </p>
+
+          <a href="mailto:heretikmohelnice@gmail.com" class="contact__email">
+            <span class="contact__email-icon" aria-hidden="true">✉</span>
+            heretikmohelnice@gmail.com
+          </a>
 
           <div class="contact__social">
             {socialLinks.map((social) => (
@@ -126,6 +131,28 @@ import { asset } from '../utils/paths.js';
     gap: var(--sp-4);
     margin-top: var(--sp-6);
   }
+
+  .contact__email {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: var(--font-ui);
+    font-size: 1.02rem;
+    font-weight: 500;
+    color: var(--ink);
+    border: 1px solid var(--line-2);
+    padding: 0.9rem 1.3rem;
+    margin-top: var(--sp-2);
+    transition: border-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
+    word-break: break-all;
+  }
+  .contact__email:hover,
+  .contact__email:focus-visible {
+    border-color: var(--crimson);
+    color: var(--crimson-bright);
+    background: rgba(228, 6, 7, 0.06);
+  }
+  .contact__email-icon { color: var(--gold); flex-shrink: 0; }
 
   .contact__social-card {
     display: flex;

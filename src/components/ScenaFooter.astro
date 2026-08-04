@@ -28,6 +28,9 @@ const year = new Date().getFullYear();
       <div class="footer__contact">
         <p class="footer__heading">Kontakt</p>
         <p class="footer__place">{siteLocation}</p>
+        <a href="mailto:heretikmohelnice@gmail.com" class="footer__email">
+          heretikmohelnice@gmail.com
+        </a>
         <div class="footer__social">
           {socialLinks.map((social) => (
             <a href={social.href} target="_blank" rel="noopener noreferrer" aria-label={social.ariaLabel}>
@@ -156,8 +159,23 @@ const year = new Date().getFullYear();
   .footer__place {
     font-size: 0.95rem;
     color: var(--ink-2);
-    margin-bottom: var(--sp-5);
+    margin-bottom: var(--sp-3);
   }
+
+  .footer__email {
+    display: inline-flex;
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--ink-2);
+    padding: 0.35rem 0;
+    margin-bottom: var(--sp-5);
+    transition: color var(--t-fast) var(--ease);
+    word-break: break-all;
+  }
+  .footer__email:hover,
+  .footer__email:focus-visible { color: var(--crimson-bright); }
 
   .footer__social {
     display: flex;

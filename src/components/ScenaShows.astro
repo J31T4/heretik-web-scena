@@ -155,7 +155,10 @@ const shows = [
 
   .program__title {
     position: relative;
-    display: inline-block;
+    /* block + fit-content: nadpis vždy na vlastním řádku POD tagem,
+       podtržení zůstává jen pod textem */
+    display: block;
+    width: fit-content;
     margin-bottom: var(--sp-4);
     font-size: clamp(1.5rem, 3vw, 2.1rem);
     padding-bottom: 0.35rem;
