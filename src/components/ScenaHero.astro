@@ -28,8 +28,6 @@ import { asset, page } from '../utils/paths.js';
   <div class="hero__beam" aria-hidden="true"></div>
   <div class="grain grain--animated" aria-hidden="true"></div>
 
-  <canvas class="hero__sparks" id="sparksCanvas" aria-hidden="true"></canvas>
-
   <div class="container hero__content">
     <p class="hero__eyebrow">
       <span class="hero__eyebrow-dash" aria-hidden="true"></span>
@@ -305,13 +303,6 @@ import { asset, page } from '../utils/paths.js';
     inset: 14px;
     border: 1px solid rgba(242, 237, 228, 0.07);
     z-index: 3;
-    pointer-events: none;
-  }
-
-  .hero__sparks {
-    position: absolute;
-    inset: 0;
-    z-index: 4;
     pointer-events: none;
   }
 

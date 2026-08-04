@@ -424,17 +424,13 @@ html.enhanced .grain--animated { animation: grain-shift 1.2s steps(4) infinite; 
   to { transform: translateX(0); }
 }
 
-/* ---------- Ohnivý gradient (značka „ZAČÍNÁ“) ---------- */
+/* ---------- Ohnivý gradient (značka „ZAČÍNÁ“) — statický, bez animace ---------- */
 .fire-text {
   background: linear-gradient(110deg, var(--crimson) 0%, #ff9d6b 45%, var(--gold) 90%);
   background-size: 180% auto;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-}
-html.enhanced .fire-text { animation: fire 7s linear infinite; }
-@keyframes fire {
-  to { background-position: -180% center; }
 }
 
 /* ---------- Vertikální rail dějství (desktop) ---------- */
@@ -502,6 +498,5 @@ html.enhanced .fire-text { animation: fire 7s linear infinite; }
     transform: none !important;
   }
   .marquee__track { animation: none !important; }
-  .fire-text { animation: none !important; }
   .grain--animated { animation: none !important; }
 }

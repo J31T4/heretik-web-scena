@@ -1,6 +1,6 @@
 /* ============================================================
    SHŠ Heretik — Scéna · site.js
-   Veškerá interakce: header, mobilní menu, reveal, jiskry, lightbox.
+   Veškerá interakce: header, mobilní menu, reveal, lightbox.
    Vše s null-guards — stránka funguje i bez JS (progressive enhancement).
    ============================================================ */
 
@@ -107,79 +107,7 @@
     revealEls.forEach((el) => el.classList.add('visible'));
   }
 
-  /* ---------- 4. Jiskry ohně (hero canvas) ---------- */
-  const canvas = doc.getElementById('sparksCanvas');
-  if (canvas && !reduced.matches) {
-    const ctx = canvas.getContext('2d');
-    if (ctx) {
-      let width = 0, height = 0, particles = [];
-      let raf = null;
-      const isMobile = window.innerWidth < 768;
-      const MAX_PARTICLES = isMobile ? 70 : 130;
-
-      function resize() {
-        const rect = canvas.parentElement.getBoundingClientRect();
-        width = canvas.width = Math.max(1, rect.width);
-        height = canvas.height = Math.max(1, rect.height);
-      }
-
-      function spawn() {
-        const big = Math.random() < 0.18;
-        return {
-          x: Math.random() * width,
-          y: height + Math.random() * 60,
-          size: big ? Math.random() * 4 + 3 : Math.random() * 2.2 + 0.8,
-          speed: Math.random() * 1.4 + 0.5,
-          drift: (Math.random() - 0.5) * 0.8,
-          life: 1,
-          decay: big ? Math.random() * 0.0008 + 0.0004 : Math.random() * 0.002 + 0.001,
-          hue: Math.random() > 0.35 ? 0 : 45,
-          flicker: Math.random() * 0.15,
-        };
-      }
-
-      function tick() {
-        if (!document.hidden) {
-          ctx.clearRect(0, 0, width, height);
-          if (particles.length < MAX_PARTICLES && Math.random() < 0.6) particles.push(spawn());
-          particles = particles.filter((p) => p.life > 0);
-          for (const p of particles) {
-            p.y -= p.speed;
-            p.x += p.drift + Math.sin(p.y * 0.02 + p.flicker) * 0.6;
-            p.life -= p.decay;
-            const color = p.hue === 0 ? '228, 6, 7' : '178, 175, 63';
-            const fade = Math.min(p.life * 1.8, 1);
-            ctx.shadowBlur = p.size * 6;
-            ctx.shadowColor = `rgba(${color}, ${fade})`;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(${color}, ${fade})`;
-            ctx.fill();
-            ctx.shadowBlur = 0;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.size * 0.4, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255, 240, 210, ${fade * 0.9})`;
-            ctx.fill();
-          }
-        }
-        raf = requestAnimationFrame(tick);
-      }
-
-      resize();
-      window.addEventListener('resize', resize);
-      raf = requestAnimationFrame(tick);
-      doc.addEventListener('visibilitychange', () => {
-        if (document.hidden && raf !== null) {
-          cancelAnimationFrame(raf);
-          raf = null;
-        } else if (!document.hidden && raf === null) {
-          raf = requestAnimationFrame(tick);
-        }
-      });
-    }
-  }
-
-  /* ---------- 5. Jemný parallax hero fotky ---------- */
+  /* ---------- 4. Jemný parallax hero fotky ---------- */
   const heroBg = doc.querySelector('[data-hero-parallax]');
   if (heroBg && finePointer && !reduced.matches) {
     let ticking = false;
@@ -200,7 +128,7 @@
     );
   }
 
-  /* ---------- 6. Lightbox galerie ---------- */
+  /* ---------- 5. Lightbox galerie ---------- */
   const box = doc.getElementById('lightbox');
   const lbImg = doc.getElementById('lightboxImg');
   const lbCaption = doc.getElementById('lightboxCaption');
@@ -279,6 +207,6 @@
     });
   }
 
-  /* ---------- 7. Zvýraznění aktivní položky menu (progress-aware) ---------- */
+  /* ---------- 6. Zvýraznění aktivní položky menu (progress-aware) ---------- */
   // (aria-current se nastavuje v Astro komponentě při buildu — zde nic)
 })();

@@ -220,7 +220,9 @@ const shows = [
     }
     .program__media { grid-column: 1 / -1; order: 3 !important; }
     .program__row--flip .program__media { order: 3 !important; }
-    .program__row--flip .program__index { order: 1; }
+    /* Sjednocení pořadí všech karet: index vlevo, text vpravo, obrázek dole */
+    .program__row--flip .program__index { order: 0; }
+    .program__row--flip .program__body { order: 1; }
     .program__media img { aspect-ratio: 16 / 9; }
     .program__row--featured .program__media img { aspect-ratio: 16 / 9; }
   }
