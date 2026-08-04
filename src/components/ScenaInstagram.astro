@@ -181,28 +181,35 @@ const instagram = socialLinks.find((social) => social.id === 'instagram');
   .ig__stage-foot span:first-child { color: var(--ink-2); }
 
   .ig__frame {
+    /* Instagram iframe je cross-origin: světlou hlavičku proto skryjeme výřezem a ponecháme živou mřížku fotek. */
+    --ig-profile-offset: 158px;
     position: relative;
     width: 100%;
-    min-height: 560px;
+    min-height: 0;
+    aspect-ratio: 3 / 2;
     overflow: hidden;
-    background: #dedbd5;
+    background: var(--bg-3);
     border: 1px solid rgba(242, 237, 228, 0.2);
   }
 
   .ig__frame iframe {
     display: block;
+    position: absolute;
+    top: calc(-1 * var(--ig-profile-offset));
+    left: 0;
     width: 100%;
     max-width: 100%;
+    height: calc(100% + var(--ig-profile-offset) + 2px);
     border: 0;
     background: #fff;
     color-scheme: light;
-    filter: brightness(0.88) contrast(1.035) saturate(0.88);
+    filter: contrast(1.025) saturate(0.92);
     transition: filter var(--t-med) var(--ease);
   }
 
   .ig__stage:hover .ig__frame iframe,
   .ig__stage:focus-within .ig__frame iframe {
-    filter: brightness(0.94) contrast(1.02) saturate(1);
+    filter: contrast(1.035) saturate(1.04);
   }
 
   @media (max-width: 980px) {
@@ -220,11 +227,7 @@ const instagram = socialLinks.find((social) => social.id === 'instagram');
     .ig__intro { padding-left: var(--sp-4); }
     .ig__cta { width: 100%; min-width: 0; }
     .ig__stage { padding: 0.45rem; }
-    .ig__frame,
-    .ig__frame iframe {
-      height: clamp(380px, calc(100vw + 8px), 560px);
-      min-height: 0;
-    }
+    .ig__frame { --ig-profile-offset: 147px; }
     .ig__stage-head,
     .ig__stage-foot { font-size: 0.59rem; letter-spacing: 0.11em; }
     .ig__stage-foot span:last-child { display: none; }
