@@ -1,15 +1,10 @@
 ---
-import { asset, page } from '../utils/paths.js';
+import BookingButton from './BookingButton.astro';
+import { navigation, siteLocation, socialLinks } from '../data/site.js';
+import { asset } from '../utils/paths.js';
 
 const year = new Date().getFullYear();
 
-const navLinks = [
-  { href: page('/'), label: 'Domů' },
-  { href: page('/o-nas'), label: 'O nás' },
-  { href: page('/akce'), label: 'Co nabízíme' },
-  { href: page('/galerie'), label: 'Galerie' },
-  { href: page('/kontakt'), label: 'Kontakt' },
-];
 ---
 
 <footer class="scena-footer">
@@ -25,33 +20,33 @@ const navLinks = [
 
       <nav class="footer__nav" aria-label="Patička — navigace">
         <p class="footer__heading">Program</p>
-        {navLinks.map((l) => (
+        {navigation.map((l) => (
           <a href={l.href}>{l.label}</a>
         ))}
       </nav>
 
       <div class="footer__contact">
         <p class="footer__heading">Kontakt</p>
-        <p class="footer__place">Mohelnice · Česká republika</p>
+        <p class="footer__place">{siteLocation}</p>
         <div class="footer__social">
-          <a href="https://www.facebook.com/Heretik2020/" target="_blank" rel="noopener" aria-label="Facebook — SHŠ Heretik">
-            <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
-              <path d="M14 8.5V7a1.5 1.5 0 0 1 1.5-1.5H17V2.5h-2.5A4.5 4.5 0 0 0 10 7v1.5H7.5V12H10v9.5h4V12h2.8l.7-3.5H14z" />
-            </svg>
-            Facebook
-          </a>
-          <a href="https://www.instagram.com/heretik_z.s._/" target="_blank" rel="noopener" aria-label="Instagram — SHŠ Heretik">
-            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-              <rect x="3" y="3" width="18" height="18" rx="5" />
-              <circle cx="12" cy="12" r="4.2" />
-              <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" />
-            </svg>
-            Instagram
-          </a>
+          {socialLinks.map((social) => (
+            <a href={social.href} target="_blank" rel="noopener" aria-label={social.ariaLabel}>
+              {social.id === 'facebook' ? (
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+                  <path d="M14 8.5V7a1.5 1.5 0 0 1 1.5-1.5H17V2.5h-2.5A4.5 4.5 0 0 0 10 7v1.5H7.5V12H10v9.5h4V12h2.8l.7-3.5H14z" />
+                </svg>
+              ) : (
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4.2" />
+                  <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" />
+                </svg>
+              )}
+              {social.name}
+            </a>
+          ))}
         </div>
-        <a href={page('/kontakt')} class="btn btn--steel footer__cta">
-          Poptat vystoupení <span class="btn__arrow">→</span>
-        </a>
+        <BookingButton variant="steel" class="footer__cta" />
       </div>
     </div>
 

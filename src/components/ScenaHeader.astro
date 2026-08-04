@@ -1,4 +1,6 @@
 ---
+import BookingButton from './BookingButton.astro';
+import { navigation, siteLocation } from '../data/site.js';
 import { page, asset } from '../utils/paths.js';
 
 const base = import.meta.env.BASE_URL;
@@ -13,12 +15,7 @@ const stripBase = (href) => {
   return s === '' ? '/' : s;
 };
 
-const links = [
-  { href: page('/o-nas'), label: 'O nás' },
-  { href: page('/akce'), label: 'Co nabízíme' },
-  { href: page('/galerie'), label: 'Galerie' },
-  { href: page('/kontakt'), label: 'Kontakt' },
-];
+const links = navigation.slice(1);
 
 const isActive = (href) => stripBase(href) === current;
 ---
@@ -44,15 +41,9 @@ const isActive = (href) => stripBase(href) === current;
           {l.label}
         </a>
       ))}
-      <a href={page('/kontakt')} class="btn btn--primary header__nav-cta">
-        Poptat vystoupení <span class="btn__arrow">→</span>
-      </a>
-      <p class="header__nav-foot">Mohelnice · Česká republika</p>
+      <BookingButton class="header__nav-cta" />
+      <p class="header__nav-foot">{siteLocation}</p>
     </nav>
-
-    <a href={page('/kontakt')} class="btn btn--primary header__cta">
-      Poptat vystoupení <span class="btn__arrow">→</span>
-    </a>
 
     <button
       class="header__burger"
@@ -177,9 +168,7 @@ const isActive = (href) => stripBase(href) === current;
   }
   .header__nav a.is-active .header__nav-num { opacity: 1; }
 
-  .header__cta { margin-left: var(--sp-3); }
-
-  .header__nav-cta { display: none; }
+  .header__nav-cta { flex-shrink: 0; }
   .header__nav-foot { display: none; }
 
   .header__burger {
@@ -214,7 +203,6 @@ const isActive = (href) => stripBase(href) === current;
   @media (max-width: 900px) {
     .scena-header { padding: 0.55rem 0; }
     .scena-header.is-scrolled { padding: 0.4rem 0; }
-    .header__cta { display: none; }
     .header__burger { display: flex; }
 
     .header__nav {

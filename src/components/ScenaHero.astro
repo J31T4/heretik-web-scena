@@ -1,4 +1,5 @@
 ---
+import BookingButton from './BookingButton.astro';
 import { asset, page } from '../utils/paths.js';
 ---
 
@@ -48,9 +49,7 @@ import { asset, page } from '../utils/paths.js';
     </p>
 
     <div class="hero__cta">
-      <a href={page('/kontakt')} class="btn btn--primary">
-        Poptat vystoupení <span class="btn__arrow">→</span>
-      </a>
+      <BookingButton />
       <a href={page('/galerie')} class="btn btn--ghost">Prohlédnout galerii</a>
     </div>
   </div>

@@ -3,6 +3,7 @@ import ScenaLayout from '../layouts/ScenaLayout.astro';
 import ScenaHeader from '../components/ScenaHeader.astro';
 import ScenaPageHero from '../components/ScenaPageHero.astro';
 import ScenaFooter from '../components/ScenaFooter.astro';
+import { socialLinks } from '../data/site.js';
 import { asset } from '../utils/paths.js';
 ---
 
@@ -39,43 +40,34 @@ import { asset } from '../utils/paths.js';
           </p>
 
           <div class="contact__social">
-            <a
-              href="https://www.facebook.com/Heretik2020/"
-              target="_blank"
-              rel="noopener"
-              class="contact__social-card"
-            >
-              <span class="contact__social-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-                  <path d="M14 8.5V7a1.5 1.5 0 0 1 1.5-1.5H17V2.5h-2.5A4.5 4.5 0 0 0 10 7v1.5H7.5V12H10v9.5h4V12h2.8l.7-3.5H14z" />
-                </svg>
-              </span>
-              <span class="contact__social-body">
-                <span class="contact__social-name">Facebook</span>
-                <span class="contact__social-handle">facebook.com/Heretik2020</span>
-              </span>
-              <span class="contact__social-arrow" aria-hidden="true">→</span>
-            </a>
-
-            <a
-              href="https://www.instagram.com/heretik_z.s._/"
-              target="_blank"
-              rel="noopener"
-              class="contact__social-card"
-            >
-              <span class="contact__social-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8">
-                  <rect x="3" y="3" width="18" height="18" rx="5" />
-                  <circle cx="12" cy="12" r="4.2" />
-                  <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" />
-                </svg>
-              </span>
-              <span class="contact__social-body">
-                <span class="contact__social-name">Instagram</span>
-                <span class="contact__social-handle">@heretik_z.s._</span>
-              </span>
-              <span class="contact__social-arrow" aria-hidden="true">→</span>
-            </a>
+            {socialLinks.map((social) => (
+              <a
+                href={social.href}
+                target="_blank"
+                rel="noopener"
+                class="contact__social-card"
+                aria-label={social.ariaLabel}
+              >
+                <span class="contact__social-icon" aria-hidden="true">
+                  {social.id === 'facebook' ? (
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                      <path d="M14 8.5V7a1.5 1.5 0 0 1 1.5-1.5H17V2.5h-2.5A4.5 4.5 0 0 0 10 7v1.5H7.5V12H10v9.5h4V12h2.8l.7-3.5H14z" />
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <rect x="3" y="3" width="18" height="18" rx="5" />
+                      <circle cx="12" cy="12" r="4.2" />
+                      <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" />
+                    </svg>
+                  )}
+                </span>
+                <span class="contact__social-body">
+                  <span class="contact__social-name">{social.name}</span>
+                  <span class="contact__social-handle">{social.handle}</span>
+                </span>
+                <span class="contact__social-arrow" aria-hidden="true">→</span>
+              </a>
+            ))}
           </div>
         </div>
 

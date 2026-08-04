@@ -1,5 +1,6 @@
 ---
-import { asset, page } from '../utils/paths.js';
+import BookingButton from './BookingButton.astro';
+import { asset } from '../utils/paths.js';
 ---
 
 <section class="scena-cta">
@@ -31,9 +32,7 @@ import { asset, page } from '../utils/paths.js';
       <span>firemní akce</span>
     </p>
     <div class="cta__action reveal">
-      <a href={page('/kontakt')} class="btn btn--primary btn--large">
-        Poptat vystoupení <span class="btn__arrow">→</span>
-      </a>
+      <BookingButton size="large" />
     </div>
   </div>
 </section>

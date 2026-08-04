@@ -3,7 +3,28 @@ import ScenaLayout from '../layouts/ScenaLayout.astro';
 import ScenaHeader from '../components/ScenaHeader.astro';
 import ScenaPageHero from '../components/ScenaPageHero.astro';
 import ScenaFooter from '../components/ScenaFooter.astro';
-import { asset, page } from '../utils/paths.js';
+import BookingButton from '../components/BookingButton.astro';
+import { asset } from '../utils/paths.js';
+
+const stories = [
+  {
+    title: 'Husitská epopej',
+    lead: 'Několik scén odehrávajících se v naší známé historické Praze – každý titul je zaměřený na jiné téma.',
+    episodes: [
+      'O papežských vyslancích, prodávajících odpustky',
+      'Kazatelé, snažící se získat nové spojence',
+      'Zvláštní posel, dávající za vyučenou hříšníkům',
+    ],
+  },
+  {
+    title: 'Pražské povídky',
+    lead: 'Povídky o životě Pražanů.',
+    episodes: [
+      'Jak žoldnéř na hlupácích vydělal',
+      'O princezně, která tři mladíky k hrozné zkáze přivedla',
+    ],
+  },
+];
 
 const performances = [
   {
@@ -60,50 +81,28 @@ const performances = [
         </div>
 
         <div class="scenes__grid">
-          <article class="scene-card reveal">
-            <div class="scene-card__top">
-              <span class="scene-card__tag">Povídky</span>
-              <h3 class="scene-card__title">Husitská epopej</h3>
-            </div>
-            <p class="scene-card__lead">
-              Několik scén odehrávajících se v naší známé historické Praze –
-              každý titul je zaměřený na jiné téma.
-            </p>
-            <ol class="scene-card__list">
-              <li>
-                <span class="scene-card__num">01</span>
-                <span>O papežských vyslancích, prodávajících odpustky</span>
-              </li>
-              <li>
-                <span class="scene-card__num">02</span>
-                <span>Kazatelé, snažící se získat nové spojence</span>
-              </li>
-              <li>
-                <span class="scene-card__num">03</span>
-                <span>Zvláštní posel, dávající za vyučenou hříšníkům</span>
-              </li>
-            </ol>
-          </article>
-
-          <article class="scene-card reveal" style="--reveal-delay: 120ms">
-            <div class="scene-card__top">
-              <span class="scene-card__tag">Povídky</span>
-              <h3 class="scene-card__title">Pražské povídky</h3>
-            </div>
-            <p class="scene-card__lead">
-              Povídky o životě Pražanů.
-            </p>
-            <ol class="scene-card__list">
-              <li>
-                <span class="scene-card__num">01</span>
-                <span>Jak žoldnéř na hlupácích vydělal</span>
-              </li>
-              <li>
-                <span class="scene-card__num">02</span>
-                <span>O princezně, která tři mladíky k hrozné zkáze přivedla</span>
-              </li>
-            </ol>
-          </article>
+          {stories.map((story, storyIndex) => (
+            <article
+              class="scene-card reveal"
+              style={storyIndex ? '--reveal-delay: 120ms' : undefined}
+            >
+              <div class="scene-card__top">
+                <span class="scene-card__tag">Povídky</span>
+                <h3 class="scene-card__title">{story.title}</h3>
+              </div>
+              <p class="scene-card__lead">{story.lead}</p>
+              <ol class="scene-card__list">
+                {story.episodes.map((episode, episodeIndex) => (
+                  <li>
+                    <span class="scene-card__num">
+                      {String(episodeIndex + 1).padStart(2, '0')}
+                    </span>
+                    <span>{episode}</span>
+                  </li>
+                ))}
+              </ol>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -143,9 +142,7 @@ const performances = [
                 <h3 class="perf__title">{perf.title}</h3>
                 <p class="perf__desc">{perf.description}</p>
                 <p class="perf__details">{perf.details}</p>
-                <a href={page('/kontakt')} class="btn btn--ghost">
-                  Poptat vystoupení <span class="btn__arrow">→</span>
-                </a>
+                <BookingButton variant="ghost" />
               </div>
             </article>
           ))}

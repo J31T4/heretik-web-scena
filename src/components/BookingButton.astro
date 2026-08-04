@@ -1,0 +1,22 @@
+---
+import { page } from '../utils/paths.js';
+
+interface Props {
+  variant?: 'primary' | 'ghost' | 'steel';
+  size?: 'default' | 'large';
+  class?: string;
+}
+
+const {
+  variant = 'primary',
+  size = 'default',
+  class: className,
+} = Astro.props;
+---
+
+<a
+  href={page('/kontakt')}
+  class:list={['btn', `btn--${variant}`, { 'btn--large': size === 'large' }, className]}
+>
+  Poptat vystoupení <span class="btn__arrow">→</span>
+</a>
