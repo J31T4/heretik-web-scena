@@ -27,8 +27,7 @@ const images = [
       {images.map((img, i) => (
         <button
           type="button"
-          class:list={['gallery__item', 'reveal', { 'gallery__item--feat': i === 0 }]}
-          style={`grid-area: ${img.area}`}
+          class:list={['gallery__item', `gallery__item--${img.area}`, 'reveal', { 'gallery__item--feat': i === 0 }]}
           data-lightbox
           data-caption={`Scéna ${String(i + 1).padStart(2, '0')} — ${img.caption}`}
           aria-label={`Zvětšit fotografii: Scéna ${String(i + 1).padStart(2, '0')} — ${img.caption}`}
@@ -58,7 +57,7 @@ const images = [
     </div>
   </div>
 
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Zvětšená fotografie">
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Zvětšená fotografie" inert>
     <button type="button" class="lightbox__btn lightbox__close" id="lightboxClose" aria-label="Zavřít galerii">
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
         <path d="M6 6l12 12M18 6L6 18" />
@@ -70,7 +69,7 @@ const images = [
       </svg>
     </button>
     <figure class="lightbox__stage">
-      <img id="lightboxImg" alt="" />
+      <img id="lightboxImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="" />
       <figcaption class="lightbox__meta">
         <span id="lightboxCaption"></span>
         <span id="lightboxCounter" class="lightbox__counter" aria-live="polite"></span>
@@ -115,6 +114,15 @@ const images = [
   }
   .gallery__item:hover,
   .gallery__item:focus-visible { transform: translateY(-3px); }
+
+  .gallery__item--g1 { grid-area: g1; }
+  .gallery__item--g2 { grid-area: g2; }
+  .gallery__item--g3 { grid-area: g3; }
+  .gallery__item--g4 { grid-area: g4; }
+  .gallery__item--g5 { grid-area: g5; }
+  .gallery__item--g6 { grid-area: g6; }
+  .gallery__item--g7 { grid-area: g7; }
+  .gallery__item--g8 { grid-area: g8; }
 
   .gallery__item img {
     width: 100%;

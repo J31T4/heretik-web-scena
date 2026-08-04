@@ -67,7 +67,7 @@ const performances = [
         webp: asset('/images/opt/gallery-3.webp'),
         jpg: asset('/images/opt/gallery-3.jpg'),
         alt: '',
-        position: 'center 25%',
+        position: 'high',
       }}
     />
 
@@ -83,8 +83,7 @@ const performances = [
         <div class="scenes__grid">
           {stories.map((story, storyIndex) => (
             <article
-              class="scene-card reveal"
-              style={storyIndex ? '--reveal-delay: 120ms' : undefined}
+              class:list={['scene-card', 'reveal', { 'reveal--delay-120': storyIndex > 0 }]}
             >
               <div class="scene-card__top">
                 <span class="scene-card__tag">Povídky</span>

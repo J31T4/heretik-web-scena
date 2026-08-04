@@ -9,7 +9,7 @@ interface Props {
     webp: string;
     jpg: string;
     alt: string;
-    position?: string;
+    position?: 'high' | 'mid';
   };
 }
 
@@ -25,7 +25,7 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
           <img
             src={image.jpg}
             alt=""
-            style={image.position ? `object-position: ${image.position};` : undefined}
+            class={image.position ? `page-hero__image--${image.position}` : undefined}
             fetchpriority="high"
             decoding="async"
             width="1400"
@@ -100,6 +100,8 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
     height: 100%;
     object-fit: cover;
   }
+  .page-hero__image--high { object-position: center 25%; }
+  .page-hero__image--mid { object-position: center 40%; }
   .page-hero__veil {
     position: absolute;
     inset: 0;

@@ -249,6 +249,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   background: currentColor;
   opacity: 0.7;
 }
+.act-label--center { justify-content: center; }
 
 .section-label {
   display: block;
@@ -524,6 +525,9 @@ html.enhanced .fire-text { animation: fire 7s linear infinite; }
   .section-head { margin-bottom: var(--sp-6); }
   .btn { padding-inline: 1.5rem; }
 }
+.reveal--delay-100 { --reveal-delay: 100ms; }
+.reveal--delay-120 { --reveal-delay: 120ms; }
+.reveal--delay-200 { --reveal-delay: 200ms; }
 
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {

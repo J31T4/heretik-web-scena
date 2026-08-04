@@ -10,6 +10,7 @@
   const doc = document;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = window.matchMedia('(pointer: fine)').matches;
+  const afterPaint = (callback) => requestAnimationFrame(() => requestAnimationFrame(callback));
 
   /* ---------- 1. Header — stav po scrollu ---------- */
   const header = doc.querySelector('.scena-header');
@@ -39,10 +40,6 @@
       }
       if (mobileMenu.matches) menu.setAttribute('aria-hidden', String(!open));
       else menu.removeAttribute('aria-hidden');
-      if (open) {
-        const first = menu.querySelector('a');
-        if (first) first.focus();
-      }
     };
 
     const syncMenu = () => {
@@ -231,18 +228,20 @@
       lastFocused = doc.activeElement;
       show(i);
       box.classList.add('open');
-      box.setAttribute('aria-hidden', 'false');
+      box.removeAttribute('inert');
       doc.body.classList.add('scroll-locked');
-      if (lbClose) lbClose.focus();
+      if (lbClose) afterPaint(() => lbClose.focus());
     };
 
     const close = () => {
       box.classList.remove('open');
-      box.setAttribute('aria-hidden', 'true');
+      box.setAttribute('inert', '');
       if (!doc.getElementById('scenaMenu')?.classList.contains('is-open')) {
         doc.body.classList.remove('scroll-locked');
       }
-      if (lastFocused instanceof HTMLElement) lastFocused.focus();
+      if (lastFocused instanceof HTMLElement) {
+        afterPaint(() => lastFocused.focus());
+      }
     };
 
     items.forEach((item, i) => {

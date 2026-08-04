@@ -27,6 +27,17 @@ const isActive = (href) => normalizePath(href) === normalizePath(Astro.url.pathn
       </span>
     </a>
 
+    <button
+      type="button"
+      class="header__burger"
+      id="menuToggle"
+      aria-label="Otevřít menu"
+      aria-controls="scenaMenu"
+      aria-expanded="false"
+    >
+      <span></span><span></span><span></span>
+    </button>
+
     <nav class="header__nav" id="scenaMenu" aria-label="Hlavní navigace">
       {links.map((l, i) => (
         <a
@@ -41,17 +52,6 @@ const isActive = (href) => normalizePath(href) === normalizePath(Astro.url.pathn
       <BookingButton class="header__nav-cta" />
       <p class="header__nav-foot">{siteLocation}</p>
     </nav>
-
-    <button
-      type="button"
-      class="header__burger"
-      id="menuToggle"
-      aria-label="Otevřít menu"
-      aria-controls="scenaMenu"
-      aria-expanded="false"
-    >
-      <span></span><span></span><span></span>
-    </button>
   </div>
 </header>
 
