@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://j31t4.github.io/heretik-web-scena/sitemap.xml

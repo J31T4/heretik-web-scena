@@ -6,7 +6,10 @@ import ScenaFooter from '../components/ScenaFooter.astro';
 import { asset } from '../utils/paths.js';
 ---
 
-<ScenaLayout title="O nás">
+<ScenaLayout
+  title="O nás"
+  description="Spolek HERETIK vznikl v roce 2020. Věnujeme se studiu dobových technik, nácviku a předvádění historického i scénického šermu."
+>
   <ScenaHeader />
   <main id="obsah">
     <ScenaPageHero
@@ -151,7 +154,7 @@ import { asset } from '../utils/paths.js';
     font-family: var(--font-display);
     font-weight: 600;
     font-size: 1.1rem;
-    color: var(--crimson);
+    color: var(--crimson-bright);
     letter-spacing: 0.2em;
     border: 1px solid rgba(228, 6, 7, 0.4);
     padding: 0.35rem 0.7rem;
