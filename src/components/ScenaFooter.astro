@@ -145,11 +145,13 @@ const year = new Date().getFullYear();
     opacity: 0;
     transition: opacity var(--t-fast) var(--ease);
   }
-  .footer__nav a:hover {
+  .footer__nav a:hover,
+  .footer__nav a:focus-visible {
     color: var(--ink);
     padding-left: 1.1rem;
   }
-  .footer__nav a:hover::before { opacity: 1; }
+  .footer__nav a:hover::before,
+  .footer__nav a:focus-visible::before { opacity: 1; }
 
   .footer__place {
     font-size: 0.95rem;
@@ -178,7 +180,8 @@ const year = new Date().getFullYear();
     width: fit-content;
     min-height: 44px;
   }
-  .footer__social a:hover {
+  .footer__social a:hover,
+  .footer__social a:focus-visible {
     border-color: var(--crimson);
     color: var(--ink);
     background: rgba(228, 6, 7, 0.06);

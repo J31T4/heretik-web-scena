@@ -97,7 +97,8 @@ const isActive = (href) => normalizePath(href) === normalizePath(Astro.url.pathn
     filter: drop-shadow(0 0 14px rgba(178, 175, 63, 0.25));
     transition: transform var(--t-med) var(--ease-out);
   }
-  .header__brand:hover .header__logo { transform: scale(1.05); }
+  .header__brand:hover .header__logo,
+  .header__brand:focus-visible .header__logo { transform: scale(1.05); }
 
   .header__brandtext { display: flex; flex-direction: column; line-height: 1.15; }
   .header__name {
@@ -151,10 +152,12 @@ const isActive = (href) => normalizePath(href) === normalizePath(Astro.url.pathn
   }
 
   .header__nav a:not(.btn):hover,
+  .header__nav a:not(.btn):focus-visible,
   .header__nav a:not(.btn).is-active {
     color: var(--ink);
   }
   .header__nav a:not(.btn):hover::after,
+  .header__nav a:not(.btn):focus-visible::after,
   .header__nav a:not(.btn).is-active::after { transform: scaleX(1); }
 
   .header__nav-num {
@@ -164,6 +167,8 @@ const isActive = (href) => normalizePath(href) === normalizePath(Astro.url.pathn
     opacity: 0;
     transition: opacity var(--t-fast) var(--ease);
   }
+  .header__nav a:hover .header__nav-num,
+  .header__nav a:focus-visible .header__nav-num { opacity: 0.65; }
   .header__nav a.is-active .header__nav-num { opacity: 1; }
 
   .header__nav-cta { flex-shrink: 0; }
@@ -184,7 +189,8 @@ const isActive = (href) => normalizePath(href) === normalizePath(Astro.url.pathn
     z-index: calc(var(--z-menu) + 1);
     transition: border-color var(--t-fast) var(--ease);
   }
-  .header__burger:hover { border-color: var(--crimson); }
+  .header__burger:hover,
+  .header__burger:focus-visible { border-color: var(--crimson); }
 
   .header__burger span {
     display: block;

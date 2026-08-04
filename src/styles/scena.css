@@ -65,8 +65,8 @@
 
   /* Text — teplá slonovina */
   --ink: #f2ede4;
-  --ink-2: #bcb6ac;
-  --ink-3: #918b81;
+  --ink-2: #c5beb4;
+  --ink-3: #9b9489;
 
   /* Karmín — hlavní akcent (z loga) */
   --crimson: #e40607;
@@ -150,8 +150,10 @@ body {
   font-family: var(--font-body);
   background: var(--bg-0);
   color: var(--ink);
-  line-height: 1.65;
+  line-height: 1.7;
   font-size: var(--fs-body);
+  text-rendering: optimizeLegibility;
+  font-synthesis: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -171,6 +173,7 @@ h2 { font-size: var(--fs-h2); }
 h3 { font-size: var(--fs-h3); }
 
 p { color: var(--ink-2); }
+p, li { text-wrap: pretty; }
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 ul, ol { list-style: none; }
@@ -263,6 +266,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .section-subtitle {
   max-width: 620px;
   font-size: var(--fs-lead);
+  line-height: 1.75;
   color: var(--ink-2);
 }
 
@@ -319,19 +323,22 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   color: #fff;
   clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 13px, 100% 100%, 13px 100%, 0 calc(100% - 13px));
 }
-.btn--primary:hover {
+.btn--primary:hover,
+.btn--primary:focus-visible {
   background: var(--crimson-bright);
   transform: translateY(-2px);
   box-shadow: var(--shadow-red);
 }
-.btn--primary:hover .btn__arrow { transform: translateX(4px); }
+.btn--primary:hover .btn__arrow,
+.btn--primary:focus-visible .btn__arrow { transform: translateX(4px); }
 
 .btn--ghost {
   background: rgba(242, 237, 228, 0.03);
   color: var(--ink);
   border-color: var(--line-2);
 }
-.btn--ghost:hover {
+.btn--ghost:hover,
+.btn--ghost:focus-visible {
   border-color: var(--crimson);
   color: var(--crimson-bright);
   background: rgba(228, 6, 7, 0.06);
@@ -343,11 +350,14 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   color: var(--steel);
   border-color: rgba(153, 161, 168, 0.35);
 }
-.btn--steel:hover {
+.btn--steel:hover,
+.btn--steel:focus-visible {
   border-color: var(--steel);
   color: var(--ink);
   background: rgba(153, 161, 168, 0.08);
 }
+
+.btn:active { transform: translateY(0); }
 
 .btn--large { padding: 1.15rem 2.8rem; font-size: 0.95rem; min-height: 56px; }
 .btn--block { width: 100%; }
@@ -504,6 +514,16 @@ html.enhanced .fire-text { animation: fire 7s linear infinite; }
 
 /* Zamčení scrollu při otevřeném menu / lightboxu */
 .scroll-locked { overflow: hidden; }
+
+@media (max-width: 640px) {
+  :root {
+    --gutter: clamp(1.1rem, 5vw, 1.4rem);
+    --sp-8: 3.5rem;
+  }
+
+  .section-head { margin-bottom: var(--sp-6); }
+  .btn { padding-inline: 1.5rem; }
+}
 
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {

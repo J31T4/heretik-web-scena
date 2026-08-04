@@ -113,7 +113,8 @@ const images = [
     background: var(--bg-3);
     transition: transform var(--t-med) var(--ease-out);
   }
-  .gallery__item:hover { transform: translateY(-3px); }
+  .gallery__item:hover,
+  .gallery__item:focus-visible { transform: translateY(-3px); }
 
   .gallery__item img {
     width: 100%;
@@ -243,7 +244,8 @@ const images = [
     background: rgba(10, 10, 10, 0.6);
     transition: color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
   }
-  .lightbox__btn:hover {
+  .lightbox__btn:hover,
+  .lightbox__btn:focus-visible {
     color: var(--crimson-bright);
     border-color: var(--crimson);
     background: rgba(228, 6, 7, 0.08);
