@@ -71,7 +71,6 @@
   /* Karmín — hlavní akcent (z loga) */
   --crimson: #e40607;
   --crimson-bright: #ff4a4b;
-  --crimson-deep: #7c0203;
   --crimson-glow: rgba(228, 6, 7, 0.28);
 
   /* Ocel — sekundární akcent */
@@ -85,20 +84,17 @@
   /* Linky a rámy */
   --line: rgba(242, 237, 228, 0.08);
   --line-2: rgba(242, 237, 228, 0.16);
-  --line-strong: rgba(242, 237, 228, 0.28);
 
   /* Typografie */
   --font-display: 'Fraunces', 'Georgia', serif;
   --font-ui: 'Space Grotesk', 'Inter', sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
 
-  --fs-hero: clamp(3.1rem, 9vw, 8rem);
   --fs-h1: clamp(2.5rem, 6vw, 4.6rem);
   --fs-h2: clamp(2rem, 4.4vw, 3.3rem);
   --fs-h3: clamp(1.3rem, 2.2vw, 1.7rem);
   --fs-lead: clamp(1.08rem, 1.6vw, 1.22rem);
   --fs-body: 1.02rem;
-  --fs-small: 0.88rem;
   --fs-micro: 0.72rem;
 
   /* Layout */
@@ -121,14 +117,12 @@
   --shadow-1: 0 6px 24px rgba(0, 0, 0, 0.45);
   --shadow-2: 0 24px 70px rgba(0, 0, 0, 0.6);
   --shadow-red: 0 12px 44px rgba(228, 6, 7, 0.32);
-  --glow-red: 0 0 70px var(--crimson-glow);
 
   /* Pohyb */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
   --t-fast: 0.18s;
   --t-med: 0.4s;
-  --t-slow: 0.8s;
 
   /* Z-index vrstvy */
   --z-header: 100;
@@ -211,14 +205,12 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
-.container--wide { max-width: var(--container-wide); }
 
 .section {
   position: relative;
   padding: var(--sp-9) 0;
 }
 .section--tint { background: var(--bg); }
-.section--tint-2 { background: var(--bg-2); }
 
 /* Ohraničené sekce (divadelní „rámy“) */
 .section--framed {
@@ -271,27 +263,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   color: var(--ink-2);
 }
 
-/* ---------- Dělítko s čepelí ---------- */
-.divider {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-4);
-  margin: var(--sp-6) 0 var(--sp-7);
-}
-.divider::before,
-.divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--line-2);
-}
-.divider span {
-  width: 7px;
-  height: 7px;
-  background: var(--crimson);
-  transform: rotate(45deg);
-  box-shadow: 0 0 12px var(--crimson-glow);
-}
 
 /* ---------- Tlačítka ---------- */
 .btn {
@@ -361,7 +332,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .btn:active { transform: translateY(0); }
 
 .btn--large { padding: 1.15rem 2.8rem; font-size: 0.95rem; min-height: 56px; }
-.btn--block { width: 100%; }
 
 /* ---------- Reveal (progressive enhancement) ---------- */
 html.enhanced .reveal {
@@ -376,9 +346,7 @@ html.enhanced .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
-/* Varianty: zleva, zoom */
-html.enhanced .reveal--left { transform: translateX(-34px); }
-html.enhanced .reveal--left.visible { transform: translateX(0); }
+/* Varianty: zoom */
 html.enhanced .reveal--zoom { transform: scale(0.96); }
 html.enhanced .reveal--zoom.visible { transform: scale(1); }
 
@@ -463,19 +431,10 @@ html.enhanced .grain--animated { animation: grain-shift 1.2s steps(4) infinite; 
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: fire 7s linear infinite;
 }
 html.enhanced .fire-text { animation: fire 7s linear infinite; }
 @keyframes fire {
   to { background-position: -180% center; }
-}
-
-/* ---------- Ocelový / stříbrný text ---------- */
-.steel-text {
-  background: linear-gradient(115deg, var(--steel-deep) 0%, var(--steel) 40%, #e8ecef 65%, var(--steel) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
 }
 
 /* ---------- Vertikální rail dějství (desktop) ---------- */
