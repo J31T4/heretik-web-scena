@@ -24,19 +24,37 @@
   const menu = doc.getElementById('scenaMenu');
 
   if (burger && menu) {
+    const mobileMenu = window.matchMedia('(max-width: 1020px)');
+
     const setMenu = (open) => {
+      const returnFocus = !open && mobileMenu.matches && menu.contains(doc.activeElement);
+      if (returnFocus) burger.focus();
       burger.classList.toggle('active', open);
       burger.setAttribute('aria-expanded', String(open));
+      burger.setAttribute('aria-label', open ? 'Zavřít menu' : 'Otevřít menu');
       menu.classList.toggle('is-open', open);
-      doc.body.classList.toggle('scroll-locked', open);
-      menu.setAttribute('aria-hidden', String(!open));
+      if (open) doc.body.classList.add('scroll-locked');
+      else if (!doc.getElementById('lightbox')?.classList.contains('open')) {
+        doc.body.classList.remove('scroll-locked');
+      }
+      if (mobileMenu.matches) menu.setAttribute('aria-hidden', String(!open));
+      else menu.removeAttribute('aria-hidden');
       if (open) {
         const first = menu.querySelector('a');
         if (first) first.focus();
-      } else if (doc.activeElement && menu.contains(doc.activeElement)) {
-        burger.focus();
       }
     };
+
+    const syncMenu = () => {
+      if (!mobileMenu.matches && menu.classList.contains('is-open')) setMenu(false);
+      else if (mobileMenu.matches) {
+        menu.setAttribute('aria-hidden', String(!menu.classList.contains('is-open')));
+      } else {
+        menu.removeAttribute('aria-hidden');
+      }
+    };
+
+    syncMenu();
 
     burger.addEventListener('click', () => setMenu(!menu.classList.contains('is-open')));
 
@@ -64,10 +82,8 @@
       }
     });
 
-    // Při zvětšení okna na desktop menu zavři a odemkni scroll
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 900 && menu.classList.contains('is-open')) setMenu(false);
-    });
+    // Při přechodu na desktop menu zavři a zpřístupni běžnou navigaci.
+    mobileMenu.addEventListener('change', syncMenu);
   }
 
   /* ---------- 3. Reveal — IntersectionObserver ---------- */
@@ -156,8 +172,12 @@
       window.addEventListener('resize', resize);
       raf = requestAnimationFrame(tick);
       doc.addEventListener('visibilitychange', () => {
-        if (document.hidden && raf) cancelAnimationFrame(raf);
-        else if (!document.hidden && !raf) raf = requestAnimationFrame(tick);
+        if (document.hidden && raf !== null) {
+          cancelAnimationFrame(raf);
+          raf = null;
+        } else if (!document.hidden && raf === null) {
+          raf = requestAnimationFrame(tick);
+        }
       });
     }
   }
@@ -201,7 +221,7 @@
       current = (i + items.length) % items.length;
       const item = items[current];
       const img = item.querySelector('img');
-      lbImg.src = img.src;
+      lbImg.src = img.currentSrc || img.src;
       lbImg.alt = img.alt || '';
       if (lbCaption) lbCaption.textContent = item.dataset.caption || '';
       if (lbCounter) lbCounter.textContent = `${current + 1} / ${items.length}`;
@@ -219,8 +239,10 @@
     const close = () => {
       box.classList.remove('open');
       box.setAttribute('aria-hidden', 'true');
-      doc.body.classList.remove('scroll-locked');
-      if (lastFocused) lastFocused.focus();
+      if (!doc.getElementById('scenaMenu')?.classList.contains('is-open')) {
+        doc.body.classList.remove('scroll-locked');
+      }
+      if (lastFocused instanceof HTMLElement) lastFocused.focus();
     };
 
     items.forEach((item, i) => {

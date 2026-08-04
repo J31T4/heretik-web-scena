@@ -8,6 +8,9 @@ interface Props {
 }
 
 const { title, description = 'Historický a scénický šerm z Mohelnice. Umění, které přežívá století.' } = Astro.props;
+const siteURL = Astro.site ?? new URL('https://j31t4.github.io');
+const canonicalURL = new URL(Astro.url.pathname, siteURL);
+const socialImageURL = new URL(asset('/images/opt/hero-1.jpg'), siteURL);
 ---
 
 <!DOCTYPE html>
@@ -20,8 +23,11 @@ const { title, description = 'Historický a scénický šerm z Mohelnice. Uměn�
   <meta property="og:title" content={`${title} | SHŠ Heretik`} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content={asset('/images/opt/hero-1-1600.jpg')} />
-  <meta property="og:url" content="https://j31t4.github.io/heretik-web-scena/" />
+  <meta property="og:locale" content="cs_CZ" />
+  <meta property="og:image" content={socialImageURL} />
+  <meta property="og:image:alt" content="Šermířské vystoupení skupiny SHŠ Heretik" />
+  <meta property="og:url" content={canonicalURL} />
+  <link rel="canonical" href={canonicalURL} />
   <link rel="icon" type="image/svg+xml" href={asset('/logo.svg')} />
   <link rel="preload" href={asset('/fonts/fraunces-latin-400_600.woff2')} as="font" type="font/woff2" crossorigin />
   <link rel="preload" href={asset('/fonts/fraunces-latin-ext-400_600.woff2')} as="font" type="font/woff2" crossorigin />

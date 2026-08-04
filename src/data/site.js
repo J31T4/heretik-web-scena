@@ -3,7 +3,7 @@ import { page } from '../utils/paths.js';
 export const navigation = [
   { href: page('/'), label: 'Domů' },
   { href: page('/o-nas'), label: 'O nás' },
-  { href: page('/akce'), label: 'Co nabízíme' },
+  { href: page('/akce'), label: 'Akce' },
   { href: page('/galerie'), label: 'Galerie' },
   { href: page('/kontakt'), label: 'Kontakt' },
 ];
