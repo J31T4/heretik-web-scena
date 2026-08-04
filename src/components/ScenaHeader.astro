@@ -163,7 +163,7 @@ const isActive = (href) => normalizePath(href) === normalizePath(Astro.url.pathn
   .header__nav-num {
     font-family: var(--font-ui);
     font-size: 0.62rem;
-    color: var(--crimson);
+    color: var(--crimson-bright);
     opacity: 0;
     transition: opacity var(--t-fast) var(--ease);
   }
@@ -260,7 +260,7 @@ const isActive = (href) => normalizePath(href) === normalizePath(Astro.url.pathn
       transform: translateY(-0.5em);
     }
     .header__nav a.is-active { color: var(--crimson-bright); }
-    .header__nav a.is-active .header__nav-num { color: var(--crimson); }
+    .header__nav a.is-active .header__nav-num { color: var(--crimson-bright); }
 
     .header__nav-cta {
       display: inline-flex;
