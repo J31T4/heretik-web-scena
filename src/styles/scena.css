@@ -371,59 +371,6 @@ html.enhanced .grain--animated { animation: grain-shift 1.2s steps(4) infinite; 
   100% { transform: translate(0, 0); }
 }
 
-/* ---------- Marquee ---------- */
-.marquee {
-  overflow: hidden;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  background: var(--bg);
-  white-space: nowrap;
-  padding: var(--sp-4) 0;
-  position: relative;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-}
-.marquee__track {
-  display: inline-block;
-  width: max-content;
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  will-change: transform;
-}
-.marquee__track--top { animation: marquee-a 38s linear infinite; }
-.marquee__track--bottom {
-  font-family: var(--font-ui);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.42em;
-  color: var(--gold-soft);
-  animation: marquee-b 30s linear infinite;
-}
-.marquee__track span { margin: 0 var(--sp-5); display: inline-block; }
-.marquee__track .dot {
-  color: var(--crimson);
-  font-size: 0.6em;
-  margin-right: var(--sp-2);
-  vertical-align: 0.2em;
-}
-.marquee__track--bottom .dot { color: var(--gold); }
-
-.marquee:hover .marquee__track,
-.marquee:focus-within .marquee__track { animation-play-state: paused; }
-
-@keyframes marquee-a {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-@keyframes marquee-b {
-  from { transform: translateX(-50%); }
-  to { transform: translateX(0); }
-}
-
 /* ---------- Ohnivý gradient (značka „ZAČÍNÁ“) — statický, bez animace ---------- */
 .fire-text {
   background: linear-gradient(110deg, var(--crimson) 0%, #ff9d6b 45%, var(--gold) 90%);
@@ -497,6 +444,5 @@ html.enhanced .grain--animated { animation: grain-shift 1.2s steps(4) infinite; 
     opacity: 1 !important;
     transform: none !important;
   }
-  .marquee__track { animation: none !important; }
   .grain--animated { animation: none !important; }
 }

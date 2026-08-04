@@ -1,0 +1,65 @@
+---
+import { socialLinks } from '../data/site.js';
+
+const instagram = socialLinks.find((s) => s.id === 'instagram');
+---
+
+<section class="scena-ig section" aria-label="Aktuální fotky na Instagramu">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="section-label">Ze zákulisí</p>
+      <h2 class="section-title">Aktuálně na Instagramu</h2>
+      <p class="section-subtitle">
+        Nejdřív se k nám dostanete na sociálních sítích — sledujte nás, ať vám neuteče žádné
+        vystoupení ani nová fotka z našich akcí.
+      </p>
+    </div>
+
+    <div class="ig__frame reveal">
+      <iframe
+        src="https://www.instagram.com/heretik_z.s._/embed/"
+        title="Instagram — SHŠ Heretik"
+        width="100%"
+        height="560"
+        frameborder="0"
+        scrolling="no"
+        allowtransparency="true"
+        loading="lazy"
+      ></iframe>
+    </div>
+
+    <div class="ig__actions reveal">
+      <a
+        href={instagram.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn--primary"
+      >
+        Sledovat @heretik_z.s._ <span class="btn__arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scena-ig { background: var(--bg-0); }
+
+  .section-head { text-align: center; max-width: 640px; margin: 0 auto var(--sp-7); }
+
+  .ig__frame {
+    max-width: 520px;
+    margin: 0 auto;
+    border: 1px solid var(--line-2);
+    border-radius: 4px;
+    overflow: hidden;
+    background: #fff;
+    min-height: 560px;
+  }
+  .ig__frame iframe { display: block; }
+
+  .ig__actions {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--sp-6);
+  }
+</style>
