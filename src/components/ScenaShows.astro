@@ -10,6 +10,8 @@ const shows = [
     fallback: asset('/images/opt/gallery-1.jpg'),
     alt: 'Historický šerm – tábořiště s kostýmovanými šermíři',
     featured: true,
+    w: 1400,
+    h: 666,
   },
   {
     title: 'Scénická vystoupení',
@@ -19,6 +21,8 @@ const shows = [
     fallback: asset('/images/opt/gallery-3.jpg'),
     alt: 'Scénická vystoupení – souboj dvou šermířů před stany',
     featured: false,
+    w: 1400,
+    h: 934,
   },
   {
     title: 'Vystoupení na míru',
@@ -28,6 +32,8 @@ const shows = [
     fallback: asset('/images/opt/gallery-5.jpg'),
     alt: 'Vystoupení na míru – zákulisí šermířského ležení',
     featured: false,
+    w: 1050,
+    h: 1400,
   },
   {
     title: 'Program pro školy',
@@ -37,6 +43,8 @@ const shows = [
     fallback: asset('/images/opt/gallery-6.jpg'),
     alt: 'Program pro školy – šermíři u hradní zdi',
     featured: false,
+    w: 1400,
+    h: 933,
   },
 ];
 ---
@@ -69,8 +77,8 @@ const shows = [
                 alt={show.alt}
                 loading="lazy"
                 decoding="async"
-                width="1400"
-                height={show.featured ? '666' : '934'}
+                width={show.w}
+                height={show.h}
               />
             </picture>
           </figure>

@@ -32,29 +32,40 @@ const performances = [
     description: 'Vystoupení, která oživí atmosféru vaší akce a přenesou diváky do minulosti.',
     details: 'Historický a scénický šerm s vlastní choreografií',
     image: '/images/opt/gallery-4',
+    w: 1400,
+    h: 1050,
   },
   {
     title: 'Plesy a firemní večírky',
     description: 'Exkluzivní šermířský program pro reprezentativní i zábavné večery.',
     details: 'Elegantní vystoupení přímo na míru vaší akci',
     image: '/images/opt/gallery-7',
+    w: 1400,
+    h: 1400,
   },
   {
     title: 'Oslavy narozenin',
     description: 'Neobvyklý zážitek, který udělá z vaší oslavy nezapomenutelnou událost.',
     details: 'Přizpůsobíme program oslavě',
     image: '/images/opt/gallery-5',
+    w: 1050,
+    h: 1400,
   },
   {
     title: 'Dětské tábory a školy',
     description: 'Program pro děti, které nejen pobaví, ale také přiučí novým věcem o historii.',
     details: 'Vzdělávací a zábavný program pro ZŠ i tábory',
     image: '/images/opt/gallery-3',
+    w: 1400,
+    h: 934,
   },
 ];
 ---
 
-<ScenaLayout title="Co nabízíme">
+<ScenaLayout
+  title="Co nabízíme"
+  description="Vystoupení na míru: městské slavnosti, historické dny, plesy, firemní večírky, oslavy narozenin i program pro školy a tábory."
+>
   <ScenaHeader />
   <main id="obsah">
     <ScenaPageHero
@@ -131,8 +142,8 @@ const performances = [
                     alt={perf.title}
                     loading="lazy"
                     decoding="async"
-                    width="1400"
-                    height="934"
+                    width={perf.w}
+                    height={perf.h}
                   />
                 </picture>
               </figure>
