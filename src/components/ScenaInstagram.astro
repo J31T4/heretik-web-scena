@@ -52,10 +52,16 @@ const instagram = socialLinks.find((s) => s.id === 'instagram');
     border: 1px solid var(--line-2);
     border-radius: 4px;
     overflow: hidden;
-    background: #fff;
+    /* Tmavé pozadí pod iframe — multiply blend ho protáhne přes bílé IG pozadí */
+    background: var(--bg-2);
     min-height: 560px;
   }
-  .ig__frame iframe { display: block; }
+  .ig__frame iframe {
+    display: block;
+    /* multiply: bílé pozadí IG se spojí s tmavým podkladem, fotky zůstávají přirozené */
+    mix-blend-mode: multiply;
+    filter: brightness(1.45) contrast(1.04);
+  }
 
   .ig__actions {
     display: flex;
