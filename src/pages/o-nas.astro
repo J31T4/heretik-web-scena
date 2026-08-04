@@ -1,27 +1,31 @@
 ---
 import ScenaLayout from '../layouts/ScenaLayout.astro';
 import ScenaHeader from '../components/ScenaHeader.astro';
+import ScenaPageHero from '../components/ScenaPageHero.astro';
 import ScenaFooter from '../components/ScenaFooter.astro';
 import { asset } from '../utils/paths.js';
 ---
 
 <ScenaLayout title="O nás">
   <ScenaHeader />
-  <main>
-    <section class="scena-page-hero">
-      <div class="container">
-        <p class="section-label reveal">Kdo jsme</p>
-        <h1 class="page-title reveal">O NÁS</h1>
-        <p class="page-subtitle reveal">Příběh naší vášně pro historii a šerm</p>
-      </div>
-    </section>
+  <main id="obsah">
+    <ScenaPageHero
+      variant="split"
+      act="Předehra · O nás"
+      label="Kdo jsme"
+      title="O NÁS"
+      subtitle="Příběh naší vášně pro historii a šerm"
+      image={{
+        webp: asset('/images/opt/gallery-8.webp'),
+        jpg: asset('/images/opt/gallery-8.jpg'),
+        alt: 'Skupina SHŠ Heretik v kostýmech před kamenným obloukem',
+      }}
+    />
 
     <section class="about-block section">
       <div class="container about__grid">
-        <div class="about__image reveal">
-          <img src={asset('/images/gallery-1.jpeg')} alt="Naše historie" />
-        </div>
         <div class="about__text reveal">
+          <span class="about__num" aria-hidden="true">01</span>
           <h2 class="about__title">Naše historie</h2>
           <p>
             Spolek HERETIK vznikl v roce 2020. Zabývá se tvorbou vystoupení, studiem
@@ -33,12 +37,39 @@ import { asset } from '../utils/paths.js';
             performancí – od commedie dell'arte až po různé fantastické povídky.
           </p>
         </div>
+        <figure class="about__image reveal reveal--zoom">
+          <picture>
+            <source srcset={asset('/images/opt/gallery-1.webp')} type="image/webp" />
+            <img
+              src={asset('/images/opt/gallery-1.jpg')}
+              alt="Historické tábořiště se šermířskou skupinou"
+              loading="lazy"
+              decoding="async"
+              width="1400"
+              height="666"
+            />
+          </picture>
+        </figure>
       </div>
     </section>
 
-    <section class="about-block section section--card">
-      <div class="container about__grid reverse">
+    <section class="about-block section section--tint">
+      <div class="container about__grid about__grid--reverse">
+        <figure class="about__image reveal reveal--zoom">
+          <picture>
+            <source srcset={asset('/images/opt/gallery-2.webp')} type="image/webp" />
+            <img
+              src={asset('/images/opt/gallery-2.jpg')}
+              alt="Šermířská škola – ležení se stany"
+              loading="lazy"
+              decoding="async"
+              width="1400"
+              height="915"
+            />
+          </picture>
+        </figure>
         <div class="about__text reveal">
+          <span class="about__num" aria-hidden="true">02</span>
           <h2 class="about__title">Šermířská škola</h2>
           <p>
             V nácviku nám pomáhají dochované učebnice starých šermířských mistrů
@@ -51,18 +82,13 @@ import { asset } from '../utils/paths.js';
             kde každý pohyb, každá pozice a každý výraz má svůj význam.
           </p>
         </div>
-        <div class="about__image reveal">
-          <img src={asset('/images/gallery-2.jpeg')} alt="Šermířská škola" />
-        </div>
       </div>
     </section>
 
-    <section class="about-block section">
+    <section class="about-block section section--framed">
       <div class="container about__grid">
-        <div class="about__image reveal">
-          <img src={asset('/images/gallery-3.jpeg')} alt="Pro vaše akce" />
-        </div>
         <div class="about__text reveal">
+          <span class="about__num" aria-hidden="true">03</span>
           <h2 class="about__title">Pro vaše akce</h2>
           <p>
             Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti,
@@ -74,6 +100,19 @@ import { asset } from '../utils/paths.js';
             pobaví, ale také přiučí novým věcem o historii.
           </p>
         </div>
+        <figure class="about__image reveal reveal--zoom">
+          <picture>
+            <source srcset={asset('/images/opt/gallery-6.webp')} type="image/webp" />
+            <img
+              src={asset('/images/opt/gallery-6.jpg')}
+              alt="Šermíři v kostýmech před hradní zdí"
+              loading="lazy"
+              decoding="async"
+              width="1400"
+              height="933"
+            />
+          </picture>
+        </figure>
       </div>
     </section>
   </main>
@@ -81,72 +120,64 @@ import { asset } from '../utils/paths.js';
 </ScenaLayout>
 
 <style>
-  .scena-page-hero {
-    padding: clamp(5rem, 12vw, 8rem) 0 3rem;
-    background:
-      linear-gradient(180deg, rgba(10,10,10,0.9), var(--bg)),
-      url('/images/hero-1.jpeg') center/cover;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .page-title {
-    font-size: clamp(2.5rem, 7vw, 5rem);
-    margin-bottom: 0.5rem;
-  }
-
-  .page-subtitle {
-    font-size: 1.15rem;
-    color: var(--text-secondary);
-  }
-
   .about__grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(2.5rem, 6vw, 5rem);
     align-items: center;
   }
-
-  .about__grid.reverse .about__text { order: 2; }
-  .about__grid.reverse .about__image { order: 1; }
+  .about__grid--reverse .about__image { order: -1; }
 
   .about__image {
-    border-radius: 4px;
+    margin: 0;
+    position: relative;
     overflow: hidden;
-    aspect-ratio: 4/3;
-    border: 1px solid var(--border);
+    border: 1px solid var(--line-2);
   }
-
   .about__image img {
     width: 100%;
     height: 100%;
+    aspect-ratio: 4 / 3;
     object-fit: cover;
-    transition: transform 0.6s var(--ease);
+    object-position: center 35%;
+    filter: saturate(0.9) contrast(1.05);
+    transition: transform 0.7s var(--ease-out);
+  }
+  .about__image:hover img { transform: scale(1.045); }
+
+  .about__text { position: relative; padding-top: var(--sp-6); }
+
+  .about__num {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--crimson);
+    letter-spacing: 0.2em;
+    border: 1px solid rgba(228, 6, 7, 0.4);
+    padding: 0.35rem 0.7rem;
+    margin-bottom: var(--sp-5);
+    display: inline-block;
   }
 
-  .about__image:hover img { transform: scale(1.05); }
-
   .about__title {
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
-    margin-bottom: 1.2rem;
+    margin-bottom: var(--sp-5);
     position: relative;
     padding-left: 1.2rem;
   }
-
   .about__title::before {
     content: '';
     position: absolute;
     left: 0;
-    top: 0.35em;
-    bottom: 0.35em;
-    width: 4px;
-    background: var(--red);
+    top: 0.18em;
+    bottom: 0.18em;
+    width: 3px;
+    background: linear-gradient(180deg, var(--crimson), rgba(228, 6, 7, 0.15));
   }
 
-  .about__text p { margin-bottom: 1rem; }
+  .about__text p { margin-bottom: var(--sp-4); }
 
   @media (max-width: 900px) {
-    .about__grid { grid-template-columns: 1fr; gap: 2rem; }
-    .about__grid.reverse .about__text { order: 1; }
-    .about__grid.reverse .about__image { order: 2; }
+    .about__grid { grid-template-columns: 1fr; gap: var(--sp-6); }
+    .about__grid--reverse .about__image { order: 0; }
   }
 </style>

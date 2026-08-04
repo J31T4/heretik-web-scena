@@ -1,34 +1,22 @@
 ---
 import ScenaLayout from '../layouts/ScenaLayout.astro';
 import ScenaHeader from '../components/ScenaHeader.astro';
+import ScenaPageHero from '../components/ScenaPageHero.astro';
 import ScenaGallery from '../components/ScenaGallery.astro';
 import ScenaFooter from '../components/ScenaFooter.astro';
 ---
 
 <ScenaLayout title="Galerie">
   <ScenaHeader />
-  <main>
-    <section class="scena-page-hero">
-      <div class="container">
-        <p class="section-label reveal">Galerie</p>
-        <h1 class="page-title reveal">GALERIE</h1>
-        <p class="page-subtitle reveal">Scény z našich představení</p>
-      </div>
-    </section>
+  <main id="obsah">
+    <ScenaPageHero
+      variant="minimal"
+      act="III. dějství · Galerie"
+      label="Fotografie"
+      title="GALERIE"
+      subtitle="Scény z našich představení — kliknutím na fotografii ji zvětšíte."
+    />
     <ScenaGallery />
   </main>
   <ScenaFooter />
 </ScenaLayout>
-
-<style>
-  .scena-page-hero {
-    padding: clamp(5rem, 12vw, 8rem) 0 3rem;
-    background:
-      linear-gradient(180deg, rgba(10,10,10,0.9), var(--bg)),
-      url('/images/hero-1.jpeg') center/cover;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .page-title { font-size: clamp(2.5rem, 7vw, 5rem); margin-bottom: 0.5rem; }
-  .page-subtitle { font-size: 1.15rem; color: var(--text-secondary); }
-</style>

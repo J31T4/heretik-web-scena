@@ -1,24 +1,33 @@
 ---
 import ScenaLayout from '../layouts/ScenaLayout.astro';
 import ScenaHeader from '../components/ScenaHeader.astro';
+import ScenaPageHero from '../components/ScenaPageHero.astro';
 import ScenaFooter from '../components/ScenaFooter.astro';
+import { asset } from '../utils/paths.js';
 ---
 
 <ScenaLayout title="Kontakt">
   <ScenaHeader />
-  <main>
-    <section class="scena-page-hero">
-      <div class="container">
-        <p class="section-label reveal">Kontakt</p>
-        <h1 class="page-title reveal">KONTAKT</h1>
-        <p class="page-subtitle reveal">Domluvte si s námi vystoupení</p>
-      </div>
-    </section>
+  <main id="obsah">
+    <ScenaPageHero
+      variant="standard"
+      act="Finále · Kontakt"
+      label="Spojení"
+      title="KONTAKT"
+      subtitle="Domluvte si s námi vystoupení"
+      image={{
+        webp: asset('/images/opt/gallery-6.webp'),
+        jpg: asset('/images/opt/gallery-6.jpg'),
+        alt: '',
+        position: 'center 40%',
+      }}
+    />
 
-    <section class="section">
+    <section class="section scena-contact">
       <div class="container contact__grid">
         <div class="contact__main reveal">
-          <h2 class="contact__heading">Poptat vystoupení</h2>
+          <p class="act-label">Poptat vystoupení</p>
+          <h2 class="contact__heading">Ozvěte se nám — rádi odpovíme</h2>
           <p class="contact__intro">
             Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti,
             historické dny, plesy, firemní večírky, oslavy narozenin, dětské tábory
@@ -26,28 +35,59 @@ import ScenaFooter from '../components/ScenaFooter.astro';
           </p>
           <p class="contact__intro">
             Naše hlavní sídlo je v Mohelnici, ale rádi cestujeme po celé České republice.
+            Nejrychleji nás zastihnete přes sociální sítě.
           </p>
 
-          <div class="contact__box">
-            <h3 class="contact__box-title">Napište nám</h3>
-            <p class="contact__box-text">
-              Ozvěte se nám přes sociální sítě – rádi vám odpovíme a domluvíme vystoupení.
-            </p>
-            <div class="contact__social">
-              <a href="https://www.facebook.com/Heretik2020/" class="contact__social-link" target="_blank" rel="noopener" aria-label="Facebook">FB</a>
-              <a href="https://www.instagram.com/heretik_z.s._/" class="contact__social-link" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
-            </div>
+          <div class="contact__social">
+            <a
+              href="https://www.facebook.com/Heretik2020/"
+              target="_blank"
+              rel="noopener"
+              class="contact__social-card"
+            >
+              <span class="contact__social-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                  <path d="M14 8.5V7a1.5 1.5 0 0 1 1.5-1.5H17V2.5h-2.5A4.5 4.5 0 0 0 10 7v1.5H7.5V12H10v9.5h4V12h2.8l.7-3.5H14z" />
+                </svg>
+              </span>
+              <span class="contact__social-body">
+                <span class="contact__social-name">Facebook</span>
+                <span class="contact__social-handle">facebook.com/Heretik2020</span>
+              </span>
+              <span class="contact__social-arrow" aria-hidden="true">→</span>
+            </a>
+
+            <a
+              href="https://www.instagram.com/heretik_z.s._/"
+              target="_blank"
+              rel="noopener"
+              class="contact__social-card"
+            >
+              <span class="contact__social-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4.2" />
+                  <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" />
+                </svg>
+              </span>
+              <span class="contact__social-body">
+                <span class="contact__social-name">Instagram</span>
+                <span class="contact__social-handle">@heretik_z.s._</span>
+              </span>
+              <span class="contact__social-arrow" aria-hidden="true">→</span>
+            </a>
           </div>
         </div>
 
-        <aside class="contact__side reveal">
-          <div class="info-card">
-            <h3 class="info-card__title">Kde nás najdete</h3>
-            <p class="info-card__text">Mohelnice, Česká republika</p>
+        <aside class="contact__side">
+          <div class="info-card reveal" style="--reveal-delay: 100ms">
+            <p class="info-card__label">Kde nás najdete</p>
+            <p class="info-card__value">Mohelnice</p>
+            <p class="info-card__text">Česká republika · rádi cestujeme po celé zemi</p>
           </div>
 
-          <div class="info-card">
-            <h3 class="info-card__title">Co umíme</h3>
+          <div class="info-card reveal" style="--reveal-delay: 200ms">
+            <p class="info-card__label">Co umíme</p>
             <ul class="info-list">
               <li>Městské slavnosti a historické dny</li>
               <li>Plesy a firemní večírky</li>
@@ -63,108 +103,155 @@ import ScenaFooter from '../components/ScenaFooter.astro';
 </ScenaLayout>
 
 <style>
-  .scena-page-hero {
-    padding: clamp(5rem, 12vw, 8rem) 0 3rem;
-    background:
-      linear-gradient(180deg, rgba(10,10,10,0.9), var(--bg)),
-      url('/images/hero-1.jpeg') center/cover;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .page-title { font-size: clamp(2.5rem, 7vw, 5rem); margin-bottom: 0.5rem; }
-  .page-subtitle { font-size: 1.15rem; color: var(--text-secondary); }
+  .scena-contact { background: var(--bg-0); }
 
   .contact__grid {
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 4rem;
-    max-width: 1100px;
+    grid-template-columns: 1.4fr 1fr;
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: start;
   }
 
-  .contact__heading { margin-bottom: 1.5rem; }
+  .contact__heading {
+    font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+    margin-bottom: var(--sp-5);
+  }
 
   .contact__intro {
-    font-size: 1.1rem;
+    font-size: 1.08rem;
     line-height: 1.8;
-    margin-bottom: 1.5rem;
-    border-left: 4px solid var(--red);
-    padding-left: 1.5rem;
+    margin-bottom: var(--sp-5);
+    border-left: 3px solid var(--crimson);
+    padding-left: var(--sp-5);
+    color: var(--ink-2);
   }
 
-  .contact__box {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    padding: 2.5rem;
-    margin-top: 2rem;
+  .contact__social {
+    display: grid;
+    gap: var(--sp-4);
+    margin-top: var(--sp-6);
   }
 
-  .contact__box-title {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    color: var(--gold);
+  .contact__social-card {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-5);
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    padding: var(--sp-5);
+    min-height: 84px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color var(--t-med) var(--ease), transform var(--t-med) var(--ease-out), background var(--t-med) var(--ease);
+  }
+  .contact__social-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--crimson);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform var(--t-med) var(--ease-out);
+  }
+  .contact__social-card:hover,
+  .contact__social-card:focus-visible {
+    border-color: rgba(228, 6, 7, 0.5);
+    background: var(--bg-3);
+    transform: translateY(-3px);
+  }
+  .contact__social-card:hover::before,
+  .contact__social-card:focus-visible::before { transform: scaleY(1); }
+
+  .contact__social-icon {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--steel);
+    border: 1px solid var(--line-2);
+    transition: color var(--t-med) var(--ease), border-color var(--t-med) var(--ease);
+  }
+  .contact__social-card:hover .contact__social-icon {
+    color: var(--crimson-bright);
+    border-color: var(--crimson);
   }
 
-  .contact__box-text {
-    color: var(--text-secondary);
-    margin-bottom: 1.5rem;
-  }
-
-  .contact__social { display: flex; gap: 1rem; }
-
-  .contact__social-link {
+  .contact__social-body { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
+  .contact__social-name {
     font-family: var(--font-display);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    padding: 0.5rem 0.8rem;
-    border: 1px solid var(--border);
-    transition: all 0.3s var(--ease);
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .contact__social-handle {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .contact__social-arrow {
+    margin-left: auto;
+    font-size: 1.3rem;
+    color: var(--ink-3);
+    transition: transform var(--t-med) var(--ease-out), color var(--t-med) var(--ease);
+  }
+  .contact__social-card:hover .contact__social-arrow {
+    transform: translateX(5px);
+    color: var(--crimson-bright);
   }
 
-  .contact__social-link:hover {
-    border-color: var(--red);
-    color: var(--red);
-  }
-
-  .contact__side { display: flex; flex-direction: column; gap: 1.5rem; }
+  .contact__side { display: flex; flex-direction: column; gap: var(--sp-5); position: sticky; top: 110px; }
 
   .info-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    padding: 2rem;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-top: 2px solid var(--crimson);
+    padding: var(--sp-6);
   }
-
-  .info-card__title {
-    font-size: 1.1rem;
-    margin-bottom: 1.2rem;
+  .info-card__label {
+    font-family: var(--font-ui);
+    font-size: var(--fs-micro);
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
     color: var(--gold);
+    margin-bottom: var(--sp-4);
   }
-
-  .info-card__text { color: var(--text-secondary); }
-
-  .info-list { list-style: none; }
+  .info-card__value {
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    font-weight: 500;
+    margin-bottom: var(--sp-2);
+  }
+  .info-card__text { font-size: 0.92rem; color: var(--ink-3); }
 
   .info-list li {
-    padding: 0.6rem 0;
-    border-bottom: 1px solid var(--border);
-    color: var(--text-secondary);
+    padding: 0.7rem 0 0.7rem 1.4rem;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-2);
     font-size: 0.95rem;
     position: relative;
-    padding-left: 1.2rem;
   }
-
   .info-list li::before {
     content: '◆';
     position: absolute;
     left: 0;
-    color: var(--red);
-    font-size: 0.7rem;
-    top: 0.9rem;
+    top: 0.95rem;
+    color: var(--crimson);
+    font-size: 0.55rem;
   }
-
   .info-list li:last-child { border-bottom: none; }
 
-  @media (max-width: 900px) {
-    .contact__grid { grid-template-columns: 1fr; gap: 3rem; }
+  @media (max-width: 960px) {
+    .contact__grid { grid-template-columns: 1fr; }
+    .contact__side { position: static; }
   }
 </style>

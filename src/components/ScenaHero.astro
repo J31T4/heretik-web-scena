@@ -3,25 +3,54 @@ import { asset, page } from '../utils/paths.js';
 ---
 
 <section class="scena-hero">
-  <div class="hero__bg">
-    <img src={asset('/images/hero-1.jpeg')} alt="" />
-    <div class="hero__overlay"></div>
+  <div class="hero__bg" data-hero-parallax aria-hidden="true">
+    <picture>
+      <source media="(max-width: 760px)" srcset={asset('/images/opt/hero-1-900.webp')} type="image/webp" />
+      <source media="(max-width: 760px)" srcset={asset('/images/opt/hero-1-900.jpg')} type="image/jpeg" />
+      <source srcset={asset('/images/opt/hero-1.webp')} type="image/webp" />
+      <img
+        src={asset('/images/opt/hero-1.jpg')}
+        alt=""
+        class="hero__drift"
+        width="1568"
+        height="1024"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </picture>
   </div>
+
+  <div class="hero__veil" aria-hidden="true"></div>
+  <div class="hero__curtain hero__curtain--l" aria-hidden="true"></div>
+  <div class="hero__curtain hero__curtain--r" aria-hidden="true"></div>
+  <div class="hero__spotlight" aria-hidden="true"></div>
+  <div class="hero__beam" aria-hidden="true"></div>
+  <div class="grain grain--animated" aria-hidden="true"></div>
 
   <canvas class="hero__sparks" id="sparksCanvas" aria-hidden="true"></canvas>
 
   <div class="container hero__content">
-    <p class="hero__eyebrow reveal">Historický a scénický šerm · Mohelnice</p>
-    <h1 class="hero__title reveal">
-      PŘEDSTAVENÍ<br />
-      <span class="fire-text">ZAČÍNÁ</span>
+    <p class="hero__eyebrow">
+      <span class="hero__eyebrow-dash" aria-hidden="true"></span>
+      Historický a scénický šerm · Mohelnice
+    </p>
+
+    <div class="hero__glint" aria-hidden="true"><i></i></div>
+
+    <h1 class="hero__title">
+      <span class="hero__title-kicker">Představení</span>
+      <span class="hero__title-main fire-text">ZAČÍNÁ</span>
     </h1>
-    <p class="hero__subtitle reveal">
+
+    <p class="hero__subtitle">
       Oživujeme dávné bojové umění a přenášíme ho do současnosti.
       Scénický šerm, historické techniky, vlastní choreografie.
     </p>
-    <div class="hero__cta reveal">
-      <a href={page('/kontakt')} class="btn btn--primary">Poptat vystoupení</a>
+
+    <div class="hero__cta">
+      <a href={page('/kontakt')} class="btn btn--primary">
+        Poptat vystoupení <span class="btn__arrow">→</span>
+      </a>
       <a href={page('/galerie')} class="btn btn--ghost">Prohlédnout galerii</a>
     </div>
   </div>
@@ -30,194 +59,288 @@ import { asset, page } from '../utils/paths.js';
     <span>SCROLL</span>
     <div class="hero__scroll-line"></div>
   </div>
+
+  <div class="hero__frame" aria-hidden="true"></div>
 </section>
-
-<script>
-  // Jiskry ohně – canvas particle efekt s glow a delší životností
-  (function () {
-    const canvas = document.getElementById('sparksCanvas');
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    let width, height, particles = [];
-    const MAX_PARTICLES = 130;
-
-    function resize() {
-      const rect = canvas.parentElement.getBoundingClientRect();
-      width = canvas.width = rect.width;
-      height = canvas.height = rect.height;
-    }
-
-    function spawn() {
-      const big = Math.random() < 0.18; // občasná velká jiskra
-      return {
-        x: Math.random() * width,
-        y: height + Math.random() * 60,
-        size: big ? Math.random() * 4 + 3 : Math.random() * 2.2 + 0.8,
-        speed: Math.random() * 1.4 + 0.5,
-        drift: (Math.random() - 0.5) * 0.8,
-        life: 1,
-        decay: big
-          ? Math.random() * 0.0008 + 0.0004  // velké jiskry žijí ~20-40s
-          : Math.random() * 0.002 + 0.001,   // malé ~7-15s
-        hue: Math.random() > 0.35 ? 0 : 45,  // červená nebo zlatá
-        flicker: Math.random() * 0.15,
-      };
-    }
-
-    function tick() {
-      ctx.clearRect(0, 0, width, height);
-
-      if (particles.length < MAX_PARTICLES && Math.random() < 0.6) {
-        particles.push(spawn());
-      }
-
-      particles = particles.filter(p => p.life > 0);
-
-      for (const p of particles) {
-        p.y -= p.speed;
-        p.x += p.drift + Math.sin(p.y * 0.02 + p.flicker) * 0.6;
-        p.life -= p.decay;
-
-        const isRed = p.hue === 0;
-        const color = isRed ? '228, 6, 7' : '178, 175, 63';
-
-        // Jiskra drží plnou velikost a jas po většinu života,
-        // dohasíná (fade) až na konci – žádné náhlé zmizení
-        const fade = Math.min(p.life * 1.8, 1);
-
-        // Glow efekt
-        ctx.shadowBlur = p.size * 6;
-        ctx.shadowColor = `rgba(${color}, ${fade})`;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${color}, ${fade})`;
-        ctx.fill();
-
-        // Jasné jádro
-        ctx.shadowBlur = 0;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size * 0.4, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 240, 210, ${fade * 0.9})`;
-        ctx.fill();
-      }
-
-      requestAnimationFrame(tick);
-    }
-
-    resize();
-    window.addEventListener('resize', resize);
-    tick();
-  })();
-</script>
 
 <style>
   .scena-hero {
     position: relative;
     min-height: 92vh;
+    min-height: 100svh;
     display: flex;
     align-items: center;
     overflow: hidden;
+    isolation: isolate;
   }
 
+  /* --- Pozadí s driftem (parallax na rodiči) --- */
   .hero__bg {
     position: absolute;
-    inset: 0;
+    inset: -15% 0;
     z-index: 0;
+    will-change: transform;
   }
-
   .hero__bg img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center top;
+    object-position: center 20%;
+  }
+  html.enhanced .hero__drift {
+    animation: hero-drift 26s ease-in-out infinite alternate;
+  }
+  @keyframes hero-drift {
+    from { transform: scale(1.05) translateY(-1%); }
+    to { transform: scale(1.12) translateY(1%); }
   }
 
-  .hero__overlay {
+  /* --- Záběr / opona / světla (statické vrstvy nad parallaxem) --- */
+  .hero__veil {
     position: absolute;
     inset: 0;
+    z-index: 1;
     background:
-      linear-gradient(90deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.55) 55%, rgba(10,10,10,0.3) 100%),
-      linear-gradient(180deg, rgba(10,10,10,0.3) 0%, transparent 40%, rgba(10,10,10,0.85) 100%);
+      linear-gradient(90deg, rgba(6, 6, 6, 0.92) 0%, rgba(6, 6, 6, 0.55) 40%, rgba(6, 6, 6, 0.15) 68%, rgba(6, 6, 6, 0.55) 100%),
+      linear-gradient(180deg, rgba(6, 6, 6, 0.66) 0%, rgba(6, 6, 6, 0.04) 24%, rgba(6, 6, 6, 0.22) 60%, rgba(6, 6, 6, 0.97) 100%);
   }
 
+  .hero__curtain {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: clamp(80px, 12vw, 200px);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .hero__curtain--l {
+    left: 0;
+    background: linear-gradient(90deg, rgba(3, 3, 3, 0.92) 0%, rgba(3, 3, 3, 0.35) 55%, transparent 100%);
+  }
+  .hero__curtain--l::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(228, 6, 7, 0.45) 30%, rgba(228, 6, 7, 0.45) 70%, transparent);
+  }
+  .hero__curtain--r {
+    right: 0;
+    background: linear-gradient(270deg, rgba(3, 3, 3, 0.92) 0%, rgba(3, 3, 3, 0.35) 55%, transparent 100%);
+  }
+
+  /* Kužel reflektoru — jemná šikmá světelná stopa */
+  .hero__spotlight {
+    position: absolute;
+    top: -18%;
+    left: 12%;
+    width: 46%;
+    height: 130%;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      118deg,
+      transparent 34%,
+      rgba(242, 237, 228, 0.055) 45%,
+      rgba(242, 237, 228, 0.1) 50%,
+      rgba(242, 237, 228, 0.055) 55%,
+      transparent 66%
+    );
+    mix-blend-mode: screen;
+    transform: rotate(-8deg);
+  }
+  html.enhanced .hero__spotlight {
+    animation: spotlight-sway 16s ease-in-out infinite alternate;
+  }
+  @keyframes spotlight-sway {
+    from { transform: rotate(-8deg) translateX(-1.5%); }
+    to { transform: rotate(-3deg) translateX(2%); }
+  }
+
+  /* Druhý, širší a slabší pás světla z pravého horního rohu */
+  .hero__beam {
+    position: absolute;
+    top: -30%;
+    right: -8%;
+    width: 55%;
+    height: 150%;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(135deg, rgba(228, 6, 7, 0.06) 0%, transparent 45%, transparent 60%, rgba(242, 237, 228, 0.04) 100%);
+  }
+
+  /* --- Obsah --- */
   .hero__content {
     position: relative;
-    z-index: 1;
-    padding-top: 4rem;
-    padding-bottom: 6rem;
-    max-width: 720px;
+    z-index: 5;
+    width: 100%;
+    padding-top: calc(var(--sp-8) + 1rem);
+    padding-bottom: var(--sp-8);
   }
 
   .hero__eyebrow {
-    font-family: var(--font-display);
-    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
     font-weight: 600;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.32em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--sp-5);
+  }
+  .hero__eyebrow-dash {
+    width: 34px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.75;
+  }
+
+  /* Glint — záblesk na čepeli pod eyebrow */
+  .hero__glint {
+    position: relative;
+    width: 190px;
+    height: 1px;
+    background: var(--line-2);
+    margin-bottom: var(--sp-5);
+    overflow: hidden;
+  }
+  .hero__glint i {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, rgba(242, 237, 228, 0.95), transparent);
+    transform: translateX(-100%);
+  }
+  html.enhanced .hero__glint i { animation: glint-sweep 6s var(--ease) infinite; }
+  @keyframes glint-sweep {
+    0% { transform: translateX(-100%); opacity: 0; }
+    12% { opacity: 1; }
+    26% { transform: translateX(330%); opacity: 0; }
+    100% { transform: translateX(330%); opacity: 0; }
   }
 
   .hero__title {
-    color: var(--text);
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--sp-5);
+    font-weight: 500;
+    text-shadow: 0 2px 28px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+  .hero__title-kicker {
+    display: block;
+    font-size: clamp(1.55rem, 4.4vw, 3.4rem);
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    margin-bottom: 0.28em;
+  }
+  .hero__title-main {
+    display: block;
+    font-size: clamp(3.6rem, 10.5vw, 8.4rem);
+    font-weight: 600;
+    line-height: 0.95;
   }
 
   .hero__subtitle {
-    font-size: 1.15rem;
-    color: rgba(245, 240, 235, 0.85);
+    font-size: var(--fs-lead);
+    color: rgba(242, 237, 228, 0.88);
     max-width: 520px;
-    margin-bottom: 2.5rem;
+    margin-bottom: var(--sp-6);
   }
 
   .hero__cta {
     display: flex;
-    gap: 1rem;
+    gap: var(--sp-4);
     flex-wrap: wrap;
   }
+  .hero__cta .btn--ghost {
+    border-color: rgba(242, 237, 228, 0.4);
+    background: rgba(6, 6, 6, 0.35);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+  .hero__cta .btn--ghost:hover {
+    border-color: var(--crimson-bright);
+    background: rgba(6, 6, 6, 0.55);
+  }
 
+  /* --- Scroll cue --- */
   .hero__scroll {
     position: absolute;
-    right: 2.5rem;
-    bottom: 3rem;
-    z-index: 1;
+    left: calc(var(--gutter) + 6px);
+    bottom: calc(var(--sp-6) + env(safe-area-inset-bottom));
+    z-index: 5;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: var(--sp-4);
+  }
+  .hero__scroll span {
+    font-family: var(--font-ui);
+    font-size: 0.64rem;
+    letter-spacing: 0.4em;
+    color: var(--ink-3);
+    writing-mode: vertical-rl;
+  }
+  .hero__scroll-line {
+    width: 1px;
+    height: 64px;
+    background: linear-gradient(180deg, var(--steel), transparent);
+    transform-origin: top;
+    animation: scroll-pulse 2.2s var(--ease-in-out, ease-in-out) infinite;
+  }
+  @keyframes scroll-pulse {
+    0% { transform: scaleY(0.2); opacity: 1; }
+    60% { transform: scaleY(1); opacity: 0.25; }
+    100% { transform: scaleY(1); opacity: 0; }
+  }
+
+  /* --- Rám scény --- */
+  .hero__frame {
+    position: absolute;
+    inset: 14px;
+    border: 1px solid rgba(242, 237, 228, 0.07);
+    z-index: 3;
+    pointer-events: none;
   }
 
   .hero__sparks {
     position: absolute;
     inset: 0;
-    z-index: 1;
+    z-index: 4;
     pointer-events: none;
   }
 
-  .hero__scroll span {
-    font-family: var(--font-display);
-    font-size: 0.7rem;
-    letter-spacing: 0.35em;
-    color: var(--text-secondary);
-    writing-mode: vertical-rl;
+  /* --- Vstupní sekvence (až po enhanced) --- */
+  html.enhanced .hero__content > * {
+    opacity: 0;
+    animation: hero-in 1s var(--ease-out) forwards;
+  }
+  html.enhanced .hero__eyebrow { animation-delay: 0.15s; }
+  html.enhanced .hero__glint { animation-delay: 0.3s; }
+  html.enhanced .hero__title { animation-delay: 0.38s; }
+  html.enhanced .hero__subtitle { animation-delay: 0.6s; }
+  html.enhanced .hero__cta { animation-delay: 0.75s; }
+  html.enhanced .hero__scroll { animation: hero-in 1.1s var(--ease-out) 1.1s both; }
+
+  @keyframes hero-in {
+    from { opacity: 0; transform: translateY(26px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
-  .hero__scroll-line {
-    width: 1px;
-    height: 60px;
-    background: linear-gradient(180deg, var(--red), transparent);
-    animation: scrollPulse 2s var(--ease) infinite;
-  }
-
-  @keyframes scrollPulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
+    .hero__curtain--r, .hero__beam, .hero__frame { display: none; }
     .hero__scroll { display: none; }
-    .hero__content { padding-bottom: 4rem; }
+    .hero__content { padding-top: var(--sp-8); }
+  }
+  @media (max-width: 560px) {
+    .hero__spotlight { display: none; }
+    .hero__title-main { font-size: clamp(3.2rem, 15vw, 4.6rem); }
+    .hero__content { padding-bottom: var(--sp-7); }
   }
 </style>

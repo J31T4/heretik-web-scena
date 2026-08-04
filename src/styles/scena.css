@@ -1,204 +1,524 @@
-/* ============================================
-   SHŠ Heretik – SCÉNA
-   "Představení začíná" – divadelní program
-   Paleta z loga: #E40607 / #B2AF3F / #0A0A0A
-   ============================================ */
+/* ============================================================
+   SHŠ Heretik — SCÉNA · „PŘEDSTAVENÍ ZAČÍNÁ“
+   Divadelní vizuální systém — tematické tokeny a sdílené styly
+   Paleta z loga: #E40607 (karmín) · #B2AF3F (zlatá) · #0A0A0A
+   ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
-
-:root {
-  --red: #E40607;
-  --red-dark: #850202;
-  --gold: #B2AF3F;
-  --bg: #0A0A0A;
-  --bg-card: #141414;
-  --bg-elevated: #1C1C1C;
-  --text: #F5F0EB;
-  --text-secondary: #9A9590;
-  --border: #2A2A2A;
-
-  --font-display: 'Space Grotesk', sans-serif;
-  --font-body: 'Inter', sans-serif;
-
-  --container: 1200px;
-  --ease: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+/* ---------- Fonty (self-hosted, OFL, latin + latin-ext) ---------- */
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('/fonts/fraunces-latin-400_600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('/fonts/fraunces-latin-ext-400_600.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('/fonts/inter-latin-400_600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('/fonts/inter-latin-ext-400_600.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url('/fonts/space-grotesk-latin-500_700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url('/fonts/space-grotesk-latin-ext-500_700.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
+/* ---------- Design tokeny ---------- */
+:root {
+  /* Barvy — divadelní tma */
+  --bg-0: #060606;
+  --bg: #0a0a0a;
+  --bg-2: #101010;
+  --bg-3: #151515;
+  --bg-4: #1b1b1b;
+
+  /* Text — teplá slonovina */
+  --ink: #f2ede4;
+  --ink-2: #bcb6ac;
+  --ink-3: #918b81;
+
+  /* Karmín — hlavní akcent (z loga) */
+  --crimson: #e40607;
+  --crimson-bright: #ff4a4b;
+  --crimson-deep: #7c0203;
+  --crimson-glow: rgba(228, 6, 7, 0.28);
+
+  /* Ocel — sekundární akcent */
+  --steel: #99a1a8;
+  --steel-deep: #5d646b;
+
+  /* Zlatá — značka, používat střídmě (z loga) */
+  --gold: #b2af3f;
+  --gold-soft: rgba(178, 175, 63, 0.6);
+
+  /* Linky a rámy */
+  --line: rgba(242, 237, 228, 0.08);
+  --line-2: rgba(242, 237, 228, 0.16);
+  --line-strong: rgba(242, 237, 228, 0.28);
+
+  /* Typografie */
+  --font-display: 'Fraunces', 'Georgia', serif;
+  --font-ui: 'Space Grotesk', 'Inter', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --fs-hero: clamp(3.1rem, 9vw, 8rem);
+  --fs-h1: clamp(2.5rem, 6vw, 4.6rem);
+  --fs-h2: clamp(2rem, 4.4vw, 3.3rem);
+  --fs-h3: clamp(1.3rem, 2.2vw, 1.7rem);
+  --fs-lead: clamp(1.08rem, 1.6vw, 1.22rem);
+  --fs-body: 1.02rem;
+  --fs-small: 0.88rem;
+  --fs-micro: 0.72rem;
+
+  /* Layout */
+  --container: 1180px;
+  --container-wide: 1360px;
+  --gutter: clamp(1.4rem, 4vw, 2.75rem);
+
+  /* Spacing scale */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4.5rem;
+  --sp-9: clamp(5rem, 11vw, 8.5rem);
+
+  /* Stíny a záře */
+  --shadow-1: 0 6px 24px rgba(0, 0, 0, 0.45);
+  --shadow-2: 0 24px 70px rgba(0, 0, 0, 0.6);
+  --shadow-red: 0 12px 44px rgba(228, 6, 7, 0.32);
+  --glow-red: 0 0 70px var(--crimson-glow);
+
+  /* Pohyb */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --t-fast: 0.18s;
+  --t-med: 0.4s;
+  --t-slow: 0.8s;
+
+  /* Z-index vrstvy */
+  --z-header: 100;
+  --z-menu: 200;
+  --z-lightbox: 300;
+
+  --rail-left: clamp(1.4rem, 4vw, 2.75rem);
+}
+
+/* ---------- Reset a základ ---------- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; color-scheme: dark; }
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
 
 body {
   font-family: var(--font-body);
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
+  background: var(--bg-0);
+  color: var(--ink);
+  line-height: 1.65;
+  font-size: var(--fs-body);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-wrap: balance;
 }
 
-h1 { font-size: clamp(3rem, 9vw, 7rem); }
-h2 { font-size: clamp(2rem, 5vw, 3.5rem); }
-h3 { font-size: clamp(1.2rem, 2vw, 1.6rem); }
+h1 { font-size: var(--fs-h1); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
 
-p { font-size: 1.05rem; line-height: 1.75; color: var(--text-secondary); }
-
+p { color: var(--ink-2); }
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
+ul, ol { list-style: none; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
 
+::selection { background: var(--crimson); color: #fff; }
+
+:focus-visible {
+  outline: 2px solid var(--crimson-bright);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+/* Skip link */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 1rem;
+  z-index: 400;
+  background: var(--crimson);
+  color: #fff;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.8rem 1.4rem;
+  transition: top 0.2s var(--ease-out);
+}
+.skip-link:focus-visible { top: 1rem; }
+
+/* ---------- Kontejnery a sekce ---------- */
 .container {
   max-width: var(--container);
   margin: 0 auto;
-  padding: 0 clamp(1.5rem, 4vw, 3rem);
+  padding: 0 var(--gutter);
+}
+.container--wide { max-width: var(--container-wide); }
+
+.section {
+  position: relative;
+  padding: var(--sp-9) 0;
+}
+.section--tint { background: var(--bg); }
+.section--tint-2 { background: var(--bg-2); }
+
+/* Ohraničené sekce (divadelní „rámy“) */
+.section--framed {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(ellipse 60% 90% at 50% 110%, rgba(228, 6, 7, 0.07), transparent 60%),
+    var(--bg);
 }
 
-::selection { background: var(--red); color: white; }
-
-/* ==== Tlačítka ==== */
-.btn {
+/* ---------- Eyebrow / štítky dějství ---------- */
+.act-label {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 1rem 2.2rem;
-  font-family: var(--font-display);
-  font-size: 0.95rem;
+  gap: 0.7rem;
+  font-family: var(--font-ui);
+  font-size: var(--fs-micro);
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.34em;
   text-transform: uppercase;
-  border: none;
-  border-radius: 0;
-  cursor: pointer;
-  transition: all 0.3s var(--ease);
-  position: relative;
+  color: var(--crimson-bright);
+  margin-bottom: var(--sp-3);
 }
-
-.btn--primary {
-  background: var(--red);
-  color: white;
-  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+.act-label::before {
+  content: '';
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.7;
 }
-
-.btn--primary:hover {
-  background: var(--red-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 40px rgba(228, 6, 7, 0.35);
-}
-
-.btn--ghost {
-  background: transparent;
-  color: var(--text);
-  border: 1px solid var(--border);
-}
-
-.btn--ghost:hover {
-  border-color: var(--gold);
-  color: var(--gold);
-}
-
-/* ==== Marquee ==== */
-.marquee {
-  overflow: hidden;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 1rem 0;
-  background: var(--bg-card);
-  white-space: nowrap;
-}
-
-.marquee__track {
-  display: inline-block;
-  animation: marquee 30s linear infinite;
-  font-family: var(--font-display);
-  font-size: 1rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-}
-
-.marquee__track span { margin: 0 1.5rem; }
-.marquee__track .dot { color: var(--red); }
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-/* ==== Sekce ==== */
-.section { padding: clamp(5rem, 12vw, 9rem) 0; }
-
-.section--card { background: var(--bg-card); }
 
 .section-label {
-  font-family: var(--font-display);
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--red);
-  margin-bottom: 1rem;
   display: block;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: var(--sp-3);
 }
 
-.section-title { margin-bottom: 1.5rem; }
-
+.section-head { margin-bottom: var(--sp-8); }
+.section-title { margin-bottom: var(--sp-4); }
 .section-subtitle {
-  max-width: 600px;
-  margin-bottom: 3rem;
+  max-width: 620px;
+  font-size: var(--fs-lead);
+  color: var(--ink-2);
 }
 
-/* ==== Divider ==== */
+/* ---------- Dělítko s čepelí ---------- */
 .divider {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin: 1.5rem 0 3rem;
+  gap: var(--sp-4);
+  margin: var(--sp-6) 0 var(--sp-7);
 }
-
 .divider::before,
 .divider::after {
   content: '';
   flex: 1;
   height: 1px;
-  background: var(--border);
+  background: var(--line-2);
 }
-
 .divider span {
-  width: 8px;
-  height: 8px;
-  background: var(--red);
+  width: 7px;
+  height: 7px;
+  background: var(--crimson);
   transform: rotate(45deg);
+  box-shadow: 0 0 12px var(--crimson-glow);
 }
 
-/* ==== Scroll reveal – progressive enhancement ==== */
+/* ---------- Tlačítka ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1rem 2.1rem;
+  font-family: var(--font-ui);
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition:
+    background-color var(--t-med) var(--ease),
+    color var(--t-med) var(--ease),
+    border-color var(--t-med) var(--ease),
+    transform var(--t-med) var(--ease-out),
+    box-shadow var(--t-med) var(--ease);
+  min-height: 48px;
+}
+.btn .btn__arrow { transition: transform var(--t-med) var(--ease-out); }
+
+.btn--primary {
+  background: var(--crimson);
+  color: #fff;
+  clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 13px, 100% 100%, 13px 100%, 0 calc(100% - 13px));
+}
+.btn--primary:hover {
+  background: var(--crimson-bright);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-red);
+}
+.btn--primary:hover .btn__arrow { transform: translateX(4px); }
+
+.btn--ghost {
+  background: rgba(242, 237, 228, 0.03);
+  color: var(--ink);
+  border-color: var(--line-2);
+}
+.btn--ghost:hover {
+  border-color: var(--crimson);
+  color: var(--crimson-bright);
+  background: rgba(228, 6, 7, 0.06);
+  transform: translateY(-2px);
+}
+
+.btn--steel {
+  background: transparent;
+  color: var(--steel);
+  border-color: rgba(153, 161, 168, 0.35);
+}
+.btn--steel:hover {
+  border-color: var(--steel);
+  color: var(--ink);
+  background: rgba(153, 161, 168, 0.08);
+}
+
+.btn--large { padding: 1.15rem 2.8rem; font-size: 0.95rem; min-height: 56px; }
+.btn--block { width: 100%; }
+
+/* ---------- Reveal (progressive enhancement) ---------- */
 html.enhanced .reveal {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+  transform: translateY(34px);
+  transition:
+    opacity 0.9s var(--ease-out) var(--reveal-delay, 0ms),
+    transform 0.9s var(--ease-out) var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
 }
-
 html.enhanced .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
+/* Varianty: zleva, zoom */
+html.enhanced .reveal--left { transform: translateX(-34px); }
+html.enhanced .reveal--left.visible { transform: translateX(0); }
+html.enhanced .reveal--zoom { transform: scale(0.96); }
+html.enhanced .reveal--zoom.visible { transform: scale(1); }
 
-/* ==== Fire gradient text ==== */
+/* ---------- Filmové zrno ---------- */
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+  z-index: 2;
+}
+html.enhanced .grain--animated { animation: grain-shift 1.2s steps(4) infinite; }
+
+@keyframes grain-shift {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-2%, 1.5%); }
+  50% { transform: translate(1.5%, -1%); }
+  75% { transform: translate(-1%, -2%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ---------- Marquee ---------- */
+.marquee {
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+  white-space: nowrap;
+  padding: var(--sp-4) 0;
+  position: relative;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee__track {
+  display: inline-block;
+  width: max-content;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  will-change: transform;
+}
+.marquee__track--top { animation: marquee-a 38s linear infinite; }
+.marquee__track--bottom {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.42em;
+  color: var(--gold-soft);
+  animation: marquee-b 30s linear infinite;
+}
+.marquee__track span { margin: 0 var(--sp-5); display: inline-block; }
+.marquee__track .dot {
+  color: var(--crimson);
+  font-size: 0.6em;
+  margin-right: var(--sp-2);
+  vertical-align: 0.2em;
+}
+.marquee__track--bottom .dot { color: var(--gold); }
+
+.marquee:hover .marquee__track,
+.marquee:focus-within .marquee__track { animation-play-state: paused; }
+
+@keyframes marquee-a {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes marquee-b {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+/* ---------- Ohnivý gradient (značka „ZAČÍNÁ“) ---------- */
 .fire-text {
-  background: linear-gradient(120deg, var(--red) 0%, var(--gold) 50%, var(--red) 100%);
-  background-size: 200% auto;
+  background: linear-gradient(110deg, var(--crimson) 0%, #ff9d6b 45%, var(--gold) 90%);
+  background-size: 180% auto;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: fire 6s linear infinite;
+  animation: fire 7s linear infinite;
+}
+html.enhanced .fire-text { animation: fire 7s linear infinite; }
+@keyframes fire {
+  to { background-position: -180% center; }
 }
 
-@keyframes fire {
-  to { background-position: 200% center; }
+/* ---------- Ocelový / stříbrný text ---------- */
+.steel-text {
+  background: linear-gradient(115deg, var(--steel-deep) 0%, var(--steel) 40%, #e8ecef 65%, var(--steel) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Vertikální rail dějství (desktop) ---------- */
+.act-section { position: relative; }
+.act-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--rail-left);
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--line-2) 8%, var(--line-2) 92%, transparent);
+  display: none;
+}
+.act-node {
+  display: none;
+  position: absolute;
+  top: var(--sp-9);
+  left: calc(var(--rail-left) - 3.5px);
+  width: 8px;
+  height: 8px;
+  background: var(--bg);
+  border: 1px solid var(--crimson);
+  transform: rotate(45deg);
+  z-index: 1;
+}
+.act-node::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  background: var(--crimson);
+}
+@media (min-width: 1100px) {
+  .act-section::before { display: block; }
+  .act-node { display: block; }
+}
+
+/* Zamčení scrollu při otevřeném menu / lightboxu */
+.scroll-locked { overflow: hidden; }
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+  html.enhanced .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .marquee__track { animation: none !important; }
+  .fire-text { animation: none !important; }
+  .grain--animated { animation: none !important; }
 }

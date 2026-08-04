@@ -14,114 +14,202 @@ const navLinks = [
 
 <footer class="scena-footer">
   <div class="container">
+    <div class="footer__crest" aria-hidden="true"><i></i><span>◆</span><i></i></div>
+
     <div class="footer__top">
       <div class="footer__brand">
-        <img src={asset('/logo.svg')} alt="SHŠ Heretik" class="footer__logo" />
-        <p class="footer__tagline">Historický a scénický šerm<br />z Mohelnice</p>
+        <img src={asset('/logo.svg')} alt="" class="footer__logo" width="74" height="60" />
+        <p class="footer__name">SHŠ Heretik</p>
+        <p class="footer__tagline">Historický a scénický šerm z Mohelnice.<br />Umění, které přežívá století.</p>
       </div>
 
-      <nav class="footer__nav">
+      <nav class="footer__nav" aria-label="Patička — navigace">
+        <p class="footer__heading">Program</p>
         {navLinks.map((l) => (
           <a href={l.href}>{l.label}</a>
         ))}
       </nav>
 
       <div class="footer__contact">
-        <p class="footer__place">Mohelnice, Česká republika</p>
+        <p class="footer__heading">Kontakt</p>
+        <p class="footer__place">Mohelnice · Česká republika</p>
         <div class="footer__social">
-          <a href="https://www.facebook.com/Heretik2020/" target="_blank" rel="noopener" aria-label="Facebook">FB</a>
-          <a href="https://www.instagram.com/heretik_z.s._/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+          <a href="https://www.facebook.com/Heretik2020/" target="_blank" rel="noopener" aria-label="Facebook — SHŠ Heretik">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+              <path d="M14 8.5V7a1.5 1.5 0 0 1 1.5-1.5H17V2.5h-2.5A4.5 4.5 0 0 0 10 7v1.5H7.5V12H10v9.5h4V12h2.8l.7-3.5H14z" />
+            </svg>
+            Facebook
+          </a>
+          <a href="https://www.instagram.com/heretik_z.s._/" target="_blank" rel="noopener" aria-label="Instagram — SHŠ Heretik">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="5" />
+              <circle cx="12" cy="12" r="4.2" />
+              <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" />
+            </svg>
+            Instagram
+          </a>
         </div>
+        <a href={page('/kontakt')} class="btn btn--steel footer__cta">
+          Poptat vystoupení <span class="btn__arrow">→</span>
+        </a>
       </div>
     </div>
 
     <div class="footer__bottom">
       <p>© {year} SHŠ Heretik. Všechna práva vyhrazena.</p>
-      <p class="footer__motto">◆ Šermíři s vášní a uměním ◆</p>
+      <p class="footer__motto">Šermíři s vášní a uměním ◆</p>
     </div>
   </div>
 </footer>
 
 <style>
   .scena-footer {
-    background: var(--bg);
-    border-top: 1px solid var(--border);
-    padding: 4rem 0 2rem;
+    background: var(--bg-0);
+    border-top: 1px solid var(--line);
+    padding: var(--sp-8) 0 var(--sp-6);
+    position: relative;
+  }
+
+  .footer__crest {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-4);
+    margin-bottom: var(--sp-8);
+  }
+  .footer__crest i {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--line-2));
+  }
+  .footer__crest i:last-child { background: linear-gradient(90deg, var(--line-2), transparent); }
+  .footer__crest span {
+    color: var(--crimson);
+    font-size: 0.7rem;
+    text-shadow: 0 0 14px var(--crimson-glow);
   }
 
   .footer__top {
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr;
-    gap: 3rem;
-    padding-bottom: 3rem;
-    border-bottom: 1px solid var(--border);
+    grid-template-columns: 1.6fr 1fr 1.3fr;
+    gap: var(--sp-8);
+    padding-bottom: var(--sp-7);
+    border-bottom: 1px solid var(--line);
   }
 
-  .footer__logo { height: 56px; width: auto; margin-bottom: 1rem; }
-
-  .footer__tagline {
+  .footer__logo {
+    height: 64px;
+    width: auto;
+    margin-bottom: var(--sp-4);
+    filter: drop-shadow(0 0 16px rgba(178, 175, 63, 0.22));
+  }
+  .footer__name {
     font-family: var(--font-display);
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: var(--sp-2);
+  }
+  .footer__tagline {
+    font-size: 0.92rem;
+    color: var(--ink-3);
+    line-height: 1.7;
+  }
+
+  .footer__heading {
+    font-family: var(--font-ui);
+    font-size: var(--fs-micro);
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--crimson-bright);
+    margin-bottom: var(--sp-4);
   }
 
   .footer__nav {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    align-items: flex-start;
+    gap: 0.55rem;
   }
-
   .footer__nav a {
-    font-family: var(--font-display);
-    font-size: 0.9rem;
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--text-secondary);
-    transition: color 0.3s var(--ease);
+    color: var(--ink-2);
+    padding: 0.25rem 0;
+    position: relative;
+    transition: color var(--t-fast) var(--ease), padding-left var(--t-fast) var(--ease);
+  }
+  .footer__nav a::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    font-size: 0.5rem;
+    color: var(--crimson);
+    opacity: 0;
+    transition: opacity var(--t-fast) var(--ease);
+  }
+  .footer__nav a:hover {
+    color: var(--ink);
+    padding-left: 1.1rem;
+  }
+  .footer__nav a:hover::before { opacity: 1; }
+
+  .footer__place {
+    font-size: 0.95rem;
+    color: var(--ink-2);
+    margin-bottom: var(--sp-5);
   }
 
-  .footer__nav a:hover { color: var(--red); }
-
-  .footer__email {
-    font-family: var(--font-display);
-    font-weight: 600;
-    color: var(--gold);
+  .footer__social {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-bottom: var(--sp-6);
   }
-
-  .footer__place { margin: 0.5rem 0 1.2rem; font-size: 0.95rem; }
-
-  .footer__social { display: flex; gap: 1rem; }
-
   .footer__social a {
-    font-family: var(--font-display);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    padding: 0.4rem 0.7rem;
-    border: 1px solid var(--border);
-    transition: all 0.3s var(--ease);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--ink-2);
+    padding: 0.55rem 0.9rem;
+    border: 1px solid var(--line);
+    transition: border-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
+    width: fit-content;
+    min-height: 44px;
   }
-
   .footer__social a:hover {
-    border-color: var(--red);
-    color: var(--red);
+    border-color: var(--crimson);
+    color: var(--ink);
+    background: rgba(228, 6, 7, 0.06);
   }
+  .footer__social svg { color: var(--steel); }
 
   .footer__bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 1rem;
-    padding-top: 2rem;
+    gap: var(--sp-4);
+    padding-top: var(--sp-5);
   }
+  .footer__bottom p {
+    font-size: 0.82rem;
+    color: var(--ink-3);
+  }
+  .footer__motto { letter-spacing: 0.12em; }
 
-  .footer__bottom p { font-size: 0.85rem; color: var(--text-secondary); }
-
-  .footer__motto { color: var(--gold) !important; letter-spacing: 0.1em; }
-
-  @media (max-width: 768px) {
-    .footer__top { grid-template-columns: 1fr; gap: 2rem; }
+  @media (max-width: 900px) {
+    .footer__top { grid-template-columns: 1fr 1fr; gap: var(--sp-7); }
+    .footer__brand { grid-column: 1 / -1; }
+  }
+  @media (max-width: 560px) {
+    .footer__top { grid-template-columns: 1fr; gap: var(--sp-6); }
+    .footer__bottom { flex-direction: column; align-items: flex-start; }
   }
 </style>
