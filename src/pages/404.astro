@@ -1,0 +1,23 @@
+---
+import ScenaLayout from '../layouts/ScenaLayout.astro';
+import ScenaHeader from '../components/ScenaHeader.astro';
+import ScenaFooter from '../components/ScenaFooter.astro';
+import { page } from '../utils/paths.js';
+---
+
+<ScenaLayout
+  title="Stránka nenalezena"
+  description="Požadovaná stránka nebyla nalezena. Vraťte se na úvodní stránku SHŠ Heretik."
+>
+  <ScenaHeader />
+  <main id="obsah">
+    <section class="section">
+      <div class="container">
+        <h1>404 — Stránka nenalezena</h1>
+        <p>Tato stránka neexistuje nebo byla přesunuta.</p>
+        <a class="btn btn--primary" href={page('/')}>Zpět na úvodní stránku</a>
+      </div>
+    </section>
+  </main>
+  <ScenaFooter />
+</ScenaLayout>
