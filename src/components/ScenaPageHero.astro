@@ -98,13 +98,13 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
     inset: 0;
     z-index: 0;
   }
-  .page-hero__bg img {
+  .page-hero__bg :global(img) {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  .page-hero__image--high { object-position: center 25%; }
-  .page-hero__image--mid { object-position: center 40%; }
+  :global(.page-hero__image--high) { object-position: center 25%; }
+  :global(.page-hero__image--mid) { object-position: center 40%; }
   .page-hero__veil {
     position: absolute;
     inset: 0;
@@ -139,7 +139,7 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
     justify-self: end;
     width: 100%;
   }
-  .page-hero__figure img {
+  .page-hero__figure :global(img) {
     width: 100%;
     height: auto;
     display: block;

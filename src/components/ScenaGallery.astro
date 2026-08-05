@@ -108,16 +108,48 @@ const images = [
     width: 100%;
     height: 100%;
     padding: 0;
-    border: none;
+    border: 1px solid transparent;
     text-align: left;
     cursor: zoom-in;
     position: relative;
     overflow: hidden;
     background: var(--bg-3);
-    transition: transform var(--t-med) var(--ease-out);
+    transition:
+      transform var(--t-med) var(--ease-out),
+      border-color var(--t-fast) var(--ease),
+      box-shadow var(--t-med) var(--ease);
   }
-  .gallery__item:hover,
-  .gallery__item:focus-visible { transform: translateY(-3px); }
+  .gallery__item:focus-visible {
+    transform: translateY(-4px);
+    border-color: var(--stroke-strong);
+    box-shadow: var(--shadow-1), var(--shadow-red);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .gallery__item:hover {
+      transform: translateY(-4px);
+      border-color: var(--stroke-strong);
+      box-shadow: var(--shadow-1), var(--shadow-red);
+    }
+  }
+
+  /* Karmínový vlasový řádek shora */
+  .gallery__item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--crimson), rgba(178, 175, 63, 0.7));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur-3) var(--ease-out);
+    z-index: 2;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .gallery__item:hover::before { transform: scaleX(1); }
+  }
+  .gallery__item:focus-visible::before { transform: scaleX(1); }
 
   .gallery__item--g1 { grid-area: g1; }
   .gallery__item--g2 { grid-area: g2; }
@@ -128,7 +160,7 @@ const images = [
   .gallery__item--g7 { grid-area: g7; }
   .gallery__item--g8 { grid-area: g8; }
 
-  .gallery__item img {
+  .gallery__item :global(img) {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -137,11 +169,16 @@ const images = [
     filter: saturate(0.88) contrast(1.05);
     transition: transform var(--dur-4) var(--ease-out), filter var(--t-med) var(--ease);
   }
-  .gallery__item:nth-child(7) img { object-position: center 18%; }
-  .gallery__item:hover img,
-  .gallery__item:focus-visible img {
+  .gallery__item:nth-child(7) :global(img) { object-position: center 18%; }
+  .gallery__item:focus-visible :global(img) {
     transform: scale(1.045);
     filter: saturate(1.05) contrast(1.08);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .gallery__item:hover :global(img) {
+      transform: scale(1.045);
+      filter: saturate(1.05) contrast(1.08);
+    }
   }
 
   /* Popisek — vždy viditelný (nezávislý na hoveru) */
@@ -187,9 +224,11 @@ const images = [
     opacity: 0;
     transition: opacity var(--t-med) var(--ease), color var(--t-med) var(--ease);
   }
-  .gallery__item:hover .gallery__zoom,
   .gallery__item:focus-visible .gallery__zoom { opacity: 1; }
-  .gallery__zoom:hover { color: var(--crimson-bright); }
+  @media (hover: hover) and (pointer: fine) {
+    .gallery__item:hover .gallery__zoom { opacity: 1; }
+    .gallery__zoom:hover { color: var(--crimson-bright); }
+  }
 
   /* --- Lightbox --- */
   .lightbox {
@@ -278,7 +317,7 @@ const images = [
       grid-auto-rows: auto;
     }
     .gallery__item { aspect-ratio: 4 / 3; }
-    .gallery__item img { position: absolute; inset: 0; }
+    .gallery__item :global(img) { position: absolute; inset: 0; }
     .lightbox__prev, .lightbox__next {
       top: auto;
       bottom: 1.2rem;

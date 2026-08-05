@@ -384,26 +384,66 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   color: var(--color-white);
   clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 13px, 100% 100%, 13px 100%, 0 calc(100% - 13px));
 }
-.btn--primary:hover,
 .btn--primary:focus-visible {
   background: var(--crimson-bright);
   transform: translateY(-2px);
   box-shadow: var(--shadow-red);
 }
-.btn--primary:hover .btn__arrow,
 .btn--primary:focus-visible .btn__arrow { transform: translateX(4px); }
+
+/* Plnicí vrstva zdola + diagonální glint — jen s jemným ukazovátkem */
+.btn--primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.14);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform var(--dur-2) var(--ease-out);
+  z-index: 0;
+}
+.btn--primary::after {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: 0;
+  width: 45%;
+  height: 160%;
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform: translateX(-180%) skewX(-18deg);
+  transition: transform var(--dur-2) var(--ease-out);
+  z-index: 0;
+}
+.btn--primary > * { position: relative; z-index: 1; }
+@media (hover: hover) and (pointer: fine) {
+  .btn--primary:hover {
+    background: var(--crimson-bright);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-red);
+  }
+  .btn--primary:hover::before { transform: scaleY(1); }
+  .btn--primary:hover::after { transform: translateX(320%) skewX(-18deg); }
+  .btn--primary:hover .btn__arrow { transform: translateX(4px); }
+}
 
 .btn--ghost {
   background: rgba(242, 237, 228, 0.03);
   color: var(--ink);
   border-color: var(--line-2);
 }
-.btn--ghost:hover,
 .btn--ghost:focus-visible {
   border-color: var(--crimson);
   color: var(--crimson-bright);
   background: rgba(228, 6, 7, 0.06);
   transform: translateY(-2px);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn--ghost:hover {
+    border-color: var(--crimson);
+    color: var(--crimson-bright);
+    background: rgba(228, 6, 7, 0.06);
+    transform: translateY(-2px);
+  }
 }
 
 .btn--steel {
@@ -411,14 +451,20 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   color: var(--steel);
   border-color: rgba(153, 161, 168, 0.35);
 }
-.btn--steel:hover,
 .btn--steel:focus-visible {
   border-color: var(--steel);
   color: var(--ink);
   background: rgba(153, 161, 168, 0.08);
 }
+@media (hover: hover) and (pointer: fine) {
+  .btn--steel:hover {
+    border-color: var(--steel);
+    color: var(--ink);
+    background: rgba(153, 161, 168, 0.08);
+  }
+}
 
-.btn:active { transform: translateY(0); }
+.btn:active { transform: translateY(0) scale(0.98); }
 
 .btn--large { padding: 1.15rem 2.8rem; font-size: 0.95rem; min-height: 56px; }
 

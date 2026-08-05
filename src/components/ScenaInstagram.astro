@@ -311,19 +311,25 @@ const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
       transform var(--t-med) var(--ease);
   }
 
-  .ig__grid :global(.ig__post:hover::after),
   .ig__grid :global(.ig__post:focus-visible::after) { opacity: 0.9; }
-
-  .ig__grid :global(.ig__post:hover .ig__post-image),
   .ig__grid :global(.ig__post:focus-visible .ig__post-image) {
     filter: saturate(1.04) contrast(1.06);
     transform: scale(1.045);
   }
-
-  .ig__grid :global(.ig__post:hover .ig__post-label),
   .ig__grid :global(.ig__post:focus-visible .ig__post-label) {
     opacity: 1;
     transform: translateY(0);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .ig__grid :global(.ig__post:hover::after) { opacity: 0.9; }
+    .ig__grid :global(.ig__post:hover .ig__post-image) {
+      filter: saturate(1.04) contrast(1.06);
+      transform: scale(1.045);
+    }
+    .ig__grid :global(.ig__post:hover .ig__post-label) {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .ig__fallback,

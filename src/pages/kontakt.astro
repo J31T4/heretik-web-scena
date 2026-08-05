@@ -171,14 +171,20 @@ import { cs } from '../utils/typo.js';
     transform-origin: bottom;
     transition: transform var(--t-med) var(--ease-out);
   }
-  .contact__social-card:hover,
   .contact__social-card:focus-visible {
     border-color: rgba(228, 6, 7, 0.5);
     background: var(--bg-3);
-    transform: translateY(-3px);
+    transform: translateY(-4px);
   }
-  .contact__social-card:hover::before,
   .contact__social-card:focus-visible::before { transform: scaleY(1); }
+  @media (hover: hover) and (pointer: fine) {
+    .contact__social-card:hover {
+      border-color: rgba(228, 6, 7, 0.5);
+      background: var(--bg-3);
+      transform: translateY(-4px);
+    }
+    .contact__social-card:hover::before { transform: scaleY(1); }
+  }
 
   .contact__social-icon {
     width: 52px;
@@ -191,9 +197,15 @@ import { cs } from '../utils/typo.js';
     border: 1px solid var(--line-2);
     transition: color var(--t-med) var(--ease), border-color var(--t-med) var(--ease);
   }
-  .contact__social-card:hover .contact__social-icon {
+  .contact__social-card:focus-visible .contact__social-icon {
     color: var(--crimson-bright);
     border-color: var(--crimson);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .contact__social-card:hover .contact__social-icon {
+      color: var(--crimson-bright);
+      border-color: var(--crimson);
+    }
   }
 
   .contact__social-body { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
@@ -218,9 +230,15 @@ import { cs } from '../utils/typo.js';
     color: var(--ink-3);
     transition: transform var(--t-med) var(--ease-out), color var(--t-med) var(--ease);
   }
-  .contact__social-card:hover .contact__social-arrow {
+  .contact__social-card:focus-visible .contact__social-arrow {
     transform: translateX(5px);
     color: var(--crimson-bright);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .contact__social-card:hover .contact__social-arrow {
+      transform: translateX(5px);
+      color: var(--crimson-bright);
+    }
   }
 
   .contact__side { display: flex; flex-direction: column; gap: var(--sp-5); position: sticky; top: 110px; }

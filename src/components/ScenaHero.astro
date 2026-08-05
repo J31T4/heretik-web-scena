@@ -73,13 +73,13 @@ import { cs } from '../utils/typo.js';
     z-index: 0;
     will-change: transform;
   }
-  .hero__bg img {
+  .hero__bg :global(img) {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center top;
   }
-  html.enhanced .hero__drift {
+  html.enhanced :global(.hero__drift) {
     animation: hero-drift 26s ease-in-out infinite alternate;
   }
   @keyframes hero-drift {

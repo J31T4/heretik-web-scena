@@ -15,11 +15,29 @@
   let ioGuarantee = null;
 
   const reveal = (entry, observer) => {
-    entry.target.classList.add('is-visible');
+    const el = entry.target;
+    el.classList.add('is-visible');
     // unobserve z obou observerů — one-shot, nic se neopakuje
-    observer.unobserve(entry.target);
-    io?.unobserve(entry.target);
-    ioGuarantee?.unobserve(entry.target);
+    observer.unobserve(el);
+    io?.unobserve(el);
+    ioGuarantee?.unobserve(el);
+    // Po dohrání revealu uvolnit transform/transition, aby hover
+    // stavy (lift, scale) mohly na prvku fungovat bez konfliktu.
+    const finish = () => {
+      el.removeAttribute('data-reveal');
+      el.style.removeProperty('--reveal-i');
+    };
+    if (reduced.matches) {
+      finish();
+      return;
+    }
+    const onEnd = (e) => {
+      if (e.target !== el) return;
+      el.removeEventListener('transitionend', onEnd);
+      finish();
+    };
+    el.addEventListener('transitionend', onEnd);
+    setTimeout(finish, 2000); // pojistka pro přerušené transitiony
   };
 
   const init = () => {
