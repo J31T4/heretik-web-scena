@@ -41,7 +41,7 @@ const socialImageURL = new URL(asset('/images/opt/hero-1.jpg'), siteURL);
   <script is:inline>
     // Progressive enhancement: animace se zapnou až po načtení JS.
     // Třída se přidá okamžitě (před prvním vykreslením), obsah je viditelný i bez JS.
-    document.documentElement.classList.add('enhanced');
+    document.documentElement.classList.add('enhanced', 'js');
   </script>
 </head>
 <body>
@@ -51,6 +51,7 @@ const socialImageURL = new URL(asset('/images/opt/hero-1.jpg'), siteURL);
   <slot />
   <script>
     import '../scripts/site.js';
+    import '../scripts/reveal.js';
   </script>
 </body>
 </html>

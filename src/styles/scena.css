@@ -439,6 +439,39 @@ html.enhanced .reveal.visible {
 html.enhanced .reveal--zoom { transform: scale(0.96); }
 html.enhanced .reveal--zoom.visible { transform: scale(1); }
 
+/* ---------- Scroll reveal [data-reveal] (progressive enhancement) ---------- */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--dur-5) var(--ease-out) var(--reveal-i, 0ms),
+    transform var(--dur-5) var(--ease-out) var(--reveal-i, 0ms);
+  will-change: opacity, transform;
+}
+html.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Opona: clip-path otevření shora dolů */
+html.js [data-reveal='curtain'] {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1.1s var(--ease-curtain) var(--reveal-i, 0ms);
+}
+html.js [data-reveal='curtain'].is-visible {
+  clip-path: inset(0 0 0 0);
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-reveal],
+  html.js [data-reveal='curtain'] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+}
+
 /* ---------- Filmové zrno ---------- */
 .grain {
   position: absolute;

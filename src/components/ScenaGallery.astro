@@ -26,15 +26,16 @@ const images = [
     {act && <p class="act-label reveal">{act}</p>}
     <div class="section-head reveal">
       <p class="section-label">Galerie</p>
-      <h2 class="section-title" set:html={cs('Scény z představení')} />
+      <h2 class="section-title" data-reveal={act ? 'curtain' : undefined} set:html={cs('Scény z představení')} />
       <p class="section-subtitle" set:html={cs('Výřezy z našich vystoupení a akcí. Kliknutím fotku zvětšíte.')} />
     </div>
 
-    <div class="gallery__grid">
+    <div class="gallery__grid" data-reveal-group>
       {images.map((img, i) => (
         <button
           type="button"
-          class:list={['gallery__item', `gallery__item--${img.area}`, 'reveal']}
+          class:list={['gallery__item', `gallery__item--${img.area}`]}
+          data-reveal
           data-lightbox
           data-caption={`Scéna ${String(i + 1).padStart(2, '0')} — ${img.caption}`}
           aria-label={`Zvětšit fotografii: Scéna ${String(i + 1).padStart(2, '0')} — ${img.caption}`}

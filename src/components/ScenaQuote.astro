@@ -20,9 +20,9 @@ const facts = [
 
       <p class="quote__author reveal">{cs('— ')}<span class="fire-text">SHŠ Heretik</span></p>
 
-      <div class="quote__facts">
+      <div class="quote__facts" data-reveal-group>
         {facts.map((fact) => (
-          <div class="fact reveal">
+          <div class="fact" data-reveal>
             <span class="fact__value">{fact.value}</span>
             <span class="fact__label">{fact.label}</span>
           </div>

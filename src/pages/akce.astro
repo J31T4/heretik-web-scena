@@ -91,11 +91,9 @@ const performances = [
           <h2 class="section-title">Naše povídky</h2>
         </div>
 
-        <div class="scenes__grid">
-          {stories.map((story, storyIndex) => (
-            <article
-              class:list={['scene-card', 'reveal', { 'reveal--delay-120': storyIndex > 0 }]}
-            >
+        <div class="scenes__grid" data-reveal-group>
+          {stories.map((story) => (
+            <article class:list={['scene-card']} data-reveal>
               <div class="scene-card__top">
                 <span class="scene-card__tag">Povídky</span>
                 <h3 class="scene-card__title">{story.title}</h3>
@@ -122,13 +120,13 @@ const performances = [
         <p class="act-label reveal">III. dějství</p>
         <div class="section-head reveal">
           <p class="section-label">Příležitosti</p>
-          <h2 class="section-title">Vystoupení pro vaši akci</h2>
+          <h2 class="section-title" data-reveal="curtain">Vystoupení pro vaši akci</h2>
           <p class="section-subtitle" set:html={cs('Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti, historické dny a v neposlední řadě také obstaráme program pro plesy, firemní večírky, oslavy narozenin, dětské tábory a dokonce i program pro ZŠ, který děti nejen pobaví, ale také přiučí novým věcem o historii.')} />
         </div>
 
-        <div class="perf__list">
+        <div class="perf__list" data-reveal-group>
           {performances.map((perf, i) => (
-            <article class:list={['perf__card', 'reveal', { 'perf__card--flip': i % 2 === 1 }]}>
+            <article class:list={['perf__card', { 'perf__card--flip': i % 2 === 1 }]} data-reveal>
               <figure class="perf__image">
                 <Picture
                   src={`${perf.image}.jpg`}
