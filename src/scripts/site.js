@@ -78,9 +78,9 @@
       if (e.key === 'Escape' && menu.classList.contains('is-open')) setMenu(false);
     });
 
-    // Focus trap uvnitř menu
+    // Focus trap uvnitř menu — jen když je mobilní menu otevřené
     menu.addEventListener('keydown', (e) => {
-      if (e.key !== 'Tab') return;
+      if (e.key !== 'Tab' || !mobileMenu.matches || !menu.classList.contains('is-open')) return;
       const links = Array.from(menu.querySelectorAll('a:not([tabindex="-1"])'));
       if (!links.length) return;
       const first = links[0];
