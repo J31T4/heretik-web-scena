@@ -105,7 +105,7 @@ const performances = [
               <ol class="scene-card__list">
                 {story.episodes.map((episode, episodeIndex) => (
                   <li>
-                    <span class="scene-card__num">
+                    <span class="scene-card__num" aria-hidden="true">
                       {String(episodeIndex + 1).padStart(2, '0')}
                     </span>
                     <span set:html={cs(episode)} />
