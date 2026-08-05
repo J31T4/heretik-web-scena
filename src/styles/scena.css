@@ -54,42 +54,34 @@
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
-/* ---------- Design tokeny ---------- */
+/* ---------- Design tokeny ----------
+   3 vrstvy: primitives (surové hodnoty) → semantic (význam) → system (rytmus).
+   Legacy aliasy (--bg-0, --ink, --crimson, --t-fast, --sp-*) řeší staré komponenty. */
 :root {
-  /* Barvy — divadelní tma */
-  --bg-0: #060606;
-  --bg: #0a0a0a;
-  --bg-2: #101010;
-  --bg-3: #151515;
-  --bg-4: #1b1b1b;
+  /* ============ 1. PRIMITIVES — surové hodnoty (jediné místo s hex barvami) ============ */
+  --color-crimson: #e40607;
+  --color-crimson-bright: #ff4a4b;
+  --color-crimson-glow: rgba(228, 6, 7, 0.28);
+  --color-gold: #b2af3f;
+  --color-gold-soft: rgba(178, 175, 63, 0.6);
+  --color-steel: #99a1a8;
+  --color-steel-deep: #5d646b;
+  --color-ivory: #f2ede4;
+  --color-ivory-2: #c5beb4;
+  --color-ivory-3: #9b9489;
+  --color-black-0: #060606;
+  --color-black-1: #0a0a0a;
+  --color-black-2: #101010;
+  --color-black-3: #151515;
+  --color-black-4: #1b1b1b;
+  --color-white: #fff;
+  --color-black: #000;
+  --color-flame: #ff9d6b;
 
-  /* Text — teplá slonovina */
-  --ink: #f2ede4;
-  --ink-2: #c5beb4;
-  --ink-3: #9b9489;
-
-  /* Karmín — hlavní akcent (z loga) */
-  --crimson: #e40607;
-  --crimson-bright: #ff4a4b;
-  --crimson-glow: rgba(228, 6, 7, 0.28);
-
-  /* Ocel — sekundární akcent */
-  --steel: #99a1a8;
-  --steel-deep: #5d646b;
-
-  /* Zlatá — značka, používat střídmě (z loga) */
-  --gold: #b2af3f;
-  --gold-soft: rgba(178, 175, 63, 0.6);
-
-  /* Linky a rámy */
-  --line: rgba(242, 237, 228, 0.08);
-  --line-2: rgba(242, 237, 228, 0.16);
-
-  /* Typografie */
+  /* Typografie — surové font stacky a škála */
   --font-display: 'Fraunces', 'Georgia', serif;
   --font-ui: 'Space Grotesk', 'Inter', sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
-
   --fs-h1: clamp(2.5rem, 6vw, 4.6rem);
   --fs-h2: clamp(2rem, 4.4vw, 3.3rem);
   --fs-h3: clamp(1.3rem, 2.2vw, 1.7rem);
@@ -97,32 +89,95 @@
   --fs-body: 1.02rem;
   --fs-micro: 0.72rem;
 
-  /* Layout */
+  /* ============ 2. SEMANTIC — významové tokeny ============ */
+  --surface-0: var(--color-black-0);
+  --surface-1: var(--color-black-1);
+  --surface-2: var(--color-black-2);
+  --surface-3: var(--color-black-3);
+  --surface-4: var(--color-black-4);
+
+  --text: var(--color-ivory);
+  --text-muted: var(--color-ivory-2);
+  --text-faint: var(--color-ivory-3);
+
+  --accent: var(--color-crimson);
+  --accent-hover: var(--color-crimson-bright);
+  --accent-glow: var(--color-crimson-glow);
+  --brand-gold: var(--color-gold);
+  --brand-gold-soft: var(--color-gold-soft);
+  --brand-steel: var(--color-steel);
+  --brand-steel-deep: var(--color-steel-deep);
+
+  --stroke: rgba(242, 237, 228, 0.08);
+  --stroke-strong: rgba(242, 237, 228, 0.16);
+
+  /* ============ 3. SYSTEM — rytmus, pohyb, geometrie ============ */
+  --dur-1: 0.18s;
+  --dur-2: 0.4s;
+  --dur-3: 0.55s;
+  --dur-4: 0.7s;
+  --dur-5: 0.9s;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
+  --ease-curtain: cubic-bezier(0.83, 0, 0.17, 1);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: clamp(5rem, 11vw, 8.5rem);
+  --space-10: clamp(6.5rem, 13vw, 10rem);
+
+  --radius-1: 1px;
+  --radius-2: 2px;
+  --radius-3: 50%;
+
+  --shadow-1: 0 6px 24px rgba(0, 0, 0, 0.45);
+  --shadow-2: 0 24px 70px rgba(0, 0, 0, 0.6);
+  --shadow-3: 0 12px 44px rgba(228, 6, 7, 0.32);
+
+  --ring-inner: rgba(10, 10, 10, 0.9);
+  --ring-outer: var(--color-crimson-bright);
+
   --container: 1180px;
   --container-wide: 1360px;
   --gutter: clamp(1.4rem, 4vw, 2.75rem);
 
-  /* Spacing scale */
-  --sp-1: 0.25rem;
-  --sp-2: 0.5rem;
-  --sp-3: 0.75rem;
-  --sp-4: 1rem;
-  --sp-5: 1.5rem;
-  --sp-6: 2rem;
-  --sp-7: 3rem;
-  --sp-8: 4.5rem;
-  --sp-9: clamp(5rem, 11vw, 8.5rem);
-
-  /* Stíny a záře */
-  --shadow-1: 0 6px 24px rgba(0, 0, 0, 0.45);
-  --shadow-2: 0 24px 70px rgba(0, 0, 0, 0.6);
-  --shadow-red: 0 12px 44px rgba(228, 6, 7, 0.32);
-
-  /* Pohyb */
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  /* ============ Legacy aliasy (bez vizuální změny) ============ */
+  --bg-0: var(--surface-0);
+  --bg: var(--surface-1);
+  --bg-2: var(--surface-2);
+  --bg-3: var(--surface-3);
+  --bg-4: var(--surface-4);
+  --ink: var(--text);
+  --ink-2: var(--text-muted);
+  --ink-3: var(--text-faint);
+  --crimson: var(--accent);
+  --crimson-bright: var(--accent-hover);
+  --crimson-glow: var(--accent-glow);
+  --gold: var(--brand-gold);
+  --gold-soft: var(--brand-gold-soft);
+  --steel: var(--brand-steel);
+  --steel-deep: var(--brand-steel-deep);
+  --line: var(--stroke);
+  --line-2: var(--stroke-strong);
+  --shadow-red: var(--shadow-3);
+  --t-fast: var(--dur-1);
+  --t-med: var(--dur-2);
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
-  --t-fast: 0.18s;
-  --t-med: 0.4s;
+  --sp-1: var(--space-1);
+  --sp-2: var(--space-2);
+  --sp-3: var(--space-3);
+  --sp-4: var(--space-4);
+  --sp-5: var(--space-5);
+  --sp-6: var(--space-6);
+  --sp-7: var(--space-7);
+  --sp-8: var(--space-8);
+  --sp-9: var(--space-9);
 
   /* Z-index vrstvy */
   --z-header: 100;
@@ -173,7 +228,7 @@ img { max-width: 100%; display: block; }
 ul, ol { list-style: none; }
 button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
 
-::selection { background: var(--crimson); color: #fff; }
+::selection { background: var(--crimson); color: var(--color-white); }
 
 :focus-visible {
   outline: 2px solid var(--crimson-bright);
@@ -188,7 +243,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   left: 1rem;
   z-index: 400;
   background: var(--crimson);
-  color: #fff;
+  color: var(--color-white);
   font-family: var(--font-ui);
   font-size: 0.8rem;
   font-weight: 600;
@@ -292,7 +347,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 .btn--primary {
   background: var(--crimson);
-  color: #fff;
+  color: var(--color-white);
   clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 13px, 100% 100%, 13px 100%, 0 calc(100% - 13px));
 }
 .btn--primary:hover,
@@ -338,8 +393,8 @@ html.enhanced .reveal {
   opacity: 0;
   transform: translateY(34px);
   transition:
-    opacity 0.9s var(--ease-out) var(--reveal-delay, 0ms),
-    transform 0.9s var(--ease-out) var(--reveal-delay, 0ms);
+    opacity var(--dur-5) var(--ease-out) var(--reveal-delay, 0ms),
+    transform var(--dur-5) var(--ease-out) var(--reveal-delay, 0ms);
   will-change: opacity, transform;
 }
 html.enhanced .reveal.visible {
@@ -373,7 +428,7 @@ html.enhanced .grain--animated { animation: grain-shift 1.2s steps(4) infinite; 
 
 /* ---------- Ohnivý gradient (značka „ZAČÍNÁ“) — statický, bez animace ---------- */
 .fire-text {
-  background: linear-gradient(110deg, var(--crimson) 0%, #ff9d6b 45%, var(--gold) 90%);
+  background: linear-gradient(110deg, var(--crimson) 0%, var(--color-flame) 45%, var(--gold) 90%);
   background-size: 180% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -433,6 +488,13 @@ html.enhanced .grain--animated { animation: grain-shift 1.2s steps(4) infinite; 
 
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-1: 0.01ms;
+    --dur-2: 0.01ms;
+    --dur-3: 0.01ms;
+    --dur-4: 0.01ms;
+    --dur-5: 0.01ms;
+  }
   html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

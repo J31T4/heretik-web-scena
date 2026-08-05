@@ -137,7 +137,7 @@ const images = [
     object-position: center 32%;
     display: block;
     filter: saturate(0.88) contrast(1.05);
-    transition: transform 0.7s var(--ease-out), filter var(--t-med) var(--ease);
+    transition: transform var(--dur-4) var(--ease-out), filter var(--t-med) var(--ease);
   }
   .gallery__item:nth-child(7) img { object-position: center 18%; }
   .gallery__item:hover img,
@@ -229,7 +229,7 @@ const images = [
     object-fit: contain;
     border: 1px solid var(--line-2);
     box-shadow: var(--shadow-2);
-    background: #000;
+    background: var(--color-black);
   }
   .lightbox__meta {
     display: flex;

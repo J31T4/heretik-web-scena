@@ -203,7 +203,7 @@ const performances = [
   }
   .scene-card__tag {
     background: var(--crimson);
-    color: #fff;
+    color: var(--color-white);
     font-family: var(--font-ui);
     font-size: var(--fs-micro);
     font-weight: 600;
@@ -278,7 +278,7 @@ const performances = [
     object-fit: cover;
     object-position: center 30%;
     filter: saturate(0.9) contrast(1.05);
-    transition: transform 0.7s var(--ease-out);
+    transition: transform var(--dur-4) var(--ease-out);
   }
   .perf__card:hover .perf__image img { transform: scale(1.06); }
 
