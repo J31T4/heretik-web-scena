@@ -203,6 +203,7 @@ body {
   font-size: var(--fs-body);
   text-rendering: optimizeLegibility;
   font-synthesis: none;
+  hyphens: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;

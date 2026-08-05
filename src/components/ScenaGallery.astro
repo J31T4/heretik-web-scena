@@ -1,5 +1,6 @@
 ---
 import { asset } from '../utils/paths.js';
+import { cs } from '../utils/typo.js';
 
 interface Props {
   act?: string;
@@ -25,8 +26,8 @@ const images = [
     {act && <p class="act-label reveal">{act}</p>}
     <div class="section-head reveal">
       <p class="section-label">Galerie</p>
-      <h2 class="section-title">Scény z představení</h2>
-      <p class="section-subtitle">Výřezy z našich vystoupení a akcí. Kliknutím fotku zvětšíte.</p>
+      <h2 class="section-title" set:html={cs('Scény z představení')} />
+      <p class="section-subtitle" set:html={cs('Výřezy z našich vystoupení a akcí. Kliknutím fotku zvětšíte.')} />
     </div>
 
     <div class="gallery__grid">

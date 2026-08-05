@@ -1,5 +1,6 @@
 ---
 import { socialLinks, siteLocation } from '../data/site.js';
+import { cs } from '../utils/typo.js';
 
 const instagram = socialLinks.find((social) => social.id === 'instagram');
 const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
@@ -11,11 +12,9 @@ const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
       <p class="section-label">Ze zákulisí</p>
       <h2 class="ig__title" id="instagram-title">
         Aktuálně<br />
-        <em>na Instagramu</em>
+        <em>{cs('na Instagramu')}</em>
       </h2>
-      <p class="ig__intro">
-        Novinky, fotky a dění ze zákulisí najdete nejdřív na našem Instagramu.
-      </p>
+      <p class="ig__intro" set:html={cs('Novinky, fotky a dění ze zákulisí najdete nejdřív na našem Instagramu.')} />
 
       <a
         href={instagram.href}

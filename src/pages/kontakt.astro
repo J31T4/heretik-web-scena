@@ -5,6 +5,7 @@ import ScenaPageHero from '../components/ScenaPageHero.astro';
 import ScenaFooter from '../components/ScenaFooter.astro';
 import { socialLinks } from '../data/site.js';
 import { asset } from '../utils/paths.js';
+import { cs } from '../utils/typo.js';
 ---
 
 <ScenaLayout
@@ -31,16 +32,9 @@ import { asset } from '../utils/paths.js';
       <div class="container contact__grid">
         <div class="contact__main reveal">
           <p class="act-label">Poptat vystoupení</p>
-          <h2 class="contact__heading">Ozvěte se nám — rádi odpovíme</h2>
-          <p class="contact__intro">
-            Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti,
-            historické dny, plesy, firemní večírky, oslavy narozenin, dětské tábory
-            a také program pro základní školy.
-          </p>
-          <p class="contact__intro">
-            Naše hlavní sídlo je v Mohelnici, ale rádi cestujeme po celé České republice.
-            Nejrychleji nás zastihnete na emailu nebo přes sociální sítě.
-          </p>
+          <h2 class="contact__heading" set:html={cs('Ozvěte se nám — rádi odpovíme')} />
+          <p class="contact__intro" set:html={cs('Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti, historické dny, plesy, firemní večírky, oslavy narozenin, dětské tábory a také program pro základní školy.')} />
+          <p class="contact__intro" set:html={cs('Naše hlavní sídlo je v Mohelnici, ale rádi cestujeme po celé České republice. Nejrychleji nás zastihnete na emailu nebo přes sociální sítě.')} />
 
           <a href="mailto:heretikmohelnice@gmail.com" class="contact__email">
             <span class="contact__email-icon" aria-hidden="true">✉</span>
@@ -89,10 +83,10 @@ import { asset } from '../utils/paths.js';
           <div class="info-card reveal reveal--delay-200">
             <p class="info-card__label">Co umíme</p>
             <ul class="info-list">
-              <li>Městské slavnosti a historické dny</li>
-              <li>Plesy a firemní večírky</li>
-              <li>Oslavy narozenin</li>
-              <li>Dětské tábory a program pro ZŠ</li>
+              <li>{cs('Městské slavnosti a historické dny')}</li>
+              <li>{cs('Plesy a firemní večírky')}</li>
+              <li>{cs('Oslavy narozenin')}</li>
+              <li>{cs('Dětské tábory a program pro ZŠ')}</li>
             </ul>
           </div>
         </aside>

@@ -5,6 +5,7 @@ import ScenaPageHero from '../components/ScenaPageHero.astro';
 import ScenaFooter from '../components/ScenaFooter.astro';
 import BookingButton from '../components/BookingButton.astro';
 import { asset } from '../utils/paths.js';
+import { cs } from '../utils/typo.js';
 
 const stories = [
   {
@@ -100,14 +101,14 @@ const performances = [
                 <span class="scene-card__tag">Povídky</span>
                 <h3 class="scene-card__title">{story.title}</h3>
               </div>
-              <p class="scene-card__lead">{story.lead}</p>
+              <p class="scene-card__lead" set:html={cs(story.lead)} />
               <ol class="scene-card__list">
                 {story.episodes.map((episode, episodeIndex) => (
                   <li>
                     <span class="scene-card__num">
                       {String(episodeIndex + 1).padStart(2, '0')}
                     </span>
-                    <span>{episode}</span>
+                    <span set:html={cs(episode)} />
                   </li>
                 ))}
               </ol>
@@ -123,12 +124,7 @@ const performances = [
         <div class="section-head reveal">
           <p class="section-label">Příležitosti</p>
           <h2 class="section-title">Vystoupení pro vaši akci</h2>
-          <p class="section-subtitle">
-            Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti,
-            historické dny a v neposlední řadě také obstaráme program pro plesy,
-            firemní večírky, oslavy narozenin, dětské tábory a dokonce i program
-            pro ZŠ, který děti nejen pobaví, ale také přiučí novým věcem o historii.
-          </p>
+          <p class="section-subtitle" set:html={cs('Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti, historické dny a v neposlední řadě také obstaráme program pro plesy, firemní večírky, oslavy narozenin, dětské tábory a dokonce i program pro ZŠ, který děti nejen pobaví, ale také přiučí novým věcem o historii.')} />
         </div>
 
         <div class="perf__list">
@@ -149,9 +145,9 @@ const performances = [
               </figure>
               <div class="perf__body">
                 <span class="perf__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-                <h3 class="perf__title">{perf.title}</h3>
-                <p class="perf__desc">{perf.description}</p>
-                <p class="perf__details">{perf.details}</p>
+                <h3 class="perf__title" set:html={cs(perf.title)} />
+                <p class="perf__desc" set:html={cs(perf.description)} />
+                <p class="perf__details" set:html={cs(perf.details)} />
                 <BookingButton variant="ghost" />
               </div>
             </article>

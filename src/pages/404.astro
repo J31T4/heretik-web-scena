@@ -3,6 +3,7 @@ import ScenaLayout from '../layouts/ScenaLayout.astro';
 import ScenaHeader from '../components/ScenaHeader.astro';
 import ScenaFooter from '../components/ScenaFooter.astro';
 import { page } from '../utils/paths.js';
+import { cs } from '../utils/typo.js';
 ---
 
 <ScenaLayout
@@ -13,8 +14,8 @@ import { page } from '../utils/paths.js';
   <main id="obsah">
     <section class="section">
       <div class="container">
-        <h1>404 — Stránka nenalezena</h1>
-        <p>Tato stránka neexistuje nebo byla přesunuta.</p>
+        <h1 set:html={cs('404 — Stránka nenalezena')} />
+        <p set:html={cs('Tato stránka neexistuje nebo byla přesunuta.')} />
         <a class="btn btn--primary" href={page('/')}>Zpět na úvodní stránku</a>
       </div>
     </section>

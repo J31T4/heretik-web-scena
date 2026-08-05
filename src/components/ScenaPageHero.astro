@@ -1,4 +1,6 @@
 ---
+import { cs } from '../utils/typo.js';
+
 interface Props {
   label: string;
   act: string;
@@ -38,8 +40,8 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
       <div class="container page-hero__text">
         <p class="act-label reveal">{act}</p>
         <p class="section-label reveal">{label}</p>
-        <h1 class="page-hero__title reveal">{title}</h1>
-        {subtitle && <p class="page-hero__subtitle reveal">{subtitle}</p>}
+        <h1 class="page-hero__title reveal" set:html={cs(title)} />
+        {subtitle && <p class="page-hero__subtitle reveal" set:html={cs(subtitle)} />}
       </div>
     </>
   )}
@@ -49,8 +51,8 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
       <div class="page-hero__text">
         <p class="act-label reveal">{act}</p>
         <p class="section-label reveal">{label}</p>
-        <h1 class="page-hero__title reveal">{title}</h1>
-        {subtitle && <p class="page-hero__subtitle reveal">{subtitle}</p>}
+        <h1 class="page-hero__title reveal" set:html={cs(title)} />
+        {subtitle && <p class="page-hero__subtitle reveal" set:html={cs(subtitle)} />}
       </div>
       <figure class="page-hero__figure reveal reveal--zoom">
         <div class="page-hero__frame" aria-hidden="true"></div>
@@ -69,8 +71,8 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
     <div class="container page-hero__minimal">
       <p class="act-label reveal">{act}</p>
       <p class="section-label reveal">{label}</p>
-      <h1 class="page-hero__title reveal">{title}</h1>
-      {subtitle && <p class="page-hero__subtitle reveal">{subtitle}</p>}
+      <h1 class="page-hero__title reveal" set:html={cs(title)} />
+      {subtitle && <p class="page-hero__subtitle reveal" set:html={cs(subtitle)} />}
     </div>
   )}
 </section>

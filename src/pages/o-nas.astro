@@ -4,6 +4,7 @@ import ScenaHeader from '../components/ScenaHeader.astro';
 import ScenaPageHero from '../components/ScenaPageHero.astro';
 import ScenaFooter from '../components/ScenaFooter.astro';
 import { asset } from '../utils/paths.js';
+import { cs } from '../utils/typo.js';
 ---
 
 <ScenaLayout
@@ -30,15 +31,8 @@ import { asset } from '../utils/paths.js';
         <div class="about__text reveal">
           <span class="about__num" aria-hidden="true">01</span>
           <h2 class="about__title">Naše historie</h2>
-          <p>
-            Spolek HERETIK vznikl v roce 2020. Zabývá se tvorbou vystoupení, studiem
-            dobových technik, nácvikem a předváděním šermu. Naši členové mají letitou
-            praxi a zkušenosti z jiných šermířských skupin.
-          </p>
-          <p>
-            Tvoříme si vlastní choreografie, vtipné texty a scénky z odlišných druhů
-            performancí – od commedie dell'arte až po různé fantastické povídky.
-          </p>
+          <p set:html={cs('Spolek HERETIK vznikl v roce 2020. Zabývá se tvorbou vystoupení, studiem dobových technik, nácvikem a předváděním šermu. Naši členové mají letitou praxi a zkušenosti z jiných šermířských skupin.')} />
+          <p set:html={cs('Tvoříme si vlastní choreografie, vtipné texty a scénky z odlišných druhů performancí – od commedie dell\'arte až po různé fantastické povídky.')} />
         </div>
         <figure class="about__image reveal reveal--zoom">
           <picture>
@@ -74,16 +68,8 @@ import { asset } from '../utils/paths.js';
         <div class="about__text reveal">
           <span class="about__num" aria-hidden="true">02</span>
           <h2 class="about__title">Šermířská škola</h2>
-          <p>
-            V nácviku nám pomáhají dochované učebnice starých šermířských mistrů
-            i různé školy šermu. Absolvovali jsme několik seminářů, které se drží
-            odkazu šermířského mistra Petra Kozy, který nám předal zkušený lektor
-            Martin Tureček.
-          </p>
-          <p>
-            Šerm není jen bojové umění – je to forma choreografického vystoupení,
-            kde každý pohyb, každá pozice a každý výraz má svůj význam.
-          </p>
+          <p set:html={cs('V nácviku nám pomáhají dochované učebnice starých šermířských mistrů i různé školy šermu. Absolvovali jsme několik seminářů, které se drží odkazu šermířského mistra Petra Kozy, který nám předal zkušený lektor Martin Tureček.')} />
+          <p set:html={cs('Šerm není jen bojové umění – je to forma choreografického vystoupení, kde každý pohyb, každá pozice a každý výraz má svůj význam.')} />
         </div>
       </div>
     </section>
@@ -93,15 +79,8 @@ import { asset } from '../utils/paths.js';
         <div class="about__text reveal">
           <span class="about__num" aria-hidden="true">03</span>
           <h2 class="about__title">Pro vaše akce</h2>
-          <p>
-            Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti,
-            historické dny a v neposlední řadě také obstaráme program pro plesy,
-            firemní večírky a oslavy narozenin.
-          </p>
-          <p>
-            Připravíme také program pro dětské tábory a základní školy – děti nejen
-            pobaví, ale také přiučí novým věcem o historii.
-          </p>
+          <p set:html={cs('Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti, historické dny a v neposlední řadě také obstaráme program pro plesy, firemní večírky a oslavy narozenin.')} />
+          <p set:html={cs('Připravíme také program pro dětské tábory a základní školy – děti nejen pobaví, ale také přiučí novým věcem o historii.')} />
         </div>
         <figure class="about__image reveal reveal--zoom">
           <picture>

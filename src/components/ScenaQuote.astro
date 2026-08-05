@@ -1,4 +1,6 @@
 ---
+import { cs } from '../utils/typo.js';
+
 const facts = [
   { value: '2020', label: 'Vznik spolku' },
   { value: 'Mohelnice', label: 'Naše domovská scéna' },
@@ -14,13 +16,9 @@ const facts = [
     <div class="quote__stage">
       <span class="quote__mark" aria-hidden="true">„</span>
 
-      <blockquote class="quote__text reveal">
-        Jsme skupina umělců specializující se na historický a scénický šerm.
-        Snažíme se oživit dávné bojové umění a přenést ho do současnosti
-        prostřednictvím vystoupení a lekcí.
-      </blockquote>
+      <blockquote class="quote__text reveal" set:html={cs('Jsme skupina umělců specializující se na historický a scénický šerm. Snažíme se oživit dávné bojové umění a přenést ho do současnosti prostřednictvím vystoupení a lekcí.')} />
 
-      <p class="quote__author reveal">— <span class="fire-text">SHŠ Heretik</span></p>
+      <p class="quote__author reveal">{cs('— ')}<span class="fire-text">SHŠ Heretik</span></p>
 
       <div class="quote__facts">
         {facts.map((fact) => (

@@ -2,6 +2,7 @@
 import BookingButton from './BookingButton.astro';
 import { navigation, siteLocation, socialLinks } from '../data/site.js';
 import { asset } from '../utils/paths.js';
+import { cs } from '../utils/typo.js';
 
 const year = new Date().getFullYear();
 
@@ -15,7 +16,7 @@ const year = new Date().getFullYear();
       <div class="footer__brand">
         <img src={asset('/logo.svg')} alt="" class="footer__logo" width="74" height="60" />
         <p class="footer__name">SHŠ Heretik</p>
-        <p class="footer__tagline">Historický a scénický šerm z Mohelnice.<br />Umění, které přežívá století.</p>
+        <p class="footer__tagline">{cs('Historický a scénický šerm z Mohelnice.')}<br />{cs('Umění, které přežívá století.')}</p>
       </div>
 
       <nav class="footer__nav" aria-label="Patička — navigace">

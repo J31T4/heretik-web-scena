@@ -1,6 +1,7 @@
 ---
 import BookingButton from './BookingButton.astro';
 import { asset, page } from '../utils/paths.js';
+import { cs } from '../utils/typo.js';
 ---
 
 <section class="scena-hero">
@@ -31,7 +32,7 @@ import { asset, page } from '../utils/paths.js';
   <div class="container hero__content">
     <p class="hero__eyebrow">
       <span class="hero__eyebrow-dash" aria-hidden="true"></span>
-      Historický a scénický šerm · Mohelnice
+      {cs('Historický a scénický šerm · Mohelnice')}
     </p>
 
     <div class="hero__glint" aria-hidden="true"><i></i></div>
@@ -41,10 +42,7 @@ import { asset, page } from '../utils/paths.js';
       <span class="hero__title-main fire-text">ZAČÍNÁ</span>
     </h1>
 
-    <p class="hero__subtitle">
-      Oživujeme dávné bojové umění a přenášíme ho do současnosti.
-      Scénický šerm, historické techniky, vlastní choreografie.
-    </p>
+    <p class="hero__subtitle" set:html={cs('Oživujeme dávné bojové umění a přenášíme ho do současnosti. Scénický šerm, historické techniky, vlastní choreografie.')} />
 
     <div class="hero__cta">
       <BookingButton />
