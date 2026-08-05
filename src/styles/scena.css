@@ -211,15 +211,28 @@ body {
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   font-weight: 500;
-  line-height: 1.08;
-  letter-spacing: -0.01em;
   color: var(--ink);
   text-wrap: balance;
 }
 
-h1 { font-size: var(--fs-h1); }
-h2 { font-size: var(--fs-h2); }
-h3 { font-size: var(--fs-h3); }
+h1 {
+  font-size: var(--fs-h1);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+h2 {
+  font-size: var(--fs-h2);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+}
+h3 {
+  font-size: var(--fs-h3);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+}
+h4 {
+  line-height: 1.3;
+}
 
 p { color: var(--ink-2); }
 p, li { text-wrap: pretty; }
@@ -227,6 +240,23 @@ a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 ul, ol { list-style: none; }
 button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+/* Proza — čitelná délka řádku */
+.section-subtitle,
+.about__text p,
+.perf__desc,
+.contact__intro,
+.program__desc,
+.scene-card__lead { max-width: 68ch; }
+
+/* Čísla dějství — tabulkové číslice */
+.header__nav-num,
+.program__index span,
+.scene-card__num,
+.perf__num,
+.gallery__num,
+.about__num,
+.lightbox__counter { font-variant-numeric: tabular-nums; }
 
 ::selection { background: var(--crimson); color: var(--color-white); }
 
