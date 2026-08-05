@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect class="bg" width="64" height="64" rx="10" fill="#0A0A0A"/>
+  <path class="diamond" d="M32 9 L55 32 L32 55 L9 32 Z" fill="none" stroke="#E40607" stroke-width="4"/>
+  <path class="core" d="M32 19 L45 32 L32 45 L19 32 Z" fill="#B2AF3F"/>
+  <style>
+    @media (prefers-color-scheme: light) {
+      .bg { fill: #F2EDE4; }
+    }
+  </style>
+</svg>
