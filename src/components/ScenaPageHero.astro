@@ -1,5 +1,6 @@
 ---
 import { cs } from '../utils/typo.js';
+import Picture from './Picture.astro';
 
 interface Props {
   label: string;
@@ -8,7 +9,6 @@ interface Props {
   subtitle?: string;
   variant?: 'standard' | 'split' | 'minimal';
   image?: {
-    webp: string;
     jpg: string;
     alt: string;
     position?: 'high' | 'mid';
@@ -22,18 +22,15 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
   {variant === 'standard' && image && (
     <>
       <div class="page-hero__bg" aria-hidden="true">
-        <picture>
-          <source srcset={image.webp} type="image/webp" />
-          <img
-            src={image.jpg}
-            alt=""
-            class={image.position ? `page-hero__image--${image.position}` : undefined}
-            fetchpriority="high"
-            decoding="async"
-            width="1400"
-            height="934"
-          />
-        </picture>
+        <Picture
+          src={image.jpg}
+          alt=""
+          imgClass={image.position ? `page-hero__image--${image.position}` : undefined}
+          width={1400}
+          height={934}
+          loading="eager"
+          fetchpriority="high"
+        />
         <div class="page-hero__veil"></div>
       </div>
       <div class="grain" aria-hidden="true"></div>
@@ -56,10 +53,14 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
       </div>
       <figure class="page-hero__figure reveal reveal--zoom">
         <div class="page-hero__frame" aria-hidden="true"></div>
-        <picture>
-          <source srcset={image.webp} type="image/webp" />
-          <img src={image.jpg} alt={image.alt} fetchpriority="high" decoding="async" width="1050" height="1400" />
-        </picture>
+        <Picture
+          src={image.jpg}
+          alt={image.alt}
+          width={1050}
+          height={1400}
+          loading="eager"
+          fetchpriority="high"
+        />
         <figcaption class="page-hero__figcap">
           <span aria-hidden="true">◆</span> {label}
         </figcaption>

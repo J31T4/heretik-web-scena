@@ -3,7 +3,7 @@ import ScenaLayout from '../layouts/ScenaLayout.astro';
 import ScenaHeader from '../components/ScenaHeader.astro';
 import ScenaPageHero from '../components/ScenaPageHero.astro';
 import ScenaFooter from '../components/ScenaFooter.astro';
-import { asset } from '../utils/paths.js';
+import Picture from '../components/Picture.astro';
 import { cs } from '../utils/typo.js';
 ---
 
@@ -20,8 +20,7 @@ import { cs } from '../utils/typo.js';
       title="O NÁS"
       subtitle="Příběh naší vášně pro historii a šerm"
       image={{
-        webp: asset('/images/opt/gallery-8.webp'),
-        jpg: asset('/images/opt/gallery-8.jpg'),
+        jpg: '/images/opt/gallery-8.jpg',
         alt: 'Skupina SHŠ Heretik v kostýmech před kamenným obloukem',
       }}
     />
@@ -35,17 +34,13 @@ import { cs } from '../utils/typo.js';
           <p set:html={cs('Tvoříme si vlastní choreografie, vtipné texty a scénky z odlišných druhů performancí – od commedie dell\'arte až po různé fantastické povídky.')} />
         </div>
         <figure class="about__image reveal reveal--zoom">
-          <picture>
-            <source srcset={asset('/images/opt/gallery-1.webp')} type="image/webp" />
-            <img
-              src={asset('/images/opt/gallery-1.jpg')}
-              alt="Historické tábořiště se šermířskou skupinou"
-              loading="lazy"
-              decoding="async"
-              width="1400"
-              height="666"
-            />
-          </picture>
+          <Picture
+            src="/images/opt/gallery-1.jpg"
+            alt="Historické tábořiště se šermířskou skupinou"
+            width={1400}
+            height={666}
+            loading="lazy"
+          />
         </figure>
       </div>
     </section>
@@ -53,17 +48,13 @@ import { cs } from '../utils/typo.js';
     <section class="about-block section section--tint">
       <div class="container about__grid about__grid--reverse">
         <figure class="about__image reveal reveal--zoom">
-          <picture>
-            <source srcset={asset('/images/opt/gallery-2.webp')} type="image/webp" />
-            <img
-              src={asset('/images/opt/gallery-2.jpg')}
-              alt="Šermířská škola – ležení se stany"
-              loading="lazy"
-              decoding="async"
-              width="1400"
-              height="915"
-            />
-          </picture>
+          <Picture
+            src="/images/opt/gallery-2.jpg"
+            alt="Šermířská škola – ležení se stany"
+            width={1400}
+            height={915}
+            loading="lazy"
+          />
         </figure>
         <div class="about__text reveal">
           <span class="about__num" aria-hidden="true">02</span>
@@ -83,17 +74,13 @@ import { cs } from '../utils/typo.js';
           <p set:html={cs('Připravíme také program pro dětské tábory a základní školy – děti nejen pobaví, ale také přiučí novým věcem o historii.')} />
         </div>
         <figure class="about__image reveal reveal--zoom">
-          <picture>
-            <source srcset={asset('/images/opt/gallery-6.webp')} type="image/webp" />
-            <img
-              src={asset('/images/opt/gallery-6.jpg')}
-              alt="Šermíři v kostýmech před hradní zdí"
-              loading="lazy"
-              decoding="async"
-              width="1400"
-              height="933"
-            />
-          </picture>
+          <Picture
+            src="/images/opt/gallery-6.jpg"
+            alt="Šermíři v kostýmech před hradní zdí"
+            width={1400}
+            height={933}
+            loading="lazy"
+          />
         </figure>
       </div>
     </section>

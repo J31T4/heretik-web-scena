@@ -4,7 +4,7 @@ import ScenaHeader from '../components/ScenaHeader.astro';
 import ScenaPageHero from '../components/ScenaPageHero.astro';
 import ScenaFooter from '../components/ScenaFooter.astro';
 import { socialLinks } from '../data/site.js';
-import { asset } from '../utils/paths.js';
+import Picture from '../components/Picture.astro';
 import { cs } from '../utils/typo.js';
 ---
 
@@ -21,8 +21,7 @@ import { cs } from '../utils/typo.js';
       title="KONTAKT"
       subtitle="Domluvte si s námi vystoupení"
       image={{
-        webp: asset('/images/opt/gallery-6.webp'),
-        jpg: asset('/images/opt/gallery-6.jpg'),
+        jpg: '/images/opt/gallery-6.jpg',
         alt: '',
         position: 'mid',
       }}

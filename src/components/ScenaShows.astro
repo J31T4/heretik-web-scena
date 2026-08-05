@@ -1,5 +1,5 @@
 ---
-import { asset } from '../utils/paths.js';
+import Picture from './Picture.astro';
 import { cs } from '../utils/typo.js';
 
 const shows = [
@@ -7,8 +7,7 @@ const shows = [
     title: 'Historický šerm',
     tag: 'autentika',
     description: 'Autentické vystoupení, při kterém v nácviku využíváme dochované učebnice starých šermířských mistrů.',
-    image: asset('/images/opt/gallery-1.webp'),
-    fallback: asset('/images/opt/gallery-1.jpg'),
+    image: '/images/opt/gallery-1.jpg',
     alt: 'Historický šerm – tábořiště s kostýmovanými šermíři',
     featured: true,
     w: 1400,
@@ -18,8 +17,7 @@ const shows = [
     title: 'Scénická vystoupení',
     tag: 'divadlo',
     description: `Vlastní choreografie, vtipné texty a scénky od commedie dell'arte až po fantastické povídky.`,
-    image: asset('/images/opt/gallery-3.webp'),
-    fallback: asset('/images/opt/gallery-3.jpg'),
+    image: '/images/opt/gallery-3.jpg',
     alt: 'Scénická vystoupení – souboj dvou šermířů před stany',
     featured: false,
     w: 1400,
@@ -29,8 +27,7 @@ const shows = [
     title: 'Vystoupení na míru',
     tag: 'na zakázku',
     description: 'Připravíme vystoupení pro městské slavnosti, historické dny, plesy, firemní večírky, oslavy narozenin i dětské tábory.',
-    image: asset('/images/opt/gallery-5.webp'),
-    fallback: asset('/images/opt/gallery-5.jpg'),
+    image: '/images/opt/gallery-5.jpg',
     alt: 'Vystoupení na míru – zákulisí šermířského ležení',
     featured: false,
     w: 1050,
@@ -40,8 +37,7 @@ const shows = [
     title: 'Program pro školy',
     tag: 'ZŠ',
     description: 'Program pro základní školy, který děti nejen pobaví, ale také přiučí novým věcem o historii.',
-    image: asset('/images/opt/gallery-6.webp'),
-    fallback: asset('/images/opt/gallery-6.jpg'),
+    image: '/images/opt/gallery-6.jpg',
     alt: 'Program pro školy – šermíři u hradní zdi',
     featured: false,
     w: 1400,
@@ -71,17 +67,13 @@ const shows = [
             <p class="program__desc" set:html={cs(show.description)} />
           </div>
           <figure class="program__media">
-            <picture>
-              <source srcset={show.image} type="image/webp" />
-              <img
-                src={show.fallback}
-                alt={show.alt}
-                loading="lazy"
-                decoding="async"
-                width={show.w}
-                height={show.h}
-              />
-            </picture>
+            <Picture
+              src={show.image}
+              alt={show.alt}
+              width={show.w}
+              height={show.h}
+              loading="lazy"
+            />
           </figure>
         </article>
       ))}

@@ -1,17 +1,20 @@
 ---
 import BookingButton from './BookingButton.astro';
+import Picture from './Picture.astro';
 import { asset } from '../utils/paths.js';
 import { cs } from '../utils/typo.js';
 ---
 
 <section class="scena-cta">
   <div class="cta__bg" aria-hidden="true">
-    <picture>
-      <source media="(max-width: 760px)" srcset={asset('/images/opt/hero-2-900.webp')} type="image/webp" />
-      <source media="(max-width: 760px)" srcset={asset('/images/opt/hero-2-900.jpg')} type="image/jpeg" />
-      <source srcset={asset('/images/opt/hero-2.webp')} type="image/webp" />
-      <img src={asset('/images/opt/hero-2.jpg')} alt="" loading="lazy" decoding="async" width="1500" height="999" />
-    </picture>
+    <Picture
+      src="/images/opt/hero-2.jpg"
+      alt=""
+      width={1500}
+      height={999}
+      loading="lazy"
+      mobileSrc="/images/opt/hero-2-900.jpg"
+    />
     <div class="cta__veil"></div>
   </div>
   <div class="grain" aria-hidden="true"></div>

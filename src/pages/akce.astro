@@ -4,7 +4,7 @@ import ScenaHeader from '../components/ScenaHeader.astro';
 import ScenaPageHero from '../components/ScenaPageHero.astro';
 import ScenaFooter from '../components/ScenaFooter.astro';
 import BookingButton from '../components/BookingButton.astro';
-import { asset } from '../utils/paths.js';
+import Picture from '../components/Picture.astro';
 import { cs } from '../utils/typo.js';
 
 const stories = [
@@ -76,8 +76,7 @@ const performances = [
       title="CO NABÍZÍME"
       subtitle="Vystoupení dle vašich potřeb"
       image={{
-        webp: asset('/images/opt/gallery-3.webp'),
-        jpg: asset('/images/opt/gallery-3.jpg'),
+        jpg: '/images/opt/gallery-3.jpg',
         alt: '',
         position: 'high',
       }}
@@ -131,17 +130,13 @@ const performances = [
           {performances.map((perf, i) => (
             <article class:list={['perf__card', 'reveal', { 'perf__card--flip': i % 2 === 1 }]}>
               <figure class="perf__image">
-                <picture>
-                  <source srcset={asset(`${perf.image}.webp`)} type="image/webp" />
-                  <img
-                    src={asset(`${perf.image}.jpg`)}
-                    alt={perf.title}
-                    loading="lazy"
-                    decoding="async"
-                    width={perf.w}
-                    height={perf.h}
-                  />
-                </picture>
+                <Picture
+                  src={`${perf.image}.jpg`}
+                  alt={perf.title}
+                  width={perf.w}
+                  height={perf.h}
+                  loading="lazy"
+                />
               </figure>
               <div class="perf__body">
                 <span class="perf__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>

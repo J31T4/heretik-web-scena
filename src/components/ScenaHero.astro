@@ -1,25 +1,22 @@
 ---
 import BookingButton from './BookingButton.astro';
-import { asset, page } from '../utils/paths.js';
+import Picture from './Picture.astro';
+import { page } from '../utils/paths.js';
 import { cs } from '../utils/typo.js';
 ---
 
 <section class="scena-hero">
   <div class="hero__bg" data-hero-parallax aria-hidden="true">
-    <picture>
-      <source media="(max-width: 760px)" srcset={asset('/images/opt/hero-1-900.webp')} type="image/webp" />
-      <source media="(max-width: 760px)" srcset={asset('/images/opt/hero-1-900.jpg')} type="image/jpeg" />
-      <source srcset={asset('/images/opt/hero-1.webp')} type="image/webp" />
-      <img
-        src={asset('/images/opt/hero-1.jpg')}
-        alt=""
-        class="hero__drift"
-        width="1568"
-        height="1024"
-        fetchpriority="high"
-        decoding="async"
-      />
-    </picture>
+    <Picture
+      src="/images/opt/hero-1.jpg"
+      alt=""
+      imgClass="hero__drift"
+      width={1568}
+      height={1024}
+      loading="eager"
+      fetchpriority="high"
+      mobileSrc="/images/opt/hero-1-900.jpg"
+    />
   </div>
 
   <div class="hero__veil" aria-hidden="true"></div>

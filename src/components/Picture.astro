@@ -1,0 +1,72 @@
+---
+// SHŠ Heretik — Scéna · Picture.astro
+// <picture> s WebP <source> + JPG <img>, base-prefixed cesty,
+// povinné rozměry (CLS=0), loading/decoding/fetchpriority prop.
+import { asset } from '../utils/paths.js';
+
+interface Props {
+  /** JPG cesta z public/images/opt (např. '/images/opt/gallery-1.jpg') */
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  loading?: 'lazy' | 'eager';
+  decoding?: 'async' | 'sync' | 'auto';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  /** Třída na <picture> */
+  class?: string;
+  /** Třída na <img> */
+  imgClass?: string;
+  /** Volitelná responzivní varianta (např. hero-1-900.jpg) + její media dotaz */
+  mobileSrc?: string;
+  mobileMedia?: string;
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  loading = 'lazy',
+  decoding = 'async',
+  fetchpriority = 'auto',
+  class: className,
+  imgClass,
+  mobileSrc,
+  mobileMedia = '(max-width: 760px)',
+} = Astro.props;
+
+const toWebp = (path) => path.replace(/\.jpe?g$/i, '.webp');
+const imgProps: Record<string, string | number | undefined> = {
+  src: asset(src),
+  alt,
+  width,
+  height,
+  loading,
+  decoding,
+  fetchpriority,
+  class: imgClass,
+};
+for (const key of ['loading', 'decoding', 'fetchpriority', 'class']) {
+  if (imgProps[key] === undefined || imgProps[key] === 'auto') delete imgProps[key];
+}
+for (const key of ['width', 'height']) {
+  if (imgProps[key] === undefined) delete imgProps[key];
+}
+---
+
+{
+  mobileSrc ? (
+    <picture class:list={className}>
+      <source media={mobileMedia} srcset={asset(toWebp(mobileSrc))} type="image/webp" />
+      <source media={mobileMedia} srcset={asset(mobileSrc)} type="image/jpeg" />
+      <source srcset={asset(toWebp(src))} type="image/webp" />
+      <img {...imgProps} />
+    </picture>
+  ) : (
+    <picture class:list={className}>
+      <source srcset={asset(toWebp(src))} type="image/webp" />
+      <img {...imgProps} />
+    </picture>
+  )
+}

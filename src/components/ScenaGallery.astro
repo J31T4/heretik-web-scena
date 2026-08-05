@@ -1,5 +1,5 @@
 ---
-import { asset } from '../utils/paths.js';
+import Picture from './Picture.astro';
 import { cs } from '../utils/typo.js';
 
 interface Props {
@@ -39,17 +39,13 @@ const images = [
           data-caption={`Scéna ${String(i + 1).padStart(2, '0')} — ${img.caption}`}
           aria-label={`Zvětšit fotografii: Scéna ${String(i + 1).padStart(2, '0')} — ${img.caption}`}
         >
-          <picture>
-            <source srcset={asset(`/images/opt/${img.src}.webp`)} type="image/webp" />
-            <img
-              src={asset(`/images/opt/${img.src}.jpg`)}
-              alt={`Scéna ${String(i + 1).padStart(2, '0')} — ${img.caption}`}
-              loading="lazy"
-              decoding="async"
-              width={img.w}
-              height={img.h}
-            />
-          </picture>
+          <Picture
+            src={`/images/opt/${img.src}.jpg`}
+            alt={`Scéna ${String(i + 1).padStart(2, '0')} — ${img.caption}`}
+            width={img.w}
+            height={img.h}
+            loading="lazy"
+          />
           <span class="gallery__plate">
             <span class="gallery__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
             <span class="gallery__cap">{img.caption}</span>
