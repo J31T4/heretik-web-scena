@@ -193,6 +193,42 @@
 html {
   scroll-behavior: smooth;
   color-scheme: dark;
+  scrollbar-color: var(--steel-deep) var(--bg-0);
+  scrollbar-width: thin;
+}
+
+/* WebKit scrollbar — ladí s tématem */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-0); }
+::-webkit-scrollbar-thumb {
+  background: var(--steel-deep);
+  border: 2px solid var(--bg-0);
+  border-radius: var(--radius-3);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--steel); }
+
+/* Průběh scrollu — CSS animation-timeline, bez JS */
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    z-index: calc(var(--z-header) + 5);
+    background: linear-gradient(90deg, var(--crimson), var(--crimson-bright));
+    transform-origin: left;
+    /* var() brání minifieru sloučit animation a animation-timeline
+       do jednoho shorth-handu, který prohlížeče špatně parsují */
+    --progress-anim: scroll-progress linear both;
+    animation: var(--progress-anim);
+    animation-timeline: scroll(root);
+    pointer-events: none;
+  }
+}
+@keyframes scroll-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
 
 body {
@@ -206,6 +242,7 @@ body {
   hyphens: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  caret-color: var(--crimson);
   overflow-x: hidden;
 }
 
@@ -623,6 +660,10 @@ html.enhanced .grain--animated { animation: grain-shift 1.2s steps(4) infinite; 
 
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
+  .scroll-progress {
+    animation: none;
+    display: none;
+  }
   :root {
     --dur-1: 0.01ms;
     --dur-2: 0.01ms;

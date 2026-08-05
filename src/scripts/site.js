@@ -15,9 +15,24 @@
   /* ---------- 1. Header — stav po scrollu ---------- */
   const header = doc.querySelector('.scena-header');
   if (header) {
-    const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 24);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
+    // Sentinel (1px) + IntersectionObserver — žádný scroll listener.
+    const sentinel = doc.createElement('div');
+    sentinel.setAttribute('aria-hidden', 'true');
+    sentinel.style.cssText = 'position:absolute;top:24px;left:0;width:1px;height:1px;pointer-events:none;';
+    doc.body.prepend(sentinel);
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(
+        ([entry]) => header.classList.toggle('is-scrolled', !entry.isIntersecting),
+        { rootMargin: '-1px 0px 0px 0px' }
+      );
+      io.observe(sentinel);
+    } else {
+      // Fallback bez IO — jen tam, kde není k dispozici.
+      const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 24);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
   }
 
   /* ---------- 2. Mobilní menu ---------- */
