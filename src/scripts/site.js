@@ -50,7 +50,7 @@
       burger.setAttribute('aria-label', open ? 'Zavřít menu' : 'Otevřít menu');
       menu.classList.toggle('is-open', open);
       if (open) doc.body.classList.add('scroll-locked');
-      else if (!doc.getElementById('lightbox')?.classList.contains('open')) {
+      else if (!doc.getElementById('lightbox')?.open) {
         doc.body.classList.remove('scroll-locked');
       }
       if (mobileMenu.matches) menu.setAttribute('aria-hidden', String(!open));
@@ -147,6 +147,7 @@
   const box = doc.getElementById('lightbox');
   const lbImg = doc.getElementById('lightboxImg');
   const lbCaption = doc.getElementById('lightboxCaption');
+  const lbNum = doc.getElementById('lightboxNum');
   const lbCounter = doc.getElementById('lightboxCounter');
   const lbClose = doc.getElementById('lightboxClose');
   const lbPrev = doc.getElementById('lightboxPrev');
@@ -155,7 +156,6 @@
   if (box && lbImg) {
     const items = Array.from(doc.querySelectorAll('[data-lightbox]'));
     let current = 0;
-    let lastFocused = null;
 
     const show = (i) => {
       current = (i + items.length) % items.length;
@@ -163,28 +163,34 @@
       const img = item.querySelector('img');
       lbImg.src = img.currentSrc || img.src;
       lbImg.alt = img.alt || '';
-      if (lbCaption) lbCaption.textContent = item.dataset.caption || '';
+      // Popisek ve stylu destičky: „01 Tábořiště“
+      const [head, ...rest] = String(item.dataset.caption || '').split(' — ');
+      if (lbNum) lbNum.textContent = String(current + 1).padStart(2, '0');
+      if (lbCaption) lbCaption.textContent = rest.length ? rest.join(' — ') : head;
       if (lbCounter) lbCounter.textContent = `${current + 1} / ${items.length}`;
+      // Preload sousedních fotografií (předchozí i další)
+      for (const offset of [-1, 1]) {
+        const adjacent = items[(current + offset + items.length) % items.length];
+        const adjacentImg = adjacent?.querySelector('img');
+        const adjacentSrc = adjacentImg && (adjacentImg.currentSrc || adjacentImg.src);
+        if (adjacentSrc) {
+          const preload = new Image();
+          preload.src = adjacentSrc;
+        }
+      }
     };
 
     const open = (i) => {
-      lastFocused = doc.activeElement;
       show(i);
-      box.classList.add('open');
-      box.removeAttribute('inert');
       doc.body.classList.add('scroll-locked');
+      if (typeof box.showModal === 'function') box.showModal();
+      else box.setAttribute('open', '');
       if (lbClose) afterPaint(() => lbClose.focus());
     };
 
     const close = () => {
-      box.classList.remove('open');
-      box.setAttribute('inert', '');
-      if (!doc.getElementById('scenaMenu')?.classList.contains('is-open')) {
-        doc.body.classList.remove('scroll-locked');
-      }
-      if (lastFocused instanceof HTMLElement) {
-        afterPaint(() => lastFocused.focus());
-      }
+      if (box.open) box.close();
+      doc.body.classList.remove('scroll-locked');
     };
 
     items.forEach((item, i) => {
@@ -195,29 +201,22 @@
     if (lbPrev) lbPrev.addEventListener('click', () => show(current - 1));
     if (lbNext) lbNext.addEventListener('click', () => show(current + 1));
 
-    // Kliknutí na pozadí zavře
+    // Kliknutí na prázdné místo (samotný dialog, ne obsah) zavře
     box.addEventListener('click', (e) => {
       if (e.target === box) close();
     });
 
-    // Klávesnice: Esc / šipky / Tab trap
+    // Klávesnice: šipky (Esc a focus trap řeší nativní <dialog>)
     doc.addEventListener('keydown', (e) => {
-      if (!box.classList.contains('open')) return;
-      if (e.key === 'Escape') close();
-      else if (e.key === 'ArrowLeft') show(current - 1);
+      if (!box.open) return;
+      if (e.key === 'ArrowLeft') show(current - 1);
       else if (e.key === 'ArrowRight') show(current + 1);
-      else if (e.key === 'Tab') {
-        const focusables = [lbClose, lbPrev, lbNext].filter(Boolean);
-        if (!focusables.length) return;
-        const first = focusables[0];
-        const last = focusables[focusables.length - 1];
-        if (e.shiftKey && doc.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        } else if (!e.shiftKey && doc.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
+    });
+
+    // Nativní dialog vrací focus tam, odkud se otevřel — jen pojistka:
+    box.addEventListener('close', () => {
+      if (!doc.getElementById('scenaMenu')?.classList.contains('is-open')) {
+        doc.body.classList.remove('scroll-locked');
       }
     });
   }
