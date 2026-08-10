@@ -48,8 +48,8 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
       <div class="page-hero__text">
         <p class="act-label reveal">{act}</p>
         <p class="section-label reveal">{label}</p>
-        <h1 class="page-hero__title reveal" set:html={cs(title)} />
-        {subtitle && <p class="page-hero__subtitle reveal" set:html={cs(subtitle)} />}
+        <h1 class="page-hero__title reveal">{cs(title)}</h1>
+        {subtitle && <p class="page-hero__subtitle reveal">{cs(subtitle)}</p>}
       </div>
       <figure class="page-hero__figure reveal reveal--zoom">
         <div class="page-hero__frame" aria-hidden="true"></div>
@@ -60,6 +60,7 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
           height={1400}
           loading="eager"
           fetchpriority="high"
+          sizes="(max-width: 900px) 100vw, 460px"
         />
         <figcaption class="page-hero__figcap">
           <span aria-hidden="true">◆</span> {label}
@@ -208,5 +209,7 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
     .page-hero__split { grid-template-columns: 1fr; }
     .page-hero__figure { justify-self: start; max-width: 400px; }
     .page-hero__frame { inset: -10px 10px 10px -10px; }
+    /* Popisek uvnitř rámu, ať není na mobilu oříznutý okrajem viewportu */
+    .page-hero__figcap { right: 0.6rem; bottom: 0.6rem; }
   }
 </style>

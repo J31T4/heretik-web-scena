@@ -115,6 +115,7 @@ const isActive = (href) => normalizePath(href) === normalizePath(Astro.url.pathn
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--ink-3);
+    white-space: nowrap;
   }
 
   .header__nav {
@@ -135,6 +136,7 @@ const isActive = (href) => normalizePath(href) === normalizePath(Astro.url.pathn
     text-transform: uppercase;
     color: var(--ink-2);
     padding: 0.5rem 0.15rem;
+    white-space: nowrap;
     transition: color var(--t-fast) var(--ease);
   }
 
@@ -171,7 +173,7 @@ const isActive = (href) => normalizePath(href) === normalizePath(Astro.url.pathn
   .header__nav a:focus-visible .header__nav-num { opacity: 0.65; }
   .header__nav a.is-active .header__nav-num { opacity: 1; }
 
-  .header__nav-cta { flex-shrink: 0; }
+  :global(.header__nav-cta) { flex-shrink: 0; }
   .header__nav-foot { display: none; }
 
   .header__burger {
@@ -204,7 +206,7 @@ const isActive = (href) => normalizePath(href) === normalizePath(Astro.url.pathn
   .header__burger.active span:nth-child(2) { opacity: 0; }
   .header__burger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  @media (max-width: 1020px) {
+  @media (max-width: 1160px) {
     .scena-header { padding: 0.55rem 0; }
     .scena-header.is-scrolled { padding: 0.4rem 0; }
     /* backdrop-filter na headeru by vytvořil containing block pro fixed menu → menu by se po scrollu nerozbaluje */

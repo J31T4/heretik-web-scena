@@ -265,7 +265,7 @@ const performances = [
     background: var(--bg-2);
     border: 1px solid var(--line);
     overflow: hidden;
-    transition: border-color var(--t-med) var(--ease), box-shadow var(--t-med) var(--ease);
+    transition: border-color var(--t-med) var(--ease), box-shadow var(--t-med) var(--ease), transform var(--t-med) var(--ease-out);
   }
   .perf__card:focus-within {
     border-color: rgba(228, 6, 7, 0.5);
@@ -297,7 +297,7 @@ const performances = [
     transition: transform var(--dur-4) var(--ease-out);
   }
   @media (hover: hover) and (pointer: fine) {
-    .perf__card:hover .perf__image img { transform: scale(1.06); }
+    .perf__card:hover .perf__image :global(img) { transform: scale(1.06); }
   }
 
   .perf__body {
@@ -338,7 +338,7 @@ const performances = [
     color: var(--gold);
     margin-bottom: var(--sp-5);
   }
-  .perf__body .btn { margin-top: auto; }
+  .perf__body :global(.btn) { margin-top: auto; }
 
   @media (max-width: 1000px) {
     .perf__card, .perf__card--flip { grid-template-columns: 1fr; }

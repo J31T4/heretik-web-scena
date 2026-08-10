@@ -606,6 +606,15 @@ html.enhanced .grain--animated { animation: grain-shift 1.2s steps(4) infinite; 
   background-clip: text;
   color: transparent;
 }
+/* Fallback pro prostředí bez barev (forced-colors) — text zůstane čitelný */
+@media (forced-colors: active) {
+  .fire-text {
+    background: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    color: var(--ink);
+  }
+}
 
 /* ---------- Vertikální rail dějství (desktop) ---------- */
 .act-section { position: relative; }

@@ -208,7 +208,7 @@ const shows = [
     filter: saturate(0.9) contrast(1.04);
     transition: transform var(--dur-4) var(--ease-out), filter var(--t-med) var(--ease);
   }
-  .program__row:focus-within .program__media img {
+  .program__row:focus-within .program__media :global(img) {
     transform: scale(1.06);
     filter: saturate(1.08) contrast(1.08);
   }
@@ -219,7 +219,7 @@ const shows = [
     }
   }
 
-  .program__row--featured .program__media img { aspect-ratio: 21 / 10; object-position: center 40%; }
+  .program__row--featured .program__media :global(img) { aspect-ratio: 21 / 10; object-position: center 40%; }
   .program__row--featured .program__index span { font-size: clamp(4rem, 8vw, 6.4rem); }
 
   @media (max-width: 1024px) {
@@ -233,8 +233,8 @@ const shows = [
     /* Sjednocení pořadí všech karet: index vlevo, text vpravo, obrázek dole */
     .program__row--flip .program__index { order: 0; }
     .program__row--flip .program__body { order: 1; }
-    .program__media img { aspect-ratio: 16 / 9; }
-    .program__row--featured .program__media img { aspect-ratio: 16 / 9; }
+    .program__media :global(img) { aspect-ratio: 16 / 9; }
+    .program__row--featured .program__media :global(img) { aspect-ratio: 16 / 9; }
   }
   @media (max-width: 560px) {
     .program__row { grid-template-columns: 56px 1fr; gap: var(--sp-4); }

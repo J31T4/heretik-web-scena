@@ -113,7 +113,7 @@ import { cs } from '../utils/typo.js';
     transition: transform var(--dur-4) var(--ease-out);
   }
   @media (hover: hover) and (pointer: fine) {
-    .about__image:hover img { transform: scale(1.045); }
+    .about__image:hover :global(img) { transform: scale(1.045); }
   }
 
   .about__text { position: relative; padding-top: var(--sp-6); }
