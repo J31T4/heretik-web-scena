@@ -102,13 +102,17 @@
       if (e.key === 'Escape' && menu.classList.contains('is-open')) setMenu(false);
     });
 
-    // Focus trap uvnitř menu — jen když je mobilní menu otevřené
-    menu.addEventListener('keydown', (e) => {
+    // Focus trap uvnitř menu — jen když je mobilní menu otevřené,
+    // zahrnuje i burger (viditelné tlačítko pro zavření).
+    const trapFocus = (e) => {
       if (e.key !== 'Tab' || !mobileMenu.matches || !menu.classList.contains('is-open')) return;
-      const links = Array.from(menu.querySelectorAll('a:not([tabindex="-1"])'));
-      if (!links.length) return;
-      const first = links[0];
-      const last = links[links.length - 1];
+      const focusables = Array.from(
+        menu.querySelectorAll('a:not([tabindex="-1"]), button:not([tabindex="-1"])')
+      ).filter((el) => el.offsetParent !== null || el === burger);
+      // Burger je mimo <nav>, ale je součástí focus cyklu.
+      const order = [burger, ...focusables];
+      const first = order[0];
+      const last = order[order.length - 1];
       if (e.shiftKey && doc.activeElement === first) {
         e.preventDefault();
         last.focus();
