@@ -40,29 +40,53 @@
   const menu = doc.getElementById('scenaMenu');
 
   if (burger && menu) {
-    const mobileMenu = window.matchMedia('(max-width: 1020px)');
+    const mobileMenu = window.matchMedia('(max-width: 1160px)');
+
+    // Prvky mimo menu, které se při otevřeném menu stanou inertní
+    // (hlavní obsah, patička, logo v hlavičce). Burger ani nav zůstávají aktivní.
+    const inertTargets = () => {
+      const header = doc.querySelector('.scena-header');
+      const main = doc.getElementById('obsah');
+      const footer = doc.querySelector('.scena-footer');
+      const brand = header?.querySelector('.header__brand');
+      return [main, footer, brand].filter(Boolean);
+    };
+
+    const setInert = (inert) => {
+      inertTargets().forEach((el) => {
+        if (inert) el.setAttribute('inert', '');
+        else el.removeAttribute('inert');
+      });
+    };
 
     const setMenu = (open) => {
-      const returnFocus = !open && mobileMenu.matches && menu.contains(doc.activeElement);
-      if (returnFocus) burger.focus();
       burger.classList.toggle('active', open);
       burger.setAttribute('aria-expanded', String(open));
       burger.setAttribute('aria-label', open ? 'Zavřít menu' : 'Otevřít menu');
       menu.classList.toggle('is-open', open);
-      if (open) doc.body.classList.add('scroll-locked');
-      else if (!doc.getElementById('lightbox')?.open) {
-        doc.body.classList.remove('scroll-locked');
+      if (open) {
+        doc.body.classList.add('scroll-locked');
+        setInert(true);
+        afterPaint(() => burger.focus());
+      } else {
+        setInert(false);
+        if (!doc.getElementById('lightbox')?.open) {
+          doc.body.classList.remove('scroll-locked');
+        }
+        // Po zavření vrať focus na burger (pokud focus byl uvnitř menu)
+        if (mobileMenu.matches && menu.contains(doc.activeElement)) burger.focus();
       }
       if (mobileMenu.matches) menu.setAttribute('aria-hidden', String(!open));
       else menu.removeAttribute('aria-hidden');
     };
 
     const syncMenu = () => {
-      if (!mobileMenu.matches && menu.classList.contains('is-open')) setMenu(false);
-      else if (mobileMenu.matches) {
-        menu.setAttribute('aria-hidden', String(!menu.classList.contains('is-open')));
-      } else {
+      if (!mobileMenu.matches) {
+        if (menu.classList.contains('is-open')) setMenu(false);
+        else setInert(false); // po přechodu na desktop vše vyčistit
         menu.removeAttribute('aria-hidden');
+      } else {
+        menu.setAttribute('aria-hidden', String(!menu.classList.contains('is-open')));
       }
     };
 

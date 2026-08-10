@@ -61,6 +61,7 @@
   /* ============ 1. PRIMITIVES — surové hodnoty (jediné místo s hex barvami) ============ */
   --color-crimson: #e40607;
   --color-crimson-bright: #ff4a4b;
+  --color-crimson-deep: #a30405;
   --color-crimson-glow: rgba(228, 6, 7, 0.28);
   --color-gold: #b2af3f;
   --color-gold-soft: rgba(178, 175, 63, 0.6);
@@ -101,7 +102,7 @@
   --text-faint: var(--color-ivory-3);
 
   --accent: var(--color-crimson);
-  --accent-hover: var(--color-crimson-bright);
+  --accent-hover: var(--color-crimson-deep);
   --accent-glow: var(--color-crimson-glow);
   --brand-gold: var(--color-gold);
   --brand-gold-soft: var(--color-gold-soft);
@@ -422,7 +423,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 13px, 100% 100%, 13px 100%, 0 calc(100% - 13px));
 }
 .btn--primary:focus-visible {
-  background: var(--crimson-bright);
+  background: var(--accent-hover);
   transform: translateY(-2px);
   box-shadow: var(--shadow-red);
 }
@@ -454,7 +455,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .btn--primary > * { position: relative; z-index: 1; }
 @media (hover: hover) and (pointer: fine) {
   .btn--primary:hover {
-    background: var(--crimson-bright);
+    background: var(--accent-hover);
     transform: translateY(-2px);
     box-shadow: var(--shadow-red);
   }
