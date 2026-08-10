@@ -116,37 +116,15 @@
         e.preventDefault();
         first.focus();
       }
-    });
+    };
+    menu.addEventListener('keydown', trapFocus);
+    burger.addEventListener('keydown', trapFocus);
 
     // Při přechodu na desktop menu zavři a zpřístupni běžnou navigaci.
     mobileMenu.addEventListener('change', syncMenu);
   }
 
-  /* ---------- 3. Reveal — IntersectionObserver ---------- */
-  const revealEls = Array.from(doc.querySelectorAll('.reveal'));
-  if ('IntersectionObserver' in window && revealEls.length) {
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -5% 0px' }
-    );
-    revealEls.forEach((el) => io.observe(el));
-
-    // Safety: vše viditelné po 2.5s (i bez IntersectionObserver)
-    window.setTimeout(() => {
-      doc.querySelectorAll('.reveal:not(.visible)').forEach((el) => el.classList.add('visible'));
-    }, 2500);
-  } else {
-    revealEls.forEach((el) => el.classList.add('visible'));
-  }
-
-  /* ---------- 4. Jemný parallax hero fotky ---------- */
+  /* ---------- 3. Jemný parallax hero fotky ---------- */
   const heroBg = doc.querySelector('[data-hero-parallax]');
   if (heroBg && finePointer && !reduced.matches) {
     let ticking = false;
@@ -212,7 +190,10 @@
     };
 
     const close = () => {
-      if (box.open) box.close();
+      // Nativní dialog: close(); starší prohlížeče bez dialog.close()
+      // zavřeme odstraněním atributu open.
+      if (typeof box.close === 'function' && box.open) box.close();
+      else box.removeAttribute('open');
       doc.body.classList.remove('scroll-locked');
     };
 

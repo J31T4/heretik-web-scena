@@ -1,8 +1,11 @@
 // ============================================================
 // SHŠ Heretik — Scéna · reveal.js
-// Scroll reveal: [data-reveal] = opacity + translateY(16px),
-// one-shot (unobserve), stagger přes --i v [data-reveal-group]
-// (cap 6), varianta [data-reveal="curtain"] = clip-path.
+// Jeden scroll-reveal systém pro:
+//   - .reveal / .reveal--zoom (fade + translateY / scale)
+//   - [data-reveal] (fade + translateY), [data-reveal="curtain"] (clip-path)
+// One-shot (unobserve), stagger přes --reveal-i v [data-reveal-group]
+// (cap 6), delays přes --reveal-delay (třídy .reveal--delay-*).
+// Po dohrání animace uvolní reveal hooky a will-change.
 // Idempotentní init, re-bind na astro:page-load.
 // ============================================================
 
@@ -14,6 +17,19 @@
   let io = null;
   let ioGuarantee = null;
 
+  // Všechny reveal prvky (třídy i data-reveal atributy).
+  const queryReveals = () =>
+    Array.from(doc.querySelectorAll('.reveal:not(.is-visible), [data-reveal]:not(.is-visible)'));
+
+  const finish = (el) => {
+    // Odstranit hooky: CSS selektory přestanou matchovat → prvek zůstane
+    // viditelný, will-change zmizí, hover transformace fungují.
+    el.removeAttribute('data-reveal');
+    el.classList.remove('reveal', 'reveal--zoom');
+    el.style.removeProperty('--reveal-i');
+    el.style.removeProperty('--reveal-delay');
+  };
+
   const reveal = (entry, observer) => {
     const el = entry.target;
     el.classList.add('is-visible');
@@ -21,38 +37,35 @@
     observer.unobserve(el);
     io?.unobserve(el);
     ioGuarantee?.unobserve(el);
-    // Po dohrání revealu uvolnit transform/transition, aby hover
-    // stavy (lift, scale) mohly na prvku fungovat bez konfliktu.
-    const finish = () => {
-      el.removeAttribute('data-reveal');
-      el.style.removeProperty('--reveal-i');
-    };
     if (reduced.matches) {
-      finish();
+      finish(el);
       return;
     }
     const onEnd = (e) => {
       if (e.target !== el) return;
       el.removeEventListener('transitionend', onEnd);
-      finish();
+      finish(el);
     };
     el.addEventListener('transitionend', onEnd);
-    setTimeout(finish, 2000); // pojistka pro přerušené transitiony
+    setTimeout(() => finish(el), 2000); // pojistka pro přerušené transitiony
   };
 
   const init = () => {
-    const els = Array.from(doc.querySelectorAll('[data-reveal]:not(.is-visible)'));
+    const els = queryReveals();
     if (!els.length) return;
 
     // Bez IO / se sníženým pohybem: vše hned viditelné.
     if (reduced.matches || !('IntersectionObserver' in window)) {
-      els.forEach((el) => el.classList.add('is-visible'));
+      els.forEach((el) => {
+        el.classList.add('is-visible');
+        finish(el);
+      });
       return;
     }
 
-    // Stagger: --i podle pozice v rámci [data-reveal-group], cap 6.
+    // Stagger: --reveal-i podle pozice v rámci [data-reveal-group], cap 6.
     doc.querySelectorAll('[data-reveal-group]').forEach((group) => {
-      group.querySelectorAll('[data-reveal]').forEach((el, i) => {
+      group.querySelectorAll('.reveal, [data-reveal]').forEach((el, i) => {
         el.style.setProperty('--reveal-i', `${Math.min(i, 6) * 80}ms`);
       });
     });
