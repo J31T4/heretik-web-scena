@@ -38,8 +38,8 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
       <div class="container page-hero__text">
         <p class="act-label reveal">{act}</p>
         <p class="section-label reveal">{label}</p>
-        <h1 class="page-hero__title reveal" set:html={cs(title)} />
-        {subtitle && <p class="page-hero__subtitle reveal" set:html={cs(subtitle)} />}
+        <h1 class="page-hero__title reveal">{cs(title)}</h1>
+        {subtitle && <p class="page-hero__subtitle reveal">{cs(subtitle)}</p>}
       </div>
     </>
   )}
@@ -74,8 +74,8 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
     <div class="container page-hero__minimal">
       <p class="act-label reveal">{act}</p>
       <p class="section-label reveal">{label}</p>
-      <h1 class="page-hero__title reveal" set:html={cs(title)} />
-      {subtitle && <p class="page-hero__subtitle reveal" set:html={cs(subtitle)} />}
+      <h1 class="page-hero__title reveal">{cs(title)}</h1>
+      {subtitle && <p class="page-hero__subtitle reveal">{cs(subtitle)}</p>}
     </div>
   )}
 </section>
@@ -180,6 +180,7 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
     background: var(--bg);
     border: 1px solid var(--line-2);
     padding: 0.55rem 0.9rem;
+    white-space: nowrap;
   }
 
   /* --- Minimal varianta --- */

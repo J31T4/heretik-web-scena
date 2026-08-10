@@ -27,8 +27,8 @@ const images = [
     {act && <p class="act-label reveal">{act}</p>}
     <div class="section-head reveal">
       <p class="section-label">Galerie</p>
-      <h2 class="section-title" data-reveal={act ? 'curtain' : undefined} set:html={cs('Scény z představení')} />
-      <p class="section-subtitle" set:html={cs('Výřezy z našich vystoupení a akcí. Kliknutím fotku zvětšíte.')} />
+      <h2 class="section-title" data-reveal={act ? 'curtain' : undefined}>{cs('Scény z představení')}</h2>
+      <p class="section-subtitle">{cs('Výřezy z našich vystoupení a akcí. Kliknutím fotku zvětšíte.')}</p>
     </div>
 
     <div class="gallery__grid" data-reveal-group>

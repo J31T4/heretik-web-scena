@@ -3,7 +3,7 @@ import ScenaLayout from '../layouts/ScenaLayout.astro';
 import ScenaHeader from '../components/ScenaHeader.astro';
 import ScenaPageHero from '../components/ScenaPageHero.astro';
 import ScenaFooter from '../components/ScenaFooter.astro';
-import { socialLinks } from '../data/site.js';
+import { socialLinks, contactEmail } from '../data/site.js';
 import Picture from '../components/Picture.astro';
 import { cs } from '../utils/typo.js';
 ---
@@ -31,13 +31,13 @@ import { cs } from '../utils/typo.js';
       <div class="container contact__grid">
         <div class="contact__main reveal">
           <p class="act-label">Poptat vystoupení</p>
-          <h2 class="contact__heading" set:html={cs('Ozvěte se nám — rádi odpovíme')} />
-          <p class="contact__intro" set:html={cs('Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti, historické dny, plesy, firemní večírky, oslavy narozenin, dětské tábory a také program pro základní školy.')} />
-          <p class="contact__intro" set:html={cs('Naše hlavní sídlo je v Mohelnici, ale rádi cestujeme po celé České republice. Nejrychleji nás zastihnete na emailu nebo přes sociální sítě.')} />
+          <h2 class="contact__heading">{cs('Ozvěte se nám — rádi odpovíme')}</h2>
+          <p class="contact__intro">{cs('Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti, historické dny, plesy, firemní večírky, oslavy narozenin, dětské tábory a také program pro základní školy.')}</p>
+          <p class="contact__intro">{cs('Naše hlavní sídlo je v Mohelnici, ale rádi cestujeme po celé České republice. Nejrychleji nás zastihnete na e-mailu nebo přes sociální sítě.')}</p>
 
-          <a href="mailto:heretikmohelnice@gmail.com" class="contact__email">
+          <a href={`mailto:${contactEmail}`} class="contact__email">
             <span class="contact__email-icon" aria-hidden="true">✉</span>
-            heretikmohelnice@gmail.com
+            {contactEmail}
           </a>
 
           <div class="contact__social">

@@ -54,7 +54,7 @@ const performances = [
   },
   {
     title: 'Dětské tábory a školy',
-    description: 'Program pro děti, které nejen pobaví, ale také přiučí novým věcem o historii.',
+    description: 'Program pro děti, který je nejen pobaví, ale také přiučí novým věcem o historii.',
     details: 'Vzdělávací a zábavný program pro ZŠ i tábory',
     image: '/images/opt/gallery-3',
     w: 1400,
@@ -98,14 +98,14 @@ const performances = [
                 <span class="scene-card__tag">Povídky</span>
                 <h3 class="scene-card__title">{story.title}</h3>
               </div>
-              <p class="scene-card__lead" set:html={cs(story.lead)} />
+              <p class="scene-card__lead">{cs(story.lead)}</p>
               <ol class="scene-card__list">
                 {story.episodes.map((episode, episodeIndex) => (
                   <li>
                     <span class="scene-card__num" aria-hidden="true">
                       {String(episodeIndex + 1).padStart(2, '0')}
                     </span>
-                    <span set:html={cs(episode)} />
+                    <span>{cs(episode)}</span>
                   </li>
                 ))}
               </ol>
@@ -121,7 +121,7 @@ const performances = [
         <div class="section-head reveal">
           <p class="section-label">Příležitosti</p>
           <h2 class="section-title" data-reveal="curtain">Vystoupení pro vaši akci</h2>
-          <p class="section-subtitle" set:html={cs('Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti, historické dny a v neposlední řadě také obstaráme program pro plesy, firemní večírky, oslavy narozenin, dětské tábory a dokonce i program pro ZŠ, který děti nejen pobaví, ale také přiučí novým věcem o historii.')} />
+          <p class="section-subtitle">{cs('Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti, historické dny a v neposlední řadě také obstaráme program pro plesy, firemní večírky, oslavy narozenin, dětské tábory a dokonce i program pro ZŠ, který děti nejen pobaví, ale také přiučí novým věcem o historii.')}</p>
         </div>
 
         <div class="perf__list" data-reveal-group>
@@ -139,9 +139,9 @@ const performances = [
               </figure>
               <div class="perf__body">
                 <span class="perf__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-                <h3 class="perf__title" set:html={cs(perf.title)} />
-                <p class="perf__desc" set:html={cs(perf.description)} />
-                <p class="perf__details" set:html={cs(perf.details)} />
+                <h3 class="perf__title">{cs(perf.title)}</h3>
+                <p class="perf__desc">{cs(perf.description)}</p>
+                <p class="perf__details">{cs(perf.details)}</p>
                 <BookingButton variant="ghost" />
               </div>
             </article>

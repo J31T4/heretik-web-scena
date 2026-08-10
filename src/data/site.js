@@ -10,6 +10,9 @@ export const navigation = [
 
 export const siteLocation = 'Mohelnice · Česká republika';
 
+// Kontaktní e-mail — jediný zdroj pravdy (patička, kontakt, JSON-LD).
+export const contactEmail = 'heretikmohelnice@gmail.com';
+
 export const socialLinks = [
   {
     id: 'facebook',

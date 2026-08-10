@@ -1,7 +1,6 @@
 ---
 import BookingButton from './BookingButton.astro';
 import Picture from './Picture.astro';
-import { asset } from '../utils/paths.js';
 import { cs } from '../utils/typo.js';
 ---
 
@@ -26,7 +25,7 @@ import { cs } from '../utils/typo.js';
       Rezervujte si<br />
       <span class="fire-text">své představení</span>
     </h2>
-    <p class="cta__subtitle reveal" set:html={cs('Městská slavnost, ples, firemní večírek nebo školní den – připravíme vystoupení přesně pro vaši akci.')} />
+    <p class="cta__subtitle reveal">{cs('Městská slavnost, ples, firemní večírek nebo školní den – připravíme vystoupení přesně pro vaši akci.')}</p>
     <p class="cta__scope reveal">
       <span>Městské slavnosti</span><i aria-hidden="true">·</i>
       <span>školy</span><i aria-hidden="true">·</i>

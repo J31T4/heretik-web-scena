@@ -30,8 +30,8 @@ import { cs } from '../utils/typo.js';
         <div class="about__text reveal">
           <span class="about__num" aria-hidden="true">01</span>
           <h2 class="about__title">Naše historie</h2>
-          <p set:html={cs('Spolek HERETIK vznikl v roce 2020. Zabývá se tvorbou vystoupení, studiem dobových technik, nácvikem a předváděním šermu. Naši členové mají letitou praxi a zkušenosti z jiných šermířských skupin.')} />
-          <p set:html={cs('Tvoříme si vlastní choreografie, vtipné texty a scénky z odlišných druhů performancí – od commedie dell\'arte až po různé fantastické povídky.')} />
+          <p>{cs('Spolek HERETIK vznikl v roce 2020. Zabývá se tvorbou vystoupení, studiem dobových technik, nácvikem a předváděním šermu. Naši členové mají letitou praxi a zkušenosti z jiných šermířských skupin.')}</p>
+          <p>{cs('Tvoříme si vlastní choreografie, vtipné texty a scénky z odlišných druhů performancí – od commedie dell\'arte až po různé fantastické povídky.')}</p>
         </div>
         <figure class="about__image reveal reveal--zoom">
           <Picture
@@ -55,13 +55,14 @@ import { cs } from '../utils/typo.js';
             width={1400}
             height={915}
             loading="lazy"
+            sizes="(max-width: 900px) 100vw, 50vw"
           />
         </figure>
         <div class="about__text reveal">
           <span class="about__num" aria-hidden="true">02</span>
           <h2 class="about__title">Šermířská škola</h2>
-          <p set:html={cs('V nácviku nám pomáhají dochované učebnice starých šermířských mistrů i různé školy šermu. Absolvovali jsme několik seminářů, které se drží odkazu šermířského mistra Petra Kozy, který nám předal zkušený lektor Martin Tureček.')} />
-          <p set:html={cs('Šerm není jen bojové umění – je to forma choreografického vystoupení, kde každý pohyb, každá pozice a každý výraz má svůj význam.')} />
+          <p>{cs('V nácviku nám pomáhají dochované učebnice starých šermířských mistrů i různé školy šermu. Absolvovali jsme také několik seminářů vedených zkušeným lektorem Martinem Turečkem, který navazuje na odkaz šermířského mistra Petra Kozy.')}</p>
+          <p>{cs('Šerm není jen bojové umění – je to forma choreografického vystoupení, kde každý pohyb, každá pozice a každý výraz má svůj význam.')}</p>
         </div>
       </div>
     </section>
@@ -71,8 +72,8 @@ import { cs } from '../utils/typo.js';
         <div class="about__text reveal">
           <span class="about__num" aria-hidden="true">03</span>
           <h2 class="about__title">Pro vaše akce</h2>
-          <p set:html={cs('Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti, historické dny a v neposlední řadě také obstaráme program pro plesy, firemní večírky a oslavy narozenin.')} />
-          <p set:html={cs('Připravíme také program pro dětské tábory a základní školy – děti nejen pobaví, ale také přiučí novým věcem o historii.')} />
+          <p>{cs('Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti, historické dny a v neposlední řadě také obstaráme program pro plesy, firemní večírky a oslavy narozenin.')}</p>
+          <p>{cs('Připravíme také program pro dětské tábory a základní školy – děti nejen pobaví, ale také přiučí novým věcem o historii.')}</p>
         </div>
         <figure class="about__image reveal reveal--zoom">
           <Picture

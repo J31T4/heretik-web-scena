@@ -52,7 +52,7 @@ const shows = [
     <p class="act-label reveal">I. dějství</p>
     <div class="section-head reveal">
       <p class="section-label">Co děláme</p>
-      <h2 class="section-title" data-reveal="curtain" set:html={cs('Co hrajeme')} />
+      <h2 class="section-title" data-reveal="curtain">{cs('Co hrajeme')}</h2>
     </div>
 
     <div class="program">
@@ -63,8 +63,8 @@ const shows = [
           </div>
           <div class="program__body">
             <span class="program__tag">{show.tag}</span>
-            <h3 class="program__title" set:html={cs(show.title)} />
-            <p class="program__desc" set:html={cs(show.description)} />
+            <h3 class="program__title">{cs(show.title)}</h3>
+            <p class="program__desc">{cs(show.description)}</p>
           </div>
           <figure class="program__media">
             <Picture
