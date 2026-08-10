@@ -1,6 +1,6 @@
 ---
 import BookingButton from './BookingButton.astro';
-import { navigation, siteLocation, socialLinks } from '../data/site.js';
+import { navigation, siteLocation, contactEmail, socialLinks } from '../data/site.js';
 import { asset } from '../utils/paths.js';
 import { cs } from '../utils/typo.js';
 
@@ -20,7 +20,7 @@ const year = new Date().getFullYear();
       </div>
 
       <nav class="footer__nav" aria-label="Patička — navigace">
-        <p class="footer__heading">Program</p>
+        <p class="footer__heading">Navigace</p>
         {navigation.map((l) => (
           <a href={l.href}>{l.label}</a>
         ))}
@@ -29,8 +29,8 @@ const year = new Date().getFullYear();
       <div class="footer__contact">
         <p class="footer__heading">Kontakt</p>
         <p class="footer__place">{siteLocation}</p>
-        <a href="mailto:heretikmohelnice@gmail.com" class="footer__email">
-          heretikmohelnice@gmail.com
+        <a href={`mailto:${contactEmail}`} class="footer__email">
+          {contactEmail}
         </a>
         <div class="footer__social">
           {socialLinks.map((social) => (
@@ -144,11 +144,16 @@ const year = new Date().getFullYear();
     transition: color var(--t-fast) var(--ease), padding-left var(--t-fast) var(--ease);
   }
   .footer__nav a::before {
-    content: '◆';
+    /* Kosočtverec čistě CSS (prázdný čtverec otočený o 45°) — není součástí
+       přístupného jména odkazu. */
+    content: '';
     position: absolute;
     left: 0;
-    font-size: 0.5rem;
-    color: var(--crimson);
+    top: 50%;
+    width: 7px;
+    height: 7px;
+    background: var(--crimson);
+    transform: translateY(-50%) rotate(45deg);
     opacity: 0;
     transition: opacity var(--t-fast) var(--ease);
   }

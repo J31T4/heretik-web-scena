@@ -15,7 +15,7 @@ const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
         Aktuálně<br />
         <em>{cs('na Instagramu')}</em>
       </h2>
-      <p class="ig__intro" set:html={cs('Novinky, fotky a dění ze zákulisí najdete nejdřív na našem Instagramu.')} />
+      <p class="ig__intro">{cs('Novinky, fotky a dění ze zákulisí najdete nejdřív na našem Instagramu.')}</p>
 
       <a
         href={instagram.href}
@@ -23,32 +23,33 @@ const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
         rel="noopener noreferrer"
         class="btn btn--primary ig__cta"
       >
-        Sledovat @heretik_z.s._ <span class="btn__arrow" aria-hidden="true">→</span>
+        Sledovat {instagram.handle} <span class="btn__arrow" aria-hidden="true">→</span>
       </a>
     </div>
 
     <div class="ig__stage reveal reveal--delay-100">
       <div class="ig__stage-head" aria-hidden="true">
         <span class="ig__live"><i></i> Živě ze zákulisí</span>
-        <span>@heretik_z.s._</span>
+        <span>{instagram.handle}</span>
       </div>
 
       <div
         class="ig__frame"
         data-instagram-feed
         data-feed-url={instagramFeedUrl}
-        aria-live="polite"
         aria-busy="true"
       >
         <div class="ig__grid" aria-label="Nejnovější příspěvky SHŠ Heretik na Instagramu">
           {Array.from({ length: 6 }).map(() => <span class="ig__skeleton" aria-hidden="true"></span>)}
         </div>
 
+        <p class="sr-only" data-instagram-status role="status" aria-live="polite"></p>
+
         <div class="ig__fallback" data-instagram-fallback hidden>
           <div class="ig__fallback-grid" aria-hidden="true">
-            <Picture src="/images/opt/gallery-1.jpg" alt="" width={1400} height={666} loading="lazy" />
-            <Picture src="/images/opt/gallery-3.jpg" alt="" width={1400} height={934} loading="lazy" />
-            <Picture src="/images/opt/gallery-5.jpg" alt="" width={1050} height={1400} loading="lazy" />
+            <Picture src="/images/opt/gallery-1.jpg" alt="" width={1400} height={666} loading="lazy" sizes="(max-width: 560px) 50vw, 240px" />
+            <Picture src="/images/opt/gallery-3.jpg" alt="" width={1400} height={934} loading="lazy" sizes="(max-width: 560px) 50vw, 240px" />
+            <Picture src="/images/opt/gallery-5.jpg" alt="" width={1050} height={1400} loading="lazy" sizes="(max-width: 560px) 50vw, 240px" />
           </div>
           <p class="ig__fallback-note">Novinky, fotky a dění ze zákulisí najdete na našem Instagramu.</p>
           <a
@@ -57,7 +58,7 @@ const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
             rel="noopener noreferrer"
             class="btn btn--primary ig__fallback-cta"
           >
-            Sledovat @heretik_z.s._ <span class="btn__arrow" aria-hidden="true">→</span>
+            Sledovat {instagram.handle} <span class="btn__arrow" aria-hidden="true">→</span>
           </a>
         </div>
 
@@ -249,7 +250,7 @@ const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
     min-width: 0;
     overflow: hidden;
     background: var(--bg-2);
-    color: var(--ink-1);
+    color: var(--ink);
     isolation: isolate;
   }
 
@@ -287,6 +288,19 @@ const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
     text-transform: uppercase;
   }
 
+  /* Placeholder pro nenačtený obrázek — tmavý, ladí s designem */
+  .ig__grid :global(.ig__post-placeholder) {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background:
+      linear-gradient(145deg, rgba(242, 237, 228, 0.04), transparent 55%),
+      var(--bg-3);
+    color: var(--ink-3);
+    font-size: 1.4rem;
+  }
+
   .ig__grid :global(.ig__post-mark) {
     top: 0.55rem;
     right: 0.55rem;
@@ -296,7 +310,7 @@ const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
     height: 1.65rem;
     border: 1px solid rgba(242, 237, 228, 0.42);
     background: rgba(9, 8, 8, 0.7);
-    color: var(--ink-1);
+    color: var(--ink);
     font-size: 0.66rem;
     line-height: 1;
     backdrop-filter: blur(5px);
@@ -312,7 +326,7 @@ const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
     right: 0.65rem;
     bottom: 0.55rem;
     overflow: hidden;
-    color: var(--ink-1);
+    color: var(--ink);
     font-size: 0.55rem;
     font-weight: 600;
     letter-spacing: 0.12em;
@@ -400,6 +414,19 @@ const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
     text-underline-offset: 0.2em;
   }
 
+  /* Visually hidden — pro stavový role="status" (čte se, nezabírá místo) */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
   @keyframes ig-shimmer {
     55%,
     100% { transform: translateX(100%); }
@@ -447,6 +474,15 @@ const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
   const CACHE_KEY = 'heretik-instagram-feed-v1';
   const CACHE_TTL = 60 * 60 * 1000;
 
+  // Přístupné jméno (aria-label) odkazu se nesmí rovnat alt obrázku.
+  // Tvoříme ho z typu příspěvku + captionu, stručně, s upozorněním na nový panel.
+  const getPostLabel = (post, isVideo) => {
+    const kind = isVideo ? 'video' : 'příspěvek';
+    const firstLine = String(post?.caption ?? '').split('\n')[0].replace(/\s+/g, ' ').trim();
+    const topic = firstLine ? ` — ${firstLine.slice(0, 60)}${firstLine.length > 60 ? '…' : ''}` : '';
+    return `${kind} SHŠ Heretik${topic} (otevře se v novém okně)`;
+  };
+
   const getCachedFeed = () => {
     try {
       const cached = JSON.parse(sessionStorage.getItem(CACHE_KEY) ?? 'null');
@@ -474,12 +510,13 @@ const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
   };
 
   const buildPost = (post) => {
+    const isVideo = post.mediaType === 'VIDEO';
     const link = document.createElement('a');
     link.className = 'ig__post';
     link.href = post.permalink;
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
-    link.ariaLabel = 'Zobrazit příspěvek SHŠ Heretik na Instagramu';
+    link.ariaLabel = getPostLabel(post, isVideo);
 
     const image = document.createElement('img');
     image.className = 'ig__post-image';
@@ -490,8 +527,22 @@ const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
     image.addEventListener('load', () => image.classList.add('is-ready'), { once: true });
     if (image.complete) image.classList.add('is-ready');
 
+    // Chyba načtení jednoho obrázku → stylovaný placeholder v tmavém designu.
+    const placeholder = document.createElement('span');
+    placeholder.className = 'ig__post-placeholder';
+    placeholder.textContent = isVideo ? '▶' : '↗';
+    placeholder.setAttribute('aria-hidden', 'true');
+
+    image.addEventListener(
+      'error',
+      () => {
+        image.remove();
+        link.append(placeholder);
+      },
+      { once: true }
+    );
+
     const mark = document.createElement('span');
-    const isVideo = post.mediaType === 'VIDEO';
     mark.className = `ig__post-mark${isVideo ? ' ig__post-mark--video' : ''}`;
     mark.textContent = isVideo ? '▶' : '↗';
     mark.setAttribute('aria-hidden', 'true');
@@ -501,13 +552,14 @@ const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
     label.textContent = isVideo ? 'Přehrát reel' : 'Zobrazit příspěvek';
     label.setAttribute('aria-hidden', 'true');
 
-    link.append(image, mark, label);
+    link.append(image, placeholder, mark, label);
     return link;
   };
 
   const loadFeed = async (root) => {
     const grid = root.querySelector('.ig__grid');
     const fallback = root.querySelector('[data-instagram-fallback]');
+    const status = root.querySelector('[data-instagram-status]');
 
     try {
       let data = getCachedFeed();
@@ -524,10 +576,12 @@ const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
       if (!posts.length) throw new Error('Behold feed neobsahuje žádné příspěvky.');
 
       grid.replaceChildren(...posts.map(buildPost));
+      if (status) status.textContent = 'Instagram feed se načetl.';
     } catch (error) {
       console.warn('Instagram feed se nepodařilo načíst.', error);
       grid.setAttribute('hidden', '');
       fallback?.removeAttribute('hidden');
+      if (status) status.textContent = 'Instagram feed se nepodařilo načíst.';
     } finally {
       root.removeAttribute('aria-busy');
     }
