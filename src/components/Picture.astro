@@ -1,15 +1,17 @@
 ---
 // SHŠ Heretik — Scéna · Picture.astro
-// <picture> s WebP <source> + JPG <img>, base-prefixed cesty,
-// povinné rozměry (CLS=0), loading/decoding/fetchpriority prop.
+// <picture> s responzivními variantami (480/800/1200/plná) WebP + JPG,
+// base-prefixed cesty, povinné rozměry (CLS=0), loading/decoding/fetchpriority.
 import { asset } from '../utils/paths.js';
 
 interface Props {
-  /** JPG cesta z public/images/opt (např. '/images/opt/gallery-1.jpg') */
+  /** JPG cesta z public/images/opt (např. '/images/opt/gallery-1.jpg') — plná varianta */
   src: string;
   alt: string;
-  width?: number;
-  height?: number;
+  width: number;
+  height: number;
+  /** sizes atribut pro srcset (např. '(max-width: 560px) 100vw, 50vw') */
+  sizes?: string;
   loading?: 'lazy' | 'eager';
   decoding?: 'async' | 'sync' | 'auto';
   fetchpriority?: 'high' | 'low' | 'auto';
@@ -27,6 +29,7 @@ const {
   alt,
   width,
   height,
+  sizes,
   loading = 'lazy',
   decoding = 'async',
   fetchpriority = 'auto',
@@ -37,6 +40,16 @@ const {
 } = Astro.props;
 
 const toWebp = (path) => path.replace(/\.jpe?g$/i, '.webp');
+const withoutExt = (path) => path.replace(/\.jpe?g$/i, '');
+
+// srcset z dostupných variant: 480/800/1200 (jen pokud < šířky obrázku) + plná
+const baseNoExt = withoutExt(src);
+const variantWidths = [480, 800, 1200].filter((v) => v < width);
+const srcsetCandidates = variantWidths.map((v) => `${asset(`${baseNoExt}-${v}.webp`)} ${v}w`);
+srcsetCandidates.push(`${asset(toWebp(src))} ${width}w`);
+const webpSrcset = srcsetCandidates.join(', ');
+const jpgSrcset = srcsetCandidates.map((c) => c.replace(/\.webp/g, '.jpg')).join(', ');
+
 const imgProps: Record<string, string | number | undefined> = {
   src: asset(src),
   alt,
@@ -46,12 +59,10 @@ const imgProps: Record<string, string | number | undefined> = {
   decoding,
   fetchpriority,
   class: imgClass,
+  sizes,
 };
-for (const key of ['loading', 'decoding', 'fetchpriority', 'class']) {
+for (const key of ['loading', 'decoding', 'fetchpriority', 'class', 'sizes']) {
   if (imgProps[key] === undefined || imgProps[key] === 'auto') delete imgProps[key];
-}
-for (const key of ['width', 'height']) {
-  if (imgProps[key] === undefined) delete imgProps[key];
 }
 ---
 
@@ -60,12 +71,14 @@ for (const key of ['width', 'height']) {
     <picture class:list={className}>
       <source media={mobileMedia} srcset={asset(toWebp(mobileSrc))} type="image/webp" />
       <source media={mobileMedia} srcset={asset(mobileSrc)} type="image/jpeg" />
-      <source srcset={asset(toWebp(src))} type="image/webp" />
+      <source srcset={webpSrcset} type="image/webp" sizes={sizes} />
+      <source srcset={jpgSrcset} type="image/jpeg" sizes={sizes} />
       <img {...imgProps} />
     </picture>
   ) : (
     <picture class:list={className}>
-      <source srcset={asset(toWebp(src))} type="image/webp" />
+      <source srcset={webpSrcset} type="image/webp" sizes={sizes} />
+      <source srcset={jpgSrcset} type="image/jpeg" sizes={sizes} />
       <img {...imgProps} />
     </picture>
   )
