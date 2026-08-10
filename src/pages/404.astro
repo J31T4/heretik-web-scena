@@ -9,16 +9,48 @@ import { cs } from '../utils/typo.js';
 <ScenaLayout
   title="Stránka nenalezena"
   description="Požadovaná stránka nebyla nalezena. Vraťte se na úvodní stránku SHŠ Heretik."
+  noindex
 >
   <ScenaHeader />
   <main id="obsah">
-    <section class="section">
-      <div class="container">
-        <h1 set:html={cs('404 — Stránka nenalezena')} />
-        <p set:html={cs('Tato stránka neexistuje nebo byla přesunuta.')} />
+    <section class="section page-404">
+      <div class="container page-404__inner">
+        <p class="act-label" aria-hidden="true">404</p>
+        <h1 class="page-404__title">{cs('Stránka nenalezena')}</h1>
+        <p class="page-404__text">{cs('Tato stránka neexistuje nebo byla přesunuta.')}</p>
         <a class="btn btn--primary" href={page('/')}>Zpět na úvodní stránku</a>
       </div>
     </section>
   </main>
   <ScenaFooter />
 </ScenaLayout>
+
+<style>
+  .page-404 {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+  }
+  .page-404__inner {
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .page-404 .act-label {
+    justify-content: center;
+    font-size: clamp(4rem, 12vw, 7rem);
+    letter-spacing: 0.1em;
+    color: var(--crimson);
+    margin-bottom: var(--sp-5);
+  }
+  .page-404 .act-label::before { display: none; }
+  .page-404__title {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    margin-bottom: var(--sp-4);
+  }
+  .page-404__text {
+    font-size: var(--fs-lead);
+    color: var(--ink-2);
+    margin-bottom: var(--sp-7);
+  }
+</style>

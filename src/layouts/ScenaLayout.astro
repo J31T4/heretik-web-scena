@@ -1,16 +1,43 @@
 ---
 import '../styles/scena.css';
 import { asset } from '../utils/paths.js';
+import { contactEmail, socialLinks } from '../data/site.js';
 
 interface Props {
   title: string;
   description?: string;
+  /** true → meta robots noindex,nofollow (použití: vlastní 404 stránka) */
+  noindex?: boolean;
 }
 
-const { title, description = 'Historický a scénický šerm z Mohelnice. Umění, které přežívá století.' } = Astro.props;
-const siteURL = Astro.site ?? new URL('https://j31t4.github.io');
+const { title, description = 'Historický a scénický šerm z Mohelnice. Umění, které přežívá století.', noindex = false } = Astro.props;
+
+// Jeden zdroj pravdy pro URL: Astro.site z astro.config.mjs
+// (produkce https://shsheretik.cz, GitHub Pages https://j31t4.github.io + base).
+const siteURL = Astro.site ?? new URL('https://shsheretik.cz');
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
 const canonicalURL = new URL(Astro.url.pathname, siteURL);
-const socialImageURL = new URL(asset('/images/opt/hero-1.jpg'), siteURL);
+const socialImageURL = new URL(`${basePath}/images/opt/hero-1.jpg`, siteURL);
+
+// Title bez dvojitého názvu webu (title už může obsahovat „SHŠ Heretik“).
+const fullTitle = title.includes('SHŠ Heretik') ? title : `${title} | SHŠ Heretik`;
+
+// JSON-LD — pouze ověřené údaje (produkční URL z configu, žádné vymyšlené kontakty).
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'PerformingGroup',
+  name: 'SHŠ Heretik',
+  url: new URL(basePath || '/', siteURL).toString(),
+  logo: new URL(`${basePath}/logo.svg`, siteURL).toString(),
+  image: socialImageURL.toString(),
+  email: contactEmail,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Mohelnice',
+    addressCountry: 'CZ',
+  },
+  sameAs: socialLinks.map((s) => s.href),
+};
 ---
 
 <!DOCTYPE html>
@@ -20,7 +47,8 @@ const socialImageURL = new URL(asset('/images/opt/hero-1.jpg'), siteURL);
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
   <meta name="theme-color" content="#0A0A0A" />
-  <meta property="og:title" content={`${title} | SHŠ Heretik`} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
+  <meta property="og:title" content={fullTitle} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="cs_CZ" />
@@ -34,11 +62,12 @@ const socialImageURL = new URL(asset('/images/opt/hero-1.jpg'), siteURL);
   <link rel="canonical" href={canonicalURL} />
   <link rel="icon" type="image/svg+xml" href={asset('/favicon.svg')} />
   <link rel="manifest" href={asset('/site.webmanifest')} />
+  {/* Preload jen kritických řezů: Fraunces (nadpisy/hero, latin + latin-ext) a Inter (tělo, latin) */}
   <link rel="preload" href={asset('/fonts/fraunces-latin-400_600.woff2')} as="font" type="font/woff2" crossorigin />
   <link rel="preload" href={asset('/fonts/fraunces-latin-ext-400_600.woff2')} as="font" type="font/woff2" crossorigin />
   <link rel="preload" href={asset('/fonts/inter-latin-400_600.woff2')} as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href={asset('/fonts/space-grotesk-latin-500_700.woff2')} as="font" type="font/woff2" crossorigin />
-  <title>{title} | SHŠ Heretik</title>
+  {!noindex && <script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />}
+  <title>{fullTitle}</title>
   <script is:inline>
     // Progressive enhancement: animace se zapnou až po načtení JS.
     // Třída se přidá okamžitě (před prvním vykreslením), obsah je viditelný i bez JS.
