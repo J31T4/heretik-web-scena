@@ -1,5 +1,6 @@
 ---
 import Picture from './Picture.astro';
+import { asset } from '../utils/paths.js';
 import { cs } from '../utils/typo.js';
 
 interface Props {
@@ -37,6 +38,7 @@ const images = [
           class:list={['gallery__item', `gallery__item--${img.area}`]}
           data-reveal
           data-lightbox
+          data-full-src={asset(`/images/opt/${img.src}.jpg`)}
           data-caption={`Scéna ${String(i + 1).padStart(2, '0')} — ${img.caption}`}
           aria-label={`Zvětšit fotografii: Scéna ${String(i + 1).padStart(2, '0')} — ${img.caption}`}
         >
@@ -46,6 +48,7 @@ const images = [
             width={img.w}
             height={img.h}
             loading="lazy"
+            sizes="(max-width: 560px) 100vw, (max-width: 1024px) 50vw, 25vw"
           />
           <span class="gallery__plate">
             <span class="gallery__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>

@@ -184,19 +184,18 @@
     const show = (i) => {
       current = (i + items.length) % items.length;
       const item = items[current];
-      const img = item.querySelector('img');
-      lbImg.src = img.currentSrc || img.src;
-      lbImg.alt = img.alt || '';
+      // Lightbox vždy používá plnou variantu (data-full-src), ne responzivní náhled.
+      lbImg.src = item.dataset.fullSrc || item.querySelector('img')?.currentSrc || item.querySelector('img')?.src;
+      lbImg.alt = item.querySelector('img')?.alt || '';
       // Popisek ve stylu destičky: „01 Tábořiště“
       const [head, ...rest] = String(item.dataset.caption || '').split(' — ');
       if (lbNum) lbNum.textContent = String(current + 1).padStart(2, '0');
       if (lbCaption) lbCaption.textContent = rest.length ? rest.join(' — ') : head;
       if (lbCounter) lbCounter.textContent = `${current + 1} / ${items.length}`;
-      // Preload sousedních fotografií (předchozí i další)
+      // Preload sousedních fotografií — plné URL z data-full-src
       for (const offset of [-1, 1]) {
         const adjacent = items[(current + offset + items.length) % items.length];
-        const adjacentImg = adjacent?.querySelector('img');
-        const adjacentSrc = adjacentImg && (adjacentImg.currentSrc || adjacentImg.src);
+        const adjacentSrc = adjacent?.dataset.fullSrc;
         if (adjacentSrc) {
           const preload = new Image();
           preload.src = adjacentSrc;
