@@ -36,7 +36,12 @@ import { cs } from '../utils/typo.js';
           <p class="contact__intro">{cs('Naše hlavní sídlo je v Mohelnici, ale rádi cestujeme po celé České republice. Nejrychleji nás zastihnete na e-mailu nebo přes sociální sítě.')}</p>
 
           <a href={`mailto:${contactEmail}`} class="contact__email">
-            <span class="contact__email-icon" aria-hidden="true">✉</span>
+            <span class="contact__email-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <path d="m3.5 6.5 8.5 6.5 8.5-6.5" />
+              </svg>
+            </span>
             {contactEmail}
           </a>
 

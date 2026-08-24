@@ -316,9 +316,18 @@ const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
     backdrop-filter: blur(5px);
   }
 
+  .ig__grid :global(.ig__post-mark svg) {
+    display: block;
+    width: 0.85em;
+    height: 0.85em;
+  }
+
   .ig__grid :global(.ig__post-mark--video) {
-    padding-left: 0.12rem;
     color: var(--crimson-bright);
+  }
+
+  .ig__grid :global(.ig__post-mark--video svg) {
+    margin-left: 0.1em;
   }
 
   .ig__grid :global(.ig__post-label) {
@@ -544,7 +553,9 @@ const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
 
     const mark = document.createElement('span');
     mark.className = `ig__post-mark${isVideo ? ' ig__post-mark--video' : ''}`;
-    mark.textContent = isVideo ? '▶' : '↗';
+    mark.innerHTML = isVideo
+      ? '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>';
     mark.setAttribute('aria-hidden', 'true');
 
     const label = document.createElement('span');
