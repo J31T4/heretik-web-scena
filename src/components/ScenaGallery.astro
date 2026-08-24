@@ -48,7 +48,11 @@ const images = [
             width={img.w}
             height={img.h}
             loading="lazy"
-            sizes="(max-width: 560px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            sizes={
+              img.area === 'g1'
+                ? '(max-width: 560px) 48vw, (max-width: 1024px) 50vw, 540px'
+                : '(max-width: 560px) 48vw, (max-width: 1024px) 50vw, 300px'
+            }
           />
           <span class="gallery__plate">
             <span class="gallery__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>

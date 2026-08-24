@@ -61,9 +61,13 @@ for src, (max_dim, q) in PLAN.items():
     for v in VARIANTS:
         if max(w, h) <= v:
             continue
-        r = v / max(w, h)
+        # KRITICKÉ: poměr se počítá vůči PLNÉ variantě (full už byl zmenšen
+        # z originálu) — vůči max(w,h) originálu by varianty byly o ~27% menší,
+        # než tvrdí jejich název, a srcset by dostával upscalované obrázky.
+        r = v / max(full.width, full.height)
         variant = full.resize((round(full.width * r), round(full.height * r)), LANCZOS)
-        save_variant(variant, os.path.join(DST, f'{base}-{v}'), q)
+        # Náhledy mají vyšší kvalitu než plná — bývají upscalované na 2× displejích.
+        save_variant(variant, os.path.join(DST, f'{base}-{v}'), min(q + 4, 86))
         total_after += os.path.getsize(os.path.join(DST, f'{base}-{v}.webp')) + os.path.getsize(os.path.join(DST, f'{base}-{v}.jpg'))
 
     print(f'{src} → {full.size} (+ {VARIANTS})')
