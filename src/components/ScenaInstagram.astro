@@ -298,7 +298,15 @@ const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
       linear-gradient(145deg, rgba(242, 237, 228, 0.04), transparent 55%),
       var(--bg-3);
     color: var(--ink-3);
-    font-size: 1.4rem;
+  }
+
+  /* Skrytý placeholder nesmí přebít UA `[hidden]` (display: grid má vyšší prioritu) */
+  .ig__grid :global(.ig__post-placeholder[hidden]) { display: none; }
+
+  .ig__grid :global(.ig__post-placeholder svg) {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
   }
 
   .ig__grid :global(.ig__post-mark) {
@@ -536,17 +544,24 @@ const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
     image.addEventListener('load', () => image.classList.add('is-ready'), { once: true });
     if (image.complete) image.classList.add('is-ready');
 
-    // Chyba načtení jednoho obrázku → stylovaný placeholder v tmavém designu.
-    const placeholder = document.createElement('span');
-    placeholder.className = 'ig__post-placeholder';
-    placeholder.textContent = isVideo ? '▶' : '↗';
-    placeholder.setAttribute('aria-hidden', 'true');
+    // Placeholder na chybu načtení: skrytý, aktivuje se jen při erroru obrázku.
+    const createPlaceholder = () => {
+      const ph = document.createElement('span');
+      ph.className = 'ig__post-placeholder';
+      ph.innerHTML = isVideo
+        ? '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>'
+        : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>';
+      ph.setAttribute('aria-hidden', 'true');
+      ph.setAttribute('hidden', '');
+      return ph;
+    };
+    const placeholder = createPlaceholder();
 
     image.addEventListener(
       'error',
       () => {
         image.remove();
-        link.append(placeholder);
+        placeholder.removeAttribute('hidden');
       },
       { once: true }
     );
