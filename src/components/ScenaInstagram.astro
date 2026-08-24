@@ -270,11 +270,9 @@ const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    filter: saturate(0.88) contrast(1.04);
     transform: scale(1.002);
     transition:
       opacity var(--t-med) var(--ease),
-      filter var(--t-med) var(--ease),
       transform 600ms var(--ease);
   }
 
@@ -517,8 +515,15 @@ const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
     }
   };
 
-  const getImageUrl = (post) =>
-    post?.sizes?.medium?.mediaUrl ?? post?.sizes?.small?.mediaUrl ?? post?.thumbnailUrl ?? post?.mediaUrl;
+  const getImageUrl = (post) => {
+    // Preferujeme velké rozlišení — čtvercový výřez (cover) z landshaftu
+    // má jen min(w,h) pixelů, takže 700px varianta nestačí na 2× displeje.
+    const s = post?.sizes;
+    return (
+      s?.large?.mediaUrl ?? s?.full?.mediaUrl ?? s?.medium?.mediaUrl ??
+      s?.small?.mediaUrl ?? post?.thumbnailUrl ?? post?.mediaUrl
+    );
+  };
 
   const getAltText = (post) => {
     const firstLine = String(post?.caption ?? '').split('\n')[0].replace(/\s+/g, ' ').trim();
@@ -537,6 +542,8 @@ const instagramFeedUrl = 'https://feeds.behold.so/2u1AIdMMoQAzZSje2ifl';
 
     const image = document.createElement('img');
     image.className = 'ig__post-image';
+    // src = large (1000px): čtvercový výřez cover má min(w,h)=563 px,
+    // což pokryje 2× displej (464 px). Medium (394px výřez) by byl soft.
     image.src = getImageUrl(post);
     image.alt = getAltText(post);
     image.loading = 'lazy';
