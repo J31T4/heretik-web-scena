@@ -15,19 +15,17 @@ const { act = 'III. dějství', extended = false } = Astro.props;
 const images = [
   { src: 'gallery-1', caption: 'Tábořiště', area: 'g1', w: 1400, h: 666 },
   { src: 'gallery-2', caption: 'Stanové ležení', area: 'g2', w: 1400, h: 915 },
-  { src: 'gallery-3', caption: 'Souboj', area: 'g3', w: 1400, h: 934 },
-  { src: 'gallery-4', caption: 'Dobové rekvizity', area: 'g4', w: 1400, h: 1050 },
+  { src: 'gallery-21', caption: 'Souboj nablízko', area: 'g3', w: 1400, h: 932 },
+  { src: 'gallery-20', caption: 'Detail z vystoupení', area: 'g4', w: 1400, h: 932 },
   { src: 'gallery-5', caption: 'Ležení a ohniště', area: 'g5', w: 1050, h: 1400 },
-  { src: 'gallery-6', caption: 'Před hradní zdí', area: 'g6', w: 1400, h: 933 },
-  { src: 'gallery-7', caption: 'Celá skupina', area: 'g7', w: 1400, h: 1400 },
-  { src: 'gallery-8', caption: 'Skupinová fotografie', area: 'g8', w: 1051, h: 1400 },
+  { src: 'gallery-9', caption: 'Šerm u hradby', area: 'g6', w: 1400, h: 646 },
+  { src: 'gallery-11', caption: 'Skupinový souboj', area: 'g7', w: 1400, h: 646 },
+  { src: 'gallery-23', caption: 'Chvat v souboji', area: 'g8', w: 1400, h: 932 },
 ];
 
-// Nejnovější fotky (2026) — jen v rozšířené galerii na /galerie.
+// Zbytek fotek ze sezóny 2026 — jen v rozšířené galerii na /galerie.
 const extraImages = [
-  { src: 'gallery-9', caption: 'Šerm u hradby', w: 1400, h: 646 },
   { src: 'gallery-10', caption: 'Střet šermířů', w: 1400, h: 646 },
-  { src: 'gallery-11', caption: 'Skupinový souboj', w: 1400, h: 646 },
   { src: 'gallery-12', caption: 'Zápas na nádvoří', w: 1400, h: 646 },
   { src: 'gallery-13', caption: 'Před diváky', w: 1400, h: 646 },
   { src: 'gallery-14', caption: 'Dvojice v kostýmech', w: 646, h: 1400 },
@@ -36,10 +34,7 @@ const extraImages = [
   { src: 'gallery-17', caption: 'Souboj dvojice', w: 1400, h: 646 },
   { src: 'gallery-18', caption: 'Střet mečů', w: 1400, h: 646 },
   { src: 'gallery-19', caption: 'Večerní vystoupení', w: 1400, h: 788 },
-  { src: 'gallery-20', caption: 'Detail z vystoupení', w: 1400, h: 932 },
-  { src: 'gallery-21', caption: 'Souboj nablízko', w: 1400, h: 932 },
   { src: 'gallery-22', caption: 'Šermíř v pohybu', w: 1400, h: 932 },
-  { src: 'gallery-23', caption: 'Chvat v souboji', w: 1400, h: 932 },
   { src: 'gallery-24', caption: 'Herecký okamžik', w: 1400, h: 932 },
   { src: 'gallery-25', caption: 'Humor na jevišti', w: 1400, h: 932 },
   { src: 'gallery-26', caption: 'Boj zblízka', w: 1400, h: 932 },
@@ -60,19 +55,19 @@ const extraImages = [
     </div>
 
     <div class="gallery__grid" data-reveal-group>
-      {images.map((img, i) => (
+      {images.map((img) => (
         <button
           type="button"
           class:list={['gallery__item', `gallery__item--${img.area}`]}
           data-reveal
           data-lightbox
           data-full-src={asset(`/images/opt/${img.src}.jpg`)}
-          data-caption={`Scéna ${String(i + 1).padStart(2, '0')} — ${img.caption}`}
-          aria-label={`Zvětšit fotografii: Scéna ${String(i + 1).padStart(2, '0')} — ${img.caption}`}
+          data-caption=""
+          aria-label={`Zvětšit fotografii: ${img.caption}`}
         >
           <Picture
             src={`/images/opt/${img.src}.jpg`}
-            alt={`Scéna ${String(i + 1).padStart(2, '0')} — ${img.caption}`}
+            alt={img.caption}
             width={img.w}
             height={img.h}
             loading="lazy"
@@ -82,10 +77,6 @@ const extraImages = [
                 : '(max-width: 560px) 48vw, (max-width: 1024px) 50vw, 300px'
             }
           />
-          <span class="gallery__plate">
-            <span class="gallery__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-            <span class="gallery__cap">{img.caption}</span>
-          </span>
           <span class="gallery__zoom" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6">
               <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
@@ -98,42 +89,35 @@ const extraImages = [
     {extended && (
       <>
         <div class="gallery__more reveal">
-          <p class="section-label">Nejnovější fotky</p>
+          <p class="section-label">Další fotky</p>
           <h3 class="gallery__more-title">Ze sezóny 2026</h3>
         </div>
         <div class="gallery__grid gallery__grid--more" data-reveal-group>
-          {extraImages.map((img, i) => {
-            const num = String(images.length + i + 1).padStart(2, '0');
-            return (
+          {extraImages.map((img) => (
               <button
                 type="button"
                 class="gallery__item"
                 data-reveal
                 data-lightbox
                 data-full-src={asset(`/images/opt/${img.src}.jpg`)}
-                data-caption={`Scéna ${num} — ${img.caption}`}
-                aria-label={`Zvětšit fotografii: Scéna ${num} — ${img.caption}`}
+                data-caption=""
+                aria-label={`Zvětšit fotografii: ${img.caption}`}
               >
                 <Picture
                   src={`/images/opt/${img.src}.jpg`}
-                  alt={`Scéna ${num} — ${img.caption}`}
+                  alt={img.caption}
                   width={img.w}
                   height={img.h}
                   loading="lazy"
                   sizes="(max-width: 560px) 100vw, (max-width: 1024px) 50vw, 380px"
                 />
-                <span class="gallery__plate">
-                  <span class="gallery__num" aria-hidden="true">{num}</span>
-                  <span class="gallery__cap">{img.caption}</span>
-                </span>
                 <span class="gallery__zoom" aria-hidden="true">
                   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6">
                     <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
                   </svg>
                 </span>
               </button>
-            );
-          })}
+          ))}
         </div>
       </>
     )}
@@ -277,34 +261,6 @@ const extraImages = [
       transform: scale(1.045);
       filter: saturate(1.05) contrast(1.08);
     }
-  }
-
-  /* Popisek — vždy viditelný (nezávislý na hoveru) */
-  .gallery__plate {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    align-items: baseline;
-    gap: 0.7rem;
-    padding: 2.4rem 0.9rem 0.75rem;
-    background: linear-gradient(180deg, transparent, rgba(6, 6, 6, 0.88));
-    color: var(--ink);
-  }
-  .gallery__num {
-    font-family: var(--font-ui);
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    color: var(--crimson-bright);
-  }
-  .gallery__cap {
-    font-family: var(--font-ui);
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
   }
 
   .gallery__zoom {

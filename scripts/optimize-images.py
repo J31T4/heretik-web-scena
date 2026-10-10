@@ -56,6 +56,13 @@ PLAN = {
 # Responzivní šířky variant (longest edge), kromě plné varianty.
 VARIANTS = [480, 800, 1200]
 
+# Mobilní varianty (longest edge) pro hero obrázky — používá je mobileSrc
+# v ScenaHero / ScenaCTA (menší soubor pro telefony).
+MOBILE_VARIANTS = {
+    'hero-1.jpeg': [900],
+    'hero-2.jpeg': [900],
+}
+
 
 def save_variant(im, path, q):
     """Uloží obrázek jako WebP i JPEG se stejnou kvalitou."""
@@ -91,6 +98,15 @@ for src, (max_dim, q) in PLAN.items():
         r = v / max(full.width, full.height)
         variant = full.resize((round(full.width * r), round(full.height * r)), LANCZOS)
         # Náhledy mají vyšší kvalitu než plná — bývají upscalované na 2× displejích.
+        save_variant(variant, os.path.join(DST, f'{base}-{v}'), min(q + 4, 86))
+        total_after += os.path.getsize(os.path.join(DST, f'{base}-{v}.webp')) + os.path.getsize(os.path.join(DST, f'{base}-{v}.jpg'))
+
+    # Mobilní varianty (hero obrázky — mobileSrc v ScenaHero / ScenaCTA)
+    for v in MOBILE_VARIANTS.get(src, []):
+        if max(full.width, full.height) <= v:
+            continue
+        r = v / max(full.width, full.height)
+        variant = full.resize((round(full.width * r), round(full.height * r)), LANCZOS)
         save_variant(variant, os.path.join(DST, f'{base}-{v}'), min(q + 4, 86))
         total_after += os.path.getsize(os.path.join(DST, f'{base}-{v}.webp')) + os.path.getsize(os.path.join(DST, f'{base}-{v}.jpg'))
 
