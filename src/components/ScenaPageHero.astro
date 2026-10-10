@@ -12,6 +12,9 @@ interface Props {
     jpg: string;
     alt: string;
     position?: 'high' | 'mid';
+    /** Reálné rozměry plné varianty (kvůli CLS); default 1400×934 / 1050×1400 */
+    w?: number;
+    h?: number;
   };
 }
 
@@ -26,8 +29,8 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
           src={image.jpg}
           alt=""
           imgClass={image.position ? `page-hero__image--${image.position}` : undefined}
-          width={1400}
-          height={934}
+          width={image.w ?? 1400}
+          height={image.h ?? 934}
           loading="eager"
           fetchpriority="high"
           sizes="100vw"
@@ -57,8 +60,8 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
         <Picture
           src={image.jpg}
           alt={image.alt}
-          width={1050}
-          height={1400}
+          width={image.w ?? 1050}
+          height={image.h ?? 1400}
           loading="eager"
           fetchpriority="high"
           sizes="(max-width: 900px) 100vw, 460px"
