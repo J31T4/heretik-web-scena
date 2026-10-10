@@ -8,7 +8,7 @@ Pro každý obrázek generuje responzivní varianty (480, 800, 1200 a plná ší
 vždy jako WebP i JPEG — Picture.astro z nich sestaví srcset.
 Reprodukovatelné: stejný vstup → stejný výstup (pevné kvality, LANCZOS).
 """
-from PIL import Image
+from PIL import Image, ImageOps
 import os
 
 LANCZOS = getattr(Image, 'Resampling', Image).LANCZOS
@@ -29,6 +29,28 @@ PLAN = {
     'gallery-6.jpeg': (1400, 78),
     'gallery-7.jpeg': (1400, 78),
     'gallery-8.jpeg': (1400, 78),
+    # Nové fotky 2026 (září) — hradní akce, večerní vystoupení, jevištní souboje
+    'gallery-9.jpeg': (1400, 78),
+    'gallery-10.jpeg': (1400, 78),
+    'gallery-11.jpeg': (1400, 78),
+    'gallery-12.jpeg': (1400, 78),
+    'gallery-13.jpeg': (1400, 78),
+    'gallery-14.jpeg': (1400, 78),
+    'gallery-15.jpeg': (1400, 78),
+    'gallery-16.jpeg': (1400, 78),
+    'gallery-17.jpeg': (1400, 78),
+    'gallery-18.jpeg': (1400, 78),
+    'gallery-19.jpeg': (1400, 78),
+    'gallery-20.jpeg': (1400, 78),
+    'gallery-21.jpeg': (1400, 78),
+    'gallery-22.jpeg': (1400, 78),
+    'gallery-23.jpeg': (1400, 78),
+    'gallery-24.jpeg': (1400, 78),
+    'gallery-25.jpeg': (1400, 78),
+    'gallery-26.jpeg': (1400, 78),
+    'gallery-27.jpeg': (1400, 78),
+    'gallery-28.jpeg': (1400, 78),
+    'gallery-29.jpeg': (1400, 78),
 }
 
 # Responzivní šířky variant (longest edge), kromě plné varianty.
@@ -43,7 +65,9 @@ def save_variant(im, path, q):
 
 total_before = total_after = 0
 for src, (max_dim, q) in PLAN.items():
-    im = Image.open(os.path.join(SRC, src)).convert('RGB')
+    # exif_transpose: vyřeší EXIF orientaci (např. fotky z telefonu otočené o 90°);
+    # u fotek s orientací 1 je to no-op, takže staré výstupy zůstávají identické.
+    im = ImageOps.exif_transpose(Image.open(os.path.join(SRC, src))).convert('RGB')
     w, h = im.size
     base = os.path.splitext(src)[0]
     total_before += os.path.getsize(os.path.join(SRC, src))
