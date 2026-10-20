@@ -86,7 +86,7 @@ heretik-web/
 │   ├── layouts/         # ScenaLayout (hlavní layout)
 │   ├── pages/           # Domů, O nás, Akce, Galerie, Kontakt, 404, robots.txt, sitemap.xml
 │   ├── scripts/         # site.js, reveal.js (progresivní vylepšení)
-│   ├── styles/          # scena.css (tokeny + sdílené styly)
+│   ├── styles/          # scena.css (tokeny + základ), scena-components.css (kicker, pergamen, ticker, FAB)
 │   └── utils/           # paths.js (base-prefix), typo.js (česká mikrotypografie)
 ├── public/
 │   ├── images/opt/      # Optimalizované webové assety (webp + jpg, generované skriptem)

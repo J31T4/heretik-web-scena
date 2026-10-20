@@ -347,6 +347,10 @@ import { cs } from '../utils/typo.js';
   }
   .info-list li:last-child { border-bottom: none; }
 
+  @media (max-width: 560px) {
+    .contact__mail { padding: var(--sp-5); }
+    .contact__mail-link { font-size: 4.9vw; }
+  }
   @media (max-width: 960px) {
     .contact__grid { grid-template-columns: 1fr; }
     .contact__side { position: static; }
