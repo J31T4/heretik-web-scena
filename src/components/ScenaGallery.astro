@@ -47,7 +47,7 @@ const extraImages = [
 ];
 
 const tileSizes = (cols: number) =>
-  `(max-width: 560px) 100vw, (max-width: 1024px) ${cols > 2 ? 100 : 50}vw, ${Math.round((cols / 6) * 1100)}px`;
+  `(max-width: 1024px) ${cols > 2 ? 100 : 50}vw, ${Math.round((cols / 6) * 1100)}px`;
 ---
 
 <section class="scena-gallery act-section section section--tint" id="galerie-vyber">
@@ -80,8 +80,8 @@ const tileSizes = (cols: number) =>
             loading="lazy"
             sizes={
               img.area === 'g1'
-                ? '(max-width: 560px) 100vw, (max-width: 1024px) 100vw, 560px'
-                : '(max-width: 560px) 100vw, (max-width: 1024px) 50vw, 300px'
+                ? '(max-width: 1024px) 100vw, 560px'
+                : '(max-width: 1024px) 50vw, 300px'
             }
           />
           <span class="gallery__zoom" aria-hidden="true">
@@ -427,21 +427,11 @@ const tileSizes = (cols: number) =>
     .lightbox__stage img { max-height: 70vh; }
   }
   @media (max-width: 560px) {
-    .gallery__grid {
-      grid-template-areas:
-        'g1'
-        'g2'
-        'g3'
-        'g4'
-        'g5'
-        'g6'
-        'g7'
-        'g8';
-      grid-template-columns: 1fr;
-    }
-    .gallery__grid--more { grid-template-areas: none; grid-template-columns: 1fr; grid-auto-rows: auto; }
-    .gallery__grid--more .gallery__item,
-    .gallery__grid--more .gallery__item[data-kind] { grid-column: auto; grid-row: auto; aspect-ratio: 3 / 2; }
-    .gallery__grid--more .gallery__item[data-kind='tall'] { aspect-ratio: 3 / 4; }
+    /* Dvousloupcová mozaika zůstává i na telefonu — kratší stránka, rytmus z tabletu */
+    .gallery__grid { gap: 0.5rem; }
+    .gallery__item { aspect-ratio: 1 / 1; }
+    .gallery__item--g1, .gallery__item--g8 { aspect-ratio: 16 / 10; }
+    .gallery__grid--more { grid-auto-rows: clamp(62px, 17vw, 80px); }
+    .gallery__grid--more .gallery__item { aspect-ratio: auto; }
   }
 </style>

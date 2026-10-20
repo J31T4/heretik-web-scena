@@ -4,6 +4,7 @@ import ScenaHeader from '../components/ScenaHeader.astro';
 import ScenaPageHero from '../components/ScenaPageHero.astro';
 import ScenaFooter from '../components/ScenaFooter.astro';
 import Picture from '../components/Picture.astro';
+import Blade from '../components/Blade.astro';
 import { cs } from '../utils/typo.js';
 ---
 
@@ -64,9 +65,17 @@ import { cs } from '../utils/typo.js';
           <span class="about__num" aria-hidden="true">02</span>
           <h2 class="about__title">Šermířská škola</h2>
           <p>{cs('V nácviku nám pomáhají dochované učebnice starých šermířských mistrů i různé školy šermu. Absolvovali jsme také několik seminářů vedených zkušeným lektorem Martinem Turečkem, který navazuje na odkaz šermířského mistra Petra Kozy.')}</p>
-          <p>{cs('Šerm není jen bojové umění – je to forma choreografického vystoupení, kde každý pohyb, každá pozice a každý výraz má svůj význam.')}</p>
         </div>
       </div>
+    </section>
+
+    <section class="about-pull paper section">
+      <div class="container">
+        <Blade center class="reveal" />
+        <blockquote class="about-pull__text reveal">{cs('Šerm není jen bojové umění – je to forma choreografického vystoupení, kde každý pohyb, každá pozice a každý výraz má svůj význam.')}</blockquote>
+        <p class="about-pull__by reveal">SHŠ Heretik</p>
+      </div>
+      <div class="grain" aria-hidden="true"></div>
     </section>
 
     <section class="about-block section section--framed">
@@ -105,6 +114,35 @@ import { cs } from '../utils/typo.js';
   .about__image {
     margin: 0;
     position: relative;
+    isolation: isolate;
+  }
+  /* Posunutý rámeček za fotkou */
+  .about__image::before {
+    content: '';
+    position: absolute;
+    inset: 16px -16px -16px 16px;
+    border: 1px solid var(--line-2);
+    z-index: -1;
+    transition: inset var(--t-med) var(--ease-out);
+  }
+  .about__image::after {
+    content: '';
+    position: absolute;
+    top: 16px;
+    right: -16px;
+    width: 46px;
+    height: 2px;
+    background: var(--crimson);
+    box-shadow: 0 0 14px var(--crimson-glow);
+  }
+  .about__grid--reverse .about__image::before { inset: 16px 16px -16px -16px; }
+  .about__grid--reverse .about__image::after { right: auto; left: -16px; }
+  @media (hover: hover) and (pointer: fine) {
+    .about__image:hover::before { inset: 10px -10px -10px 10px; }
+    .about__grid--reverse .about__image:hover::before { inset: 10px 10px -10px -10px; }
+  }
+  .about__image :global(picture) {
+    display: block;
     overflow: hidden;
     border: 1px solid var(--line-2);
   }
@@ -152,8 +190,33 @@ import { cs } from '../utils/typo.js';
 
   .about__text p { margin-bottom: var(--sp-4); }
 
+  /* --- Citát na pergamenu --- */
+  .about-pull { text-align: center; overflow: hidden; border-block: 1px solid var(--color-paper-2); }
+  .about-pull .container { position: relative; z-index: 1; }
+  .about-pull :global(.blade) { margin-bottom: var(--sp-6); }
+  .about-pull__text {
+    max-width: 22em;
+    margin: 0 auto var(--sp-5);
+    font-family: var(--font-display);
+    font-size: clamp(1.7rem, 4vw, 3rem);
+    line-height: 1.3;
+    letter-spacing: -0.012em;
+    color: var(--color-paper-ink);
+    text-wrap: balance;
+  }
+  .about-pull__by {
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--color-paper-crimson);
+  }
+
   @media (max-width: 900px) {
     .about__grid { grid-template-columns: 1fr; gap: var(--sp-6); }
+    .about__image { margin-right: 16px; }
+    .about__grid--reverse .about__image { margin-right: 0; margin-left: 16px; }
     .about__grid--reverse .about__image { order: 0; }
   }
 </style>

@@ -54,6 +54,8 @@ const year = new Date().getFullYear();
       </div>
     </div>
 
+    <div class="footer__ghost" aria-hidden="true">HERETIK</div>
+
     <div class="footer__bottom">
       <p>© {year} SHŠ Heretik. Všechna práva vyhrazena.</p>
       <p class="footer__motto">Šermíři s vášní a uměním <span aria-hidden="true">◆</span></p>
@@ -62,6 +64,7 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
+  .scena-footer .container { container-type: inline-size; }
   .scena-footer {
     background: var(--bg-0);
     border-top: 1px solid var(--line);
@@ -216,6 +219,28 @@ const year = new Date().getFullYear();
     background: rgba(228, 6, 7, 0.06);
   }
   .footer__social svg { color: var(--steel); }
+
+  /* Obří obrysový nápis — čistě dekorativní, nečte se */
+  .footer__ghost {
+    margin-top: var(--sp-6);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(3.4rem, 15.5vw, 16rem); /* záloha */
+    font-size: 23.2cqw; /* „HERETIK“ ≈ 4,16 em → vyplní šířku kontejneru */
+    line-height: 0.82;
+    letter-spacing: -0.02em;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(242, 237, 228, 0.13);
+    user-select: none;
+    pointer-events: none;
+    padding-bottom: 0.04em;
+  }
+  @supports not (-webkit-text-stroke: 1px #000) {
+    .footer__ghost { display: none; }
+  }
 
   .footer__bottom {
     display: flex;

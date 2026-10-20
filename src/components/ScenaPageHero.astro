@@ -117,14 +117,15 @@ const actName = act.split(' · ')[0];
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(180deg, rgba(6, 6, 6, 0.8) 0%, rgba(6, 6, 6, 0.18) 38%, rgba(6, 6, 6, 0.94) 100%),
+      linear-gradient(180deg, rgba(6, 6, 6, 0.8) 0%, rgba(6, 6, 6, 0.22) 30%, rgba(6, 6, 6, 0.78) 62%, rgba(6, 6, 6, 0.96) 100%),
       linear-gradient(90deg, rgba(6, 6, 6, 0.6) 0%, transparent 62%);
   }
-  .scena-page-hero--standard .container { position: relative; z-index: 2; }
+  .scena-page-hero--standard .container { position: relative; z-index: 2; width: 100%; }
+  .scena-page-hero--standard .kicker { text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9); }
 
   /* --- Split varianta: text + rámovaná fotka --- */
   .scena-page-hero--split {
-    padding: var(--sp-9) 0;
+    padding: var(--sp-8) 0 var(--sp-9);
     background:
       radial-gradient(ellipse 55% 90% at 90% 10%, rgba(228, 6, 7, 0.07), transparent 60%),
       var(--bg-0);
@@ -139,13 +140,16 @@ const actName = act.split(' · ')[0];
   .page-hero__figure {
     margin: 0;
     position: relative;
-    max-width: 460px;
+    max-width: 420px;
     justify-self: end;
     width: 100%;
   }
   .page-hero__figure :global(img) {
     width: 100%;
     height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center 62%;
     display: block;
     border: 1px solid var(--line-2);
     filter: saturate(0.9) contrast(1.06);

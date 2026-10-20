@@ -5,6 +5,7 @@ import ScenaPageHero from '../components/ScenaPageHero.astro';
 import ScenaFooter from '../components/ScenaFooter.astro';
 import BookingButton from '../components/BookingButton.astro';
 import Picture from '../components/Picture.astro';
+import Blade from '../components/Blade.astro';
 import { cs } from '../utils/typo.js';
 
 const stories = [
@@ -87,18 +88,19 @@ const performances = [
     <section class="section scena-scenes act-section">
       <span class="act-node" aria-hidden="true"></span>
       <div class="container">
-        <p class="act-label reveal">II. dějství</p>
         <div class="section-head reveal">
-          <p class="section-label">Naše scény</p>
+          <p class="kicker"><span class="kicker__act">II. dějství</span><span class="kicker__label">Naše scény</span></p>
           <h2 class="section-title">Naše povídky</h2>
+          <Blade />
         </div>
 
         <div class="scenes__grid" data-reveal-group>
           {stories.map((story) => (
-            <article class:list={['scene-card']} data-reveal>
+            <article class:list={['scene-card', 'paper']} data-reveal>
               <div class="scene-card__top">
                 <span class="scene-card__tag">Povídky</span>
                 <h3 class="scene-card__title">{story.title}</h3>
+                <Blade center />
               </div>
               <p class="scene-card__lead">{cs(story.lead)}</p>
               <ol class="scene-card__list">
@@ -119,9 +121,8 @@ const performances = [
 
     <section class="section section--tint scena-perf">
       <div class="container">
-        <p class="act-label reveal">III. dějství</p>
         <div class="section-head reveal">
-          <p class="section-label">Příležitosti</p>
+          <p class="kicker"><span class="kicker__act">III. dějství</span><span class="kicker__label">Příležitosti</span></p>
           <h2 class="section-title" data-reveal="curtain">Vystoupení pro vaši akci</h2>
           <p class="section-subtitle">{cs('Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti, historické dny a v neposlední řadě také obstaráme program pro plesy, firemní večírky, oslavy narozenin, dětské tábory a dokonce i program pro ZŠ, který děti nejen pobaví, ale také přiučí novým věcem o historii.')}</p>
         </div>
@@ -165,95 +166,72 @@ const performances = [
 
   .scene-card {
     position: relative;
-    background: var(--bg-2);
-    border: 1px solid var(--line);
-    padding: var(--sp-7) var(--sp-6) var(--sp-6);
-    overflow: hidden;
+    padding: clamp(2.2rem, 4vw, 3.2rem) clamp(1.6rem, 3.4vw, 2.8rem) clamp(1.8rem, 3vw, 2.4rem);
     display: flex;
     flex-direction: column;
+    border: 1px solid rgba(22, 18, 14, 0.5);
+    box-shadow: var(--shadow-1);
+    transition: transform var(--t-med) var(--ease-out), box-shadow var(--t-med) var(--ease);
   }
-  .scene-card::before {
+  /* Vnitřní rámeček plakátu */
+  .scene-card::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, var(--crimson), rgba(178, 175, 63, 0.7));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.55s var(--ease-out);
+    inset: 9px;
+    border: 1px solid var(--line-2);
+    pointer-events: none;
   }
-  .scene-card:focus-within::before { transform: scaleX(1); }
   @media (hover: hover) and (pointer: fine) {
-    .scene-card:hover::before { transform: scaleX(1); }
-    .scene-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-1), var(--shadow-red);
-    }
-  }
-  .scene-card {
-    transition:
-      transform var(--t-med) var(--ease-out),
-      box-shadow var(--t-med) var(--ease),
-      border-color var(--t-med) var(--ease);
-  }
-  .scene-card:focus-within {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-1), var(--shadow-red);
+    .scene-card:hover { transform: translateY(-4px) rotate(-0.25deg); box-shadow: var(--shadow-2), var(--shadow-red); }
   }
 
   .scene-card__top {
+    position: relative;
+    z-index: 1;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    flex-wrap: wrap;
-    row-gap: 0.5rem;
-    gap: var(--sp-4);
+    text-align: center;
+    gap: var(--sp-3);
     margin-bottom: var(--sp-4);
   }
   .scene-card__tag {
-    background: var(--crimson);
+    background: var(--color-paper-crimson);
     color: var(--color-white);
     font-family: var(--font-ui);
     font-size: var(--fs-micro);
     font-weight: 600;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
-    padding: 0.35rem 0.8rem;
-    flex-shrink: 0;
+    padding: 0.35rem 0.9rem 0.35rem 1.2rem;
   }
-  .scene-card__title { font-size: 1.55rem; }
+  .scene-card__title { font-size: clamp(1.8rem, 3.4vw, 2.5rem); }
 
   .scene-card__lead {
-    font-size: 0.95rem;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    font-size: 1rem;
     line-height: 1.7;
-    color: var(--ink-2);
-    font-style: italic;
-    padding-bottom: var(--sp-5);
-    margin-bottom: var(--sp-3);
-    border-bottom: 1px solid var(--line);
+    margin: 0 auto var(--sp-4);
+    max-width: 44ch;
   }
 
-  .scene-card__list { display: flex; flex-direction: column; }
+  .scene-card__list { position: relative; z-index: 1; display: flex; flex-direction: column; }
   .scene-card__list li {
     display: flex;
     align-items: baseline;
     gap: var(--sp-4);
-    padding: 0.75rem 0;
-    border-bottom: 1px dashed rgba(242, 237, 228, 0.12);
-    font-size: 0.95rem;
-    color: var(--ink-2);
-    transition: color var(--t-fast) var(--ease);
-  }
-  .scene-card__list li:last-child { border-bottom: none; }
-  @media (hover: hover) and (pointer: fine) {
-    .scene-card__list li:hover { color: var(--ink); }
+    padding: 0.8rem 0;
+    border-top: 1px dashed var(--line-2);
+    font-size: 0.97rem;
+    color: var(--color-paper-ink);
   }
   .scene-card__num {
-    font-family: var(--font-ui);
+    font-family: var(--font-display);
     font-weight: 600;
-    font-size: 0.8rem;
-    color: var(--crimson-bright);
+    font-size: 1.1rem;
+    color: var(--color-paper-crimson);
     flex-shrink: 0;
     min-width: 2ch;
   }
@@ -336,8 +314,7 @@ const performances = [
   }
   .perf__desc { margin-bottom: var(--sp-4); }
   .perf__details {
-    font-size: 0.9rem;
-    font-style: italic;
+    font-size: 0.92rem;
     color: var(--gold);
     margin-bottom: var(--sp-5);
   }
