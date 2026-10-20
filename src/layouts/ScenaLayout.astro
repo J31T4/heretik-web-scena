@@ -1,5 +1,7 @@
 ---
 import '../styles/scena.css';
+import '../styles/scena-components.css';
+import BookingButton from '../components/BookingButton.astro';
 import { asset } from '../utils/paths.js';
 import { contactEmail, socialLinks } from '../data/site.js';
 
@@ -8,9 +10,11 @@ interface Props {
   description?: string;
   /** true → meta robots noindex,nofollow (použití: vlastní 404 stránka) */
   noindex?: boolean;
+  /** false → bez plovoucího CTA na mobilu (např. na stránce Kontakt) */
+  fab?: boolean;
 }
 
-const { title, description = 'Historický a scénický šerm z Mohelnice. Umění, které přežívá století.', noindex = false } = Astro.props;
+const { title, description = 'Historický a scénický šerm z Mohelnice. Umění, které přežívá století.', noindex = false, fab = true } = Astro.props;
 
 // Jeden zdroj pravdy pro URL: Astro.site z astro.config.mjs
 // (produkce https://shsheretik.cz, GitHub Pages https://j31t4.github.io + base).
@@ -80,6 +84,7 @@ const organizationJsonLd = {
   <div class="scene-vignette" aria-hidden="true"></div>
   <div class="scroll-progress" aria-hidden="true"></div>
   <slot />
+  {fab && <BookingButton class="fab" />}
   <script>
     import '../scripts/site.js';
     import '../scripts/reveal.js';

@@ -78,6 +78,12 @@
   --color-white: #fff;
   --color-black: #000;
   --color-flame: #ff9d6b;
+  /* „Pergamen“ — světlé plochy (plakát) pro rytmus tmavý/světlý */
+  --color-paper: #efe8da;
+  --color-paper-2: #e2d9c6;
+  --color-paper-ink: #16120e;
+  --color-paper-ink-2: #473f35;
+  --color-paper-crimson: #a30405;
 
   /* Typografie — surové font stacky a škála */
   --font-display: 'Fraunces', 'Georgia', serif;
@@ -591,7 +597,7 @@ html.enhanced .grain--animated { animation: grain-shift 1.2s steps(4) infinite; 
 
 /* ---------- Ohnivý gradient (značka „ZAČÍNÁ“) — statický, bez animace ---------- */
 .fire-text {
-  background: linear-gradient(110deg, var(--crimson) 0%, var(--color-flame) 45%, var(--gold) 90%);
+  background: linear-gradient(110deg, var(--color-crimson-bright) 0%, var(--color-flame) 48%, var(--gold) 92%);
   background-size: 180% auto;
   -webkit-background-clip: text;
   background-clip: text;

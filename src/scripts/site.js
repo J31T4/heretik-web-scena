@@ -149,10 +149,73 @@
     );
   }
 
+  /* ---------- 4. Plovoucí CTA (mobil) — po odscrollování hera, mimo patičku ---------- */
+  const fab = doc.querySelector('.fab');
+  if (fab && 'IntersectionObserver' in window) {
+    const state = { pastTop: false, atFooter: false };
+    const sync = () => doc.body.classList.toggle('fab-on', state.pastTop && !state.atFooter);
+
+    const topMark = doc.createElement('div');
+    topMark.setAttribute('aria-hidden', 'true');
+    topMark.style.cssText = 'position:absolute;top:70vh;left:0;width:1px;height:1px;pointer-events:none;';
+    doc.body.prepend(topMark);
+    new IntersectionObserver(([entry]) => {
+      state.pastTop = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+      sync();
+    }).observe(topMark);
+
+    const footer = doc.querySelector('.scena-footer');
+    if (footer) {
+      new IntersectionObserver(([entry]) => {
+        state.atFooter = entry.isIntersecting;
+        sync();
+      }).observe(footer);
+    }
+  }
+
+  /* ---------- 4b. Spotlight na kartách — sleduje ukazatel (jen jemný ukazatel) ---------- */
+  if (finePointer && !reduced.matches) {
+    doc.querySelectorAll('.spot').forEach((card) => {
+      card.addEventListener(
+        'pointermove',
+        (e) => {
+          const r = card.getBoundingClientRect();
+          card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+          card.style.setProperty('--my', `${e.clientY - r.top}px`);
+        },
+        { passive: true }
+      );
+    });
+  }
+
+  /* ---------- 4c. Kopírování e-mailu ---------- */
+  doc.querySelectorAll('[data-copy]').forEach((btn) => {
+    const status = doc.getElementById(btn.dataset.copyStatus || '');
+    const label = btn.querySelector('[data-copy-label]');
+    const idle = label?.textContent || '';
+    let timer;
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(btn.dataset.copy);
+        if (label) label.textContent = 'Zkopírováno';
+        if (status) status.textContent = 'E-mailová adresa byla zkopírována.';
+      } catch {
+        if (label) label.textContent = 'Označte a zkopírujte';
+        if (status) status.textContent = 'Kopírování se nezdařilo, adresu označte ručně.';
+      }
+      btn.classList.add('is-done');
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        if (label) label.textContent = idle;
+        if (status) status.textContent = '';
+        btn.classList.remove('is-done');
+      }, 2400);
+    });
+  });
+
   /* ---------- 5. Lightbox galerie ---------- */
   const box = doc.getElementById('lightbox');
   const lbImg = doc.getElementById('lightboxImg');
-  const lbCaption = doc.getElementById('lightboxCaption');
   const lbNum = doc.getElementById('lightboxNum');
   const lbCounter = doc.getElementById('lightboxCounter');
   const lbClose = doc.getElementById('lightboxClose');
@@ -169,10 +232,8 @@
       // Lightbox vždy používá plnou variantu (data-full-src), ne responzivní náhled.
       lbImg.src = item.dataset.fullSrc || item.querySelector('img')?.currentSrc || item.querySelector('img')?.src;
       lbImg.alt = item.querySelector('img')?.alt || '';
-      // Popisek ve stylu destičky: „01 Tábořiště“
-      const [head, ...rest] = String(item.dataset.caption || '').split(' — ');
+      // Jen pořadové číslo a počítadlo — žádné textové popisky fotek.
       if (lbNum) lbNum.textContent = String(current + 1).padStart(2, '0');
-      if (lbCaption) lbCaption.textContent = rest.length ? rest.join(' — ') : head;
       if (lbCounter) lbCounter.textContent = `${current + 1} / ${items.length}`;
       // Preload sousedních fotografií — plné URL z data-full-src
       for (const offset of [-1, 1]) {

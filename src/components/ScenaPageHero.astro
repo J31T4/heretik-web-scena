@@ -1,6 +1,7 @@
 ---
 import { cs } from '../utils/typo.js';
 import Picture from './Picture.astro';
+import Blade from './Blade.astro';
 
 interface Props {
   label: string;
@@ -19,6 +20,8 @@ interface Props {
 }
 
 const { label, act, title, subtitle, variant = 'standard', image } = Astro.props;
+// `act` má tvar „I. dějství · Název“ — do kickeru jde jen část před tečkou-oddělovačem.
+const actName = act.split(' · ')[0];
 ---
 
 <section class:list={['scena-page-hero', `scena-page-hero--${variant}`]}>
@@ -39,9 +42,9 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
       </div>
       <div class="grain" aria-hidden="true"></div>
       <div class="container page-hero__text">
-        <p class="act-label reveal">{act}</p>
-        <p class="section-label reveal">{label}</p>
+        <p class="kicker reveal"><span class="kicker__act">{actName}</span><span class="kicker__label">{label}</span></p>
         <h1 class="page-hero__title reveal">{cs(title)}</h1>
+        <Blade class="page-hero__blade reveal" />
         {subtitle && <p class="page-hero__subtitle reveal">{cs(subtitle)}</p>}
       </div>
     </>
@@ -50,9 +53,9 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
   {variant === 'split' && image && (
     <div class="container page-hero__split">
       <div class="page-hero__text">
-        <p class="act-label reveal">{act}</p>
-        <p class="section-label reveal">{label}</p>
+        <p class="kicker reveal"><span class="kicker__act">{actName}</span><span class="kicker__label">{label}</span></p>
         <h1 class="page-hero__title reveal">{cs(title)}</h1>
+        <Blade class="page-hero__blade reveal" />
         {subtitle && <p class="page-hero__subtitle reveal">{cs(subtitle)}</p>}
       </div>
       <figure class="page-hero__figure reveal reveal--zoom">
@@ -75,9 +78,9 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
 
   {variant === 'minimal' && (
     <div class="container page-hero__minimal">
-      <p class="act-label reveal">{act}</p>
-      <p class="section-label reveal">{label}</p>
+      <p class="kicker reveal"><span class="kicker__act">{actName}</span><span class="kicker__label">{label}</span></p>
       <h1 class="page-hero__title reveal">{cs(title)}</h1>
+      <Blade class="page-hero__blade reveal" />
       {subtitle && <p class="page-hero__subtitle reveal">{cs(subtitle)}</p>}
     </div>
   )}
@@ -114,12 +117,10 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(180deg, rgba(6, 6, 6, 0.88) 0%, rgba(6, 6, 6, 0.35) 40%, rgba(6, 6, 6, 0.9) 100%),
-      linear-gradient(90deg, rgba(6, 6, 6, 0.55) 0%, transparent 60%);
+      linear-gradient(180deg, rgba(6, 6, 6, 0.8) 0%, rgba(6, 6, 6, 0.18) 38%, rgba(6, 6, 6, 0.94) 100%),
+      linear-gradient(90deg, rgba(6, 6, 6, 0.6) 0%, transparent 62%);
   }
   .scena-page-hero--standard .container { position: relative; z-index: 2; }
-  .scena-page-hero--standard .act-label { margin-bottom: var(--sp-4); }
-  .scena-page-hero--standard .section-label { margin-bottom: var(--sp-3); }
 
   /* --- Split varianta: text + rámovaná fotka --- */
   .scena-page-hero--split {
@@ -134,8 +135,6 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
     gap: clamp(2rem, 6vw, 5rem);
     align-items: center;
   }
-  .page-hero__text .act-label { margin-bottom: var(--sp-4); }
-  .page-hero__text .section-label { margin-bottom: var(--sp-3); }
 
   .page-hero__figure {
     margin: 0;
@@ -193,8 +192,6 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
       radial-gradient(ellipse 60% 80% at 20% 0%, rgba(228, 6, 7, 0.06), transparent 55%),
       var(--bg-0);
   }
-  .page-hero__minimal .act-label { margin-bottom: var(--sp-4); }
-  .page-hero__minimal .section-label { margin-bottom: var(--sp-3); }
 
   /* --- Společné typo --- */
   .page-hero__title {
@@ -203,6 +200,7 @@ const { label, act, title, subtitle, variant = 'standard', image } = Astro.props
     letter-spacing: -0.01em;
     margin-bottom: var(--sp-4);
   }
+  :global(.page-hero__blade) { margin-bottom: var(--sp-5); }
   .page-hero__subtitle {
     font-size: var(--fs-lead);
     color: var(--ink-2);

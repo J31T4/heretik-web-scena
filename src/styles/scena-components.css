@@ -1,0 +1,176 @@
+/* ============================================================
+   SHŠ Heretik — SCÉNA · sdílené komponenty (design pass)
+   Kicker, pergamenová plocha, ornament čepele, ticker, plovoucí CTA,
+   spotlight karty. Tokeny pocházejí ze scena.css.
+   ============================================================ */
+
+/* ---------- Kicker — jeden řádek místo dvou oček (dějství + téma) ---------- */
+.kicker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1.1rem;
+  margin-bottom: var(--sp-4);
+  font-family: var(--font-ui);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+.kicker__act {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--crimson-bright);
+}
+.kicker__act::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+}
+.kicker__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.1rem;
+  color: var(--gold);
+}
+.kicker__label::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  background: var(--crimson);
+  transform: rotate(45deg);
+}
+.kicker--center { justify-content: center; }
+
+/* ---------- Pergamenová (světlá) plocha ---------- */
+.paper {
+  --text: var(--color-paper-ink);
+  --ink: var(--color-paper-ink);
+  --ink-1: var(--color-paper-ink);
+  --ink-2: var(--color-paper-ink-2);
+  --ink-3: var(--color-paper-ink-2);
+  --line: rgba(22, 18, 14, 0.14);
+  --line-2: rgba(22, 18, 14, 0.28);
+  position: relative;
+  color: var(--color-paper-ink);
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 0%, rgba(255, 255, 255, 0.5), transparent 70%),
+    radial-gradient(ellipse 80% 70% at 50% 120%, rgba(163, 4, 5, 0.1), transparent 65%),
+    var(--color-paper);
+}
+.paper h1, .paper h2, .paper h3, .paper h4 { color: var(--color-paper-ink); }
+.paper p { color: var(--color-paper-ink-2); }
+.paper .kicker__act { color: var(--color-paper-crimson); }
+.paper .kicker__label { color: var(--color-paper-ink-2); }
+.paper .kicker__label::before { background: var(--color-paper-crimson); }
+.paper .btn--ghost { color: var(--color-paper-ink); border-color: var(--line-2); background: transparent; }
+.paper .btn--ghost:focus-visible { color: var(--color-paper-crimson); border-color: var(--color-paper-crimson); background: rgba(163, 4, 5, 0.06); }
+@media (hover: hover) and (pointer: fine) {
+  .paper .btn--ghost:hover { color: var(--color-paper-crimson); border-color: var(--color-paper-crimson); background: rgba(163, 4, 5, 0.06); }
+}
+.paper :focus-visible {
+  outline-color: var(--color-paper-crimson);
+  box-shadow: 0 0 0 2px var(--color-paper);
+}
+.paper .grain { mix-blend-mode: multiply; opacity: 0.07; }
+.paper::selection, .paper ::selection { background: var(--color-paper-crimson); color: var(--color-paper); }
+
+/* ---------- Ornament čepele (SVG, currentColor) ---------- */
+.blade {
+  display: block;
+  width: min(320px, 70%);
+  height: 20px;
+  color: var(--gold);
+  opacity: 0.85;
+}
+.blade--center { margin-inline: auto; }
+.paper .blade { color: var(--color-paper-crimson); opacity: 0.9; }
+
+/* ---------- Ticker (běžící pás) ---------- */
+.ticker {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-crimson-deep);
+  color: var(--color-ivory);
+  border-block: 1px solid rgba(0, 0, 0, 0.35);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.ticker__track {
+  display: flex;
+  width: max-content;
+  animation: ticker-run 48s linear infinite;
+}
+.ticker:hover .ticker__track,
+.ticker:focus-within .ticker__track { animation-play-state: paused; }
+.ticker__group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+}
+.ticker__item {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(1.4rem, 3vw, 2.4rem);
+  padding: 0.95rem 0 0.95rem clamp(1.4rem, 3vw, 2.4rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 2vw, 1.4rem);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.ticker__item::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  background: var(--gold);
+  transform: rotate(45deg);
+}
+@keyframes ticker-run {
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker__track { animation: none; width: auto; flex-wrap: wrap; justify-content: center; }
+  .ticker__group[aria-hidden='true'] { display: none; }
+}
+
+/* ---------- Plovoucí CTA (mobil) ---------- */
+.fab {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: calc(var(--z-header) - 10);
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px);
+  transition: opacity var(--dur-2) var(--ease), transform var(--dur-2) var(--ease-out), visibility 0s linear var(--dur-2);
+  box-shadow: var(--shadow-2), 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+@media (max-width: 760px) {
+  .fab { display: inline-flex; }
+}
+body.fab-on .fab {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity var(--dur-2) var(--ease), transform var(--dur-2) var(--ease-out), visibility 0s;
+}
+body.scroll-locked .fab { display: none; }
+
+/* ---------- Spotlight na kartách (sleduje ukazatel) ---------- */
+.spot { --mx: 50%; --my: 50%; }
+.spot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(420px circle at var(--mx) var(--my), rgba(242, 237, 228, 0.09), transparent 60%);
+  opacity: 0;
+  transition: opacity var(--dur-3) var(--ease);
+  z-index: 2;
+}
+@media (hover: hover) and (pointer: fine) {
+  .spot:hover::before { opacity: 1; }
+}

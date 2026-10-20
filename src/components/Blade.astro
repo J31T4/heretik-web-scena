@@ -1,0 +1,21 @@
+---
+// Dekorativní ornament: čepel meče vodorovně (inline SVG, currentColor).
+interface Props {
+  center?: boolean;
+  class?: string;
+}
+const { center = false, class: className } = Astro.props;
+---
+
+<svg
+  class:list={['blade', { 'blade--center': center }, className]}
+  viewBox="0 0 360 20"
+  fill="currentColor"
+  aria-hidden="true"
+  focusable="false"
+>
+  <circle cx="8" cy="10" r="4" />
+  <rect x="12" y="9" width="26" height="2" />
+  <rect x="38" y="2" width="4" height="16" />
+  <polygon points="44,8 338,9.3 358,10 338,10.7 44,12" />
+</svg>

@@ -1,7 +1,9 @@
 ---
 import BookingButton from './BookingButton.astro';
 import Picture from './Picture.astro';
+import Blade from './Blade.astro';
 import { cs } from '../utils/typo.js';
+import { contactEmail } from '../data/site.js';
 ---
 
 <section class="scena-cta">
@@ -20,7 +22,7 @@ import { cs } from '../utils/typo.js';
   <div class="grain" aria-hidden="true"></div>
 
   <div class="container cta__inner">
-    <p class="act-label act-label--center reveal">Finále · Rezervace</p>
+    <p class="kicker kicker--center reveal"><span class="kicker__act">Finále</span><span class="kicker__label">Rezervace</span></p>
     <h2 class="cta__title reveal">
       Rezervujte si<br />
       <span class="fire-text">své představení</span>
@@ -35,6 +37,10 @@ import { cs } from '../utils/typo.js';
     <div class="cta__action reveal">
       <BookingButton size="large" />
     </div>
+    <Blade center class="cta__blade" />
+    <p class="cta__mail reveal">
+      Nebo napište přímo na <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+    </p>
   </div>
 </section>
 
@@ -107,4 +113,15 @@ import { cs } from '../utils/typo.js';
   .cta__scope i { color: var(--crimson); font-style: normal; }
 
   .cta__action :global(.btn) { min-width: 240px; }
+  .cta__inner :global(.cta__blade) { margin-top: var(--sp-7); margin-bottom: var(--sp-4); }
+  .cta__mail { font-size: 0.95rem; color: var(--ink-2); }
+  .cta__mail a {
+    color: var(--ink);
+    border-bottom: 1px solid var(--crimson);
+    padding-block: 0.3rem;
+    word-break: break-word;
+    transition: color var(--t-fast) var(--ease);
+  }
+  .cta__mail a:hover,
+  .cta__mail a:focus-visible { color: var(--crimson-bright); }
 </style>

@@ -1,6 +1,7 @@
 ---
 import Picture from './Picture.astro';
-import { asset } from '../utils/paths.js';
+import Blade from './Blade.astro';
+import { asset, page } from '../utils/paths.js';
 import { cs } from '../utils/typo.js';
 
 interface Props {
@@ -12,44 +13,51 @@ interface Props {
 
 const { act = 'III. dějství', extended = false } = Astro.props;
 
+// Texty `alt` slouží jen čtečkám obrazovky — v galerii se nikde nezobrazují.
 const images = [
-  { src: 'gallery-1', caption: 'Tábořiště', area: 'g1', w: 1400, h: 666 },
-  { src: 'gallery-2', caption: 'Stanové ležení', area: 'g2', w: 1400, h: 915 },
-  { src: 'gallery-21', caption: 'Souboj nablízko', area: 'g3', w: 1400, h: 932 },
-  { src: 'gallery-20', caption: 'Detail z vystoupení', area: 'g4', w: 1400, h: 932 },
-  { src: 'gallery-5', caption: 'Ležení a ohniště', area: 'g5', w: 1050, h: 1400 },
-  { src: 'gallery-9', caption: 'Šerm u hradby', area: 'g6', w: 1400, h: 646 },
-  { src: 'gallery-11', caption: 'Skupinový souboj', area: 'g7', w: 1400, h: 646 },
-  { src: 'gallery-23', caption: 'Chvat v souboji', area: 'g8', w: 1400, h: 932 },
+  { src: 'gallery-1', alt: 'Tábořiště s dobovými stany, stolem a vybavením', area: 'g1', w: 1400, h: 666 },
+  { src: 'gallery-2', alt: 'Stanové ležení s dřevěným nábytkem a nádobím', area: 'g2', w: 1400, h: 915 },
+  { src: 'gallery-21', alt: 'Usměvavý šermíř ve fialovém kabátě zkříží čepel se soupeřem', area: 'g3', w: 1400, h: 932 },
+  { src: 'gallery-20', alt: 'Šermíř ve zlatozelené vestě s mečem u plotu hřiště', area: 'g4', w: 1400, h: 932 },
+  { src: 'gallery-5', alt: 'Dobové ležení se stanem a postavou v červeném kostýmu', area: 'g5', w: 1050, h: 1400 },
+  { src: 'gallery-9', alt: 'Šermíři v kostýmech na trávníku před hradbou a stany', area: 'g6', w: 1400, h: 646 },
+  { src: 'gallery-11', alt: 'Skupinový souboj na trávníku, v pozadí stany a hradba', area: 'g7', w: 1400, h: 646 },
+  { src: 'gallery-23', alt: 'Dva šermíři v těsném souboji, jeden s mečem u země', area: 'g8', w: 1400, h: 932 },
 ];
 
 // Zbytek fotek ze sezóny 2026 — jen v rozšířené galerii na /galerie.
+// `cols` × `rows` = velikost dlaždice v šestisloupcovém rytmu (dohromady bez děr).
 const extraImages = [
-  { src: 'gallery-10', caption: 'Střet šermířů', w: 1400, h: 646 },
-  { src: 'gallery-12', caption: 'Zápas na nádvoří', w: 1400, h: 646 },
-  { src: 'gallery-13', caption: 'Před diváky', w: 1400, h: 646 },
-  { src: 'gallery-14', caption: 'Dvojice v kostýmech', w: 646, h: 1400 },
-  { src: 'gallery-15', caption: 'Hraná scéna', w: 1400, h: 646 },
-  { src: 'gallery-16', caption: 'Křížení čepelí', w: 1400, h: 646 },
-  { src: 'gallery-17', caption: 'Souboj dvojice', w: 1400, h: 646 },
-  { src: 'gallery-18', caption: 'Střet mečů', w: 1400, h: 646 },
-  { src: 'gallery-19', caption: 'Večerní vystoupení', w: 1400, h: 788 },
-  { src: 'gallery-22', caption: 'Šermíř v pohybu', w: 1400, h: 932 },
-  { src: 'gallery-24', caption: 'Herecký okamžik', w: 1400, h: 932 },
-  { src: 'gallery-25', caption: 'Humor na jevišti', w: 1400, h: 932 },
-  { src: 'gallery-26', caption: 'Boj zblízka', w: 1400, h: 932 },
-  { src: 'gallery-27', caption: 'Skupinová šarvátka', w: 1400, h: 932 },
-  { src: 'gallery-28', caption: 'Souboj mečů', w: 1400, h: 932 },
-  { src: 'gallery-29', caption: 'Rozhodující výpad', w: 1400, h: 932 },
+  { src: 'gallery-10', alt: 'Souboj dvojice šermířů před barevnými stany pod hradbou', cols: 4, rows: 2, w: 1400, h: 646 },
+  { src: 'gallery-12', alt: 'Dva souboje najednou na nádvoří dobového ležení', cols: 2, rows: 1, w: 1400, h: 646 },
+  { src: 'gallery-13', alt: 'Šermířské vystoupení před diváky na městském nádvoří', cols: 2, rows: 1, w: 1400, h: 646 },
+  { src: 'gallery-14', alt: 'Dva členové skupiny v dobových kostýmech před hradbou', cols: 2, rows: 2, w: 646, h: 1400 },
+  { src: 'gallery-16', alt: 'Šermíř v předklonu proti soupeři, v pozadí ležení a diváci', cols: 4, rows: 1, w: 1400, h: 646 },
+  { src: 'gallery-17', alt: 'Dva šermíři se střetávají meči před stanem', cols: 2, rows: 1, w: 1400, h: 646 },
+  { src: 'gallery-18', alt: 'Šermíři v pohybu na trávníku, v pozadí barevný stan', cols: 2, rows: 1, w: 1400, h: 646 },
+  { src: 'gallery-19', alt: 'Večerní vystoupení na pódiu před publikem na náměstí', cols: 3, rows: 2, w: 1400, h: 788 },
+  { src: 'gallery-24', alt: 'Šermířka v černém a šermíř ve fialovém kabátě v dramatickém okamžiku souboje', cols: 3, rows: 1, w: 1400, h: 932 },
+  { src: 'gallery-25', alt: 'Šermíř v akrobatickém pádu a soupeř s mečem v humorné scéně', cols: 3, rows: 1, w: 1400, h: 932 },
+  { src: 'gallery-15', alt: 'Šermíř s rozpřaženýma rukama uprostřed hrané scény, za ním diváci', cols: 4, rows: 2, w: 1400, h: 646 },
+  { src: 'gallery-22', alt: 'Šermíř ve fialovém kabátě v předklonu s mečem v ruce', cols: 2, rows: 1, w: 1400, h: 932 },
+  { src: 'gallery-26', alt: 'Dva šermíři v tuhém zápase zblízka', cols: 2, rows: 1, w: 1400, h: 932 },
+  { src: 'gallery-27', alt: 'Šermíř v šedé vestě a soupeřka s mečem v souboji', cols: 2, rows: 1, w: 1400, h: 932 },
+  { src: 'gallery-28', alt: 'Dva šermíři se střetávají v souboji s meči', cols: 2, rows: 1, w: 1400, h: 932 },
+  { src: 'gallery-29', alt: 'Šermíř ve fialovém kabátě a šermířka v bílé košili se střetávají meči', cols: 2, rows: 1, w: 1400, h: 932 },
 ];
+
+const tileSizes = (cols: number) =>
+  `(max-width: 560px) 100vw, (max-width: 1024px) ${cols > 2 ? 100 : 50}vw, ${Math.round((cols / 6) * 1100)}px`;
 ---
 
-<section class="scena-gallery act-section section section--tint">
+<section class="scena-gallery act-section section section--tint" id="galerie-vyber">
   <span class="act-node" aria-hidden="true"></span>
   <div class="container">
-    {act && <p class="act-label reveal">{act}</p>}
     <div class="section-head reveal">
-      <p class="section-label">Galerie</p>
+      <p class="kicker">
+        {act && <span class="kicker__act">{act}</span>}
+        <span class="kicker__label">Galerie</span>
+      </p>
       <h2 class="section-title" data-reveal={act ? 'curtain' : undefined}>{cs('Scény z představení')}</h2>
       <p class="section-subtitle">{cs('Výřezy z našich vystoupení a akcí. Kliknutím fotku zvětšíte.')}</p>
     </div>
@@ -62,19 +70,18 @@ const extraImages = [
           data-reveal
           data-lightbox
           data-full-src={asset(`/images/opt/${img.src}.jpg`)}
-          data-caption=""
-          aria-label={`Zvětšit fotografii: ${img.caption}`}
+          aria-label={`Zvětšit fotografii: ${img.alt}`}
         >
           <Picture
             src={`/images/opt/${img.src}.jpg`}
-            alt={img.caption}
+            alt={img.alt}
             width={img.w}
             height={img.h}
             loading="lazy"
             sizes={
               img.area === 'g1'
-                ? '(max-width: 560px) 48vw, (max-width: 1024px) 50vw, 540px'
-                : '(max-width: 560px) 48vw, (max-width: 1024px) 50vw, 300px'
+                ? '(max-width: 560px) 100vw, (max-width: 1024px) 100vw, 560px'
+                : '(max-width: 560px) 100vw, (max-width: 1024px) 50vw, 300px'
             }
           />
           <span class="gallery__zoom" aria-hidden="true">
@@ -86,37 +93,44 @@ const extraImages = [
       ))}
     </div>
 
+    {!extended && (
+      <p class="gallery__all reveal">
+        <a href={page('/galerie')} class="btn btn--ghost">Celá galerie <span class="btn__arrow" aria-hidden="true">→</span></a>
+      </p>
+    )}
+
     {extended && (
       <>
         <div class="gallery__more reveal">
-          <p class="section-label">Další fotky</p>
+          <p class="kicker"><span class="kicker__label">Další fotky</span></p>
           <h3 class="gallery__more-title">Ze sezóny 2026</h3>
         </div>
         <div class="gallery__grid gallery__grid--more" data-reveal-group>
           {extraImages.map((img) => (
-              <button
-                type="button"
-                class="gallery__item"
-                data-reveal
-                data-lightbox
-                data-full-src={asset(`/images/opt/${img.src}.jpg`)}
-                data-caption=""
-                aria-label={`Zvětšit fotografii: ${img.caption}`}
-              >
-                <Picture
-                  src={`/images/opt/${img.src}.jpg`}
-                  alt={img.caption}
-                  width={img.w}
-                  height={img.h}
-                  loading="lazy"
-                  sizes="(max-width: 560px) 100vw, (max-width: 1024px) 50vw, 380px"
-                />
-                <span class="gallery__zoom" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6">
-                    <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
-                  </svg>
-                </span>
-              </button>
+            <button
+              type="button"
+              class="gallery__item"
+              data-kind={img.cols >= 3 ? 'wide' : img.h > img.w ? 'tall' : 'std'}
+              style={`--c: ${img.cols}; --r: ${img.rows};`}
+              data-reveal
+              data-lightbox
+              data-full-src={asset(`/images/opt/${img.src}.jpg`)}
+              aria-label={`Zvětšit fotografii: ${img.alt}`}
+            >
+              <Picture
+                src={`/images/opt/${img.src}.jpg`}
+                alt={img.alt}
+                width={img.w}
+                height={img.h}
+                loading="lazy"
+                sizes={tileSizes(img.cols)}
+              />
+              <span class="gallery__zoom" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+          </span>
+            </button>
           ))}
         </div>
       </>
@@ -137,10 +151,7 @@ const extraImages = [
     <figure class="lightbox__stage">
       <img id="lightboxImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="" />
       <figcaption class="lightbox__meta">
-        <span class="lightbox__caption">
-          <span id="lightboxNum" class="lightbox__num" aria-hidden="true"></span>
-          <span id="lightboxCaption"></span>
-        </span>
+        <span id="lightboxNum" class="lightbox__num" aria-hidden="true"></span>
         <span id="lightboxCounter" class="lightbox__counter" aria-live="polite"></span>
       </figcaption>
     </figure>
@@ -235,12 +246,17 @@ const extraImages = [
     margin-bottom: var(--sp-5);
   }
   .gallery__grid--more {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(0.7rem, 1.6vw, 1.1rem);
+    grid-template-areas: none;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: clamp(120px, 14.5vw, 188px);
   }
-  .gallery__grid--more .gallery__item { aspect-ratio: 3 / 2; }
+  .gallery__grid--more .gallery__item {
+    grid-column: span var(--c);
+    grid-row: span var(--r);
+  }
   .gallery__grid--more .gallery__item :global(img) { object-position: center 32%; }
+
+  .gallery__all { margin-top: var(--sp-6); display: flex; justify-content: flex-end; }
 
   .gallery__item :global(img) {
     width: 100%;
@@ -347,11 +363,6 @@ const extraImages = [
     text-transform: uppercase;
     color: var(--ink-2);
   }
-  .lightbox__caption {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 0.6rem;
-  }
   .lightbox__num {
     font-family: var(--font-ui);
     color: var(--crimson-bright);
@@ -393,8 +404,16 @@ const extraImages = [
       grid-template-columns: repeat(2, 1fr);
       grid-auto-rows: auto;
     }
-    .gallery__grid--more { grid-template-columns: repeat(2, 1fr); }
     .gallery__item { aspect-ratio: 4 / 3; }
+    .gallery__grid--more {
+      grid-template-areas: none;
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: clamp(70px, 17vw, 130px);
+      grid-auto-flow: dense;
+    }
+    .gallery__grid--more .gallery__item { aspect-ratio: auto; grid-column: span 1; grid-row: span 2; }
+    .gallery__grid--more .gallery__item[data-kind='wide'] { grid-column: span 2; grid-row: span 3; }
+    .gallery__grid--more .gallery__item[data-kind='tall'] { grid-row: span 4; }
     .gallery__item :global(img) { position: absolute; inset: 0; }
     .lightbox__prev, .lightbox__next {
       top: auto;
@@ -420,6 +439,9 @@ const extraImages = [
         'g8';
       grid-template-columns: 1fr;
     }
-    .gallery__grid--more { grid-template-columns: 1fr; }
+    .gallery__grid--more { grid-template-areas: none; grid-template-columns: 1fr; grid-auto-rows: auto; }
+    .gallery__grid--more .gallery__item,
+    .gallery__grid--more .gallery__item[data-kind] { grid-column: auto; grid-row: auto; aspect-ratio: 3 / 2; }
+    .gallery__grid--more .gallery__item[data-kind='tall'] { aspect-ratio: 3 / 4; }
   }
 </style>
