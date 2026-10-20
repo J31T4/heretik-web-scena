@@ -1,6 +1,6 @@
 /* ============================================================
    SHŠ Heretik — SCÉNA · sdílené komponenty (design pass)
-   Kicker, pergamenová plocha, ornament čepele, ticker, plovoucí CTA,
+   Kicker, pergamenová plocha, ornament čepele, plovoucí CTA,
    spotlight karty. Tokeny pocházejí ze scena.css.
    ============================================================ */
 
@@ -87,53 +87,6 @@
 }
 .blade--center { margin-inline: auto; }
 .paper .blade { color: var(--color-paper-crimson); opacity: 0.9; }
-
-/* ---------- Ticker (běžící pás) ---------- */
-.ticker {
-  position: relative;
-  overflow: hidden;
-  background: var(--color-crimson-deep);
-  color: var(--color-ivory);
-  border-block: 1px solid rgba(0, 0, 0, 0.35);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-}
-.ticker__track {
-  display: flex;
-  width: max-content;
-  animation: ticker-run 48s linear infinite;
-}
-.ticker:hover .ticker__track,
-.ticker:focus-within .ticker__track { animation-play-state: paused; }
-.ticker__group {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-}
-.ticker__item {
-  display: inline-flex;
-  align-items: center;
-  gap: clamp(1.4rem, 3vw, 2.4rem);
-  padding: 0.95rem 0 0.95rem clamp(1.4rem, 3vw, 2.4rem);
-  font-family: var(--font-display);
-  font-size: clamp(1.05rem, 2vw, 1.4rem);
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  white-space: nowrap;
-}
-.ticker__item::after {
-  content: '';
-  width: 7px;
-  height: 7px;
-  background: var(--gold);
-  transform: rotate(45deg);
-}
-@keyframes ticker-run {
-  to { transform: translateX(-50%); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .ticker__track { animation: none; width: auto; flex-wrap: wrap; justify-content: center; }
-  .ticker__group[aria-hidden='true'] { display: none; }
-}
 
 /* ---------- Plovoucí CTA (mobil) ---------- */
 .fab {
