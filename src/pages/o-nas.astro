@@ -3,6 +3,7 @@ import ScenaLayout from '../layouts/ScenaLayout.astro';
 import ScenaHeader from '../components/ScenaHeader.astro';
 import ScenaPageHero from '../components/ScenaPageHero.astro';
 import ScenaFooter from '../components/ScenaFooter.astro';
+import ScenaCTA from '../components/ScenaCTA.astro';
 import Picture from '../components/Picture.astro';
 import Blade from '../components/Blade.astro';
 import { cs } from '../utils/typo.js';
@@ -21,6 +22,7 @@ import { cs } from '../utils/typo.js';
       label="Kdo jsme"
       title="O nás"
       subtitle="Příběh naší vášně pro historii a šerm"
+      emblem={{ value: '2020', caption: 'Rok vzniku spolku' }}
       image={{
         jpg: '/images/opt/gallery-14.jpg',
         alt: 'Dva členové SHŠ Heretik v dobových kostýmech',
@@ -32,9 +34,9 @@ import { cs } from '../utils/typo.js';
     <section class="about-block section">
       <div class="container about__grid">
         <div class="about__text reveal">
-          <span class="about__num" aria-hidden="true">01</span>
-          <h2 class="about__title">Naše historie</h2>
-          <p>{cs('Spolek HERETIK vznikl v roce 2020. Zabývá se tvorbou vystoupení, studiem dobových technik, nácvikem a předváděním šermu. Naši členové mají letitou praxi a zkušenosti z jiných šermířských skupin.')}</p>
+          <p class="kicker"><span class="kicker__act">1. scéna</span><span class="kicker__label">Příběh</span></p>
+          <h2 class="section-title about__title">Naše historie</h2>
+          <p class="about__lead">{cs('Spolek HERETIK vznikl v roce 2020. Zabývá se tvorbou vystoupení, studiem dobových technik, nácvikem a předváděním šermu. Naši členové mají letitou praxi a zkušenosti z jiných šermířských skupin.')}</p>
           <p>{cs('Tvoříme si vlastní choreografie, vtipné texty a scénky z odlišných druhů performancí – od commedie dell\'arte až po různé fantastické povídky.')}</p>
         </div>
         <figure class="about__image reveal reveal--zoom">
@@ -46,6 +48,7 @@ import { cs } from '../utils/typo.js';
             loading="lazy"
             sizes="(max-width: 900px) 100vw, 50vw"
           />
+          <span class="about__num" aria-hidden="true">01</span>
         </figure>
       </div>
     </section>
@@ -61,11 +64,12 @@ import { cs } from '../utils/typo.js';
             loading="lazy"
             sizes="(max-width: 900px) 100vw, 50vw"
           />
+          <span class="about__num" aria-hidden="true">02</span>
         </figure>
         <div class="about__text reveal">
-          <span class="about__num" aria-hidden="true">02</span>
-          <h2 class="about__title">Šermířská škola</h2>
-          <p>{cs('V nácviku nám pomáhají dochované učebnice starých šermířských mistrů i různé školy šermu. Absolvovali jsme také několik seminářů vedených zkušeným lektorem Martinem Turečkem, který navazuje na odkaz šermířského mistra Petra Kozy.')}</p>
+          <p class="kicker"><span class="kicker__act">2. scéna</span><span class="kicker__label">Řemeslo</span></p>
+          <h2 class="section-title about__title">Šermířská škola</h2>
+          <p class="about__lead">{cs('V nácviku nám pomáhají dochované učebnice starých šermířských mistrů i různé školy šermu. Absolvovali jsme také několik seminářů vedených zkušeným lektorem Martinem Turečkem, který navazuje na odkaz šermířského mistra Petra Kozy.')}</p>
         </div>
       </div>
     </section>
@@ -82,9 +86,9 @@ import { cs } from '../utils/typo.js';
     <section class="about-block section section--framed">
       <div class="container about__grid">
         <div class="about__text reveal">
-          <span class="about__num" aria-hidden="true">03</span>
-          <h2 class="about__title">Pro vaše akce</h2>
-          <p>{cs('Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti, historické dny a v neposlední řadě také obstaráme program pro plesy, firemní večírky a oslavy narozenin.')}</p>
+          <p class="kicker"><span class="kicker__act">3. scéna</span><span class="kicker__label">Nabídka</span></p>
+          <h2 class="section-title about__title">Pro vaše akce</h2>
+          <p class="about__lead">{cs('Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti, historické dny a v neposlední řadě také obstaráme program pro plesy, firemní večírky a oslavy narozenin.')}</p>
           <p>{cs('Připravíme také program pro dětské tábory a základní školy – děti nejen pobaví, ale také přiučí novým věcem o historii.')}</p>
         </div>
         <figure class="about__image reveal reveal--zoom">
@@ -96,9 +100,11 @@ import { cs } from '../utils/typo.js';
             loading="lazy"
             sizes="(max-width: 900px) 100vw, 50vw"
           />
+          <span class="about__num" aria-hidden="true">03</span>
         </figure>
       </div>
     </section>
+    <ScenaCTA />
   </main>
   <ScenaFooter />
 </ScenaLayout>
@@ -124,7 +130,7 @@ import { cs } from '../utils/typo.js';
     inset: 16px -16px -16px 16px;
     border: 1px solid var(--line-2);
     z-index: -1;
-    transition: inset var(--t-med) var(--ease-out);
+    transition: transform var(--t-med) var(--ease-out);
   }
   .about__image::after {
     content: '';
@@ -139,13 +145,23 @@ import { cs } from '../utils/typo.js';
   .about__grid--reverse .about__image::before { inset: 16px 16px -16px -16px; }
   .about__grid--reverse .about__image::after { right: auto; left: -16px; }
   @media (hover: hover) and (pointer: fine) {
-    .about__image:hover::before { inset: 10px -10px -10px 10px; }
-    .about__grid--reverse .about__image:hover::before { inset: 10px 10px -10px -10px; }
+    .about__image:hover::before { transform: translate(-6px, -6px); }
+    .about__grid--reverse .about__image:hover::before { transform: translate(6px, -6px); }
   }
   .about__image :global(picture) {
+    position: relative;
     display: block;
     overflow: hidden;
     border: 1px solid var(--line-2);
+    box-shadow: var(--edge-light), var(--shadow-card);
+  }
+  .about__image :global(picture)::after {
+    /* spodní závoj, aby obrysové číslo drželo kontrast i na světlých fotkách */
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(200deg, rgba(6, 6, 6, 0.55) 0%, transparent 38%);
   }
   .about__image :global(img) {
     width: 100%;
@@ -158,38 +174,34 @@ import { cs } from '../utils/typo.js';
   }
   @media (hover: hover) and (pointer: fine) {
     .about__image:hover :global(img) { transform: scale(1.045); }
+    .about__image:hover .about__num { -webkit-text-stroke-color: var(--accent-text); }
   }
 
-  .about__text { position: relative; padding-top: var(--sp-6); }
-
+  /* Obrysové číslo scény přes roh fotky — stejný jazyk jako karty programu na úvodu */
   .about__num {
+    position: absolute;
+    z-index: 2;
+    top: clamp(0.5rem, 1.2vw, 0.9rem);
+    right: clamp(0.9rem, 1.8vw, 1.4rem);
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: 1.1rem;
-    color: var(--accent-text);
-    letter-spacing: 0.2em;
-    border: 1px solid rgba(228, 6, 7, 0.4);
-    padding: 0.35rem 0.7rem;
-    margin-bottom: var(--sp-5);
-    display: inline-block;
+    font-size: clamp(3.2rem, 6vw, 5rem);
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(242, 237, 228, 0.75);
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    user-select: none;
+    font-variant-numeric: lining-nums tabular-nums;
+    transition: -webkit-text-stroke-color var(--t-med) var(--ease);
+  }
+  @supports not (-webkit-text-stroke: 1px #000) {
+    .about__num { color: var(--ink); }
   }
 
-  .about__title {
-    margin-bottom: var(--sp-5);
-    position: relative;
-    padding-left: 1.2rem;
-  }
-  .about__title::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.18em;
-    bottom: 0.18em;
-    width: 3px;
-    background: linear-gradient(180deg, var(--crimson), rgba(228, 6, 7, 0.15));
-  }
-
+  .about__title { font-size: clamp(2.3rem, 4.4vw, 3.6rem); }
   .about__text p { margin-bottom: var(--sp-4); }
+  .about__lead { font-size: var(--fs-lead); color: var(--ink); line-height: 1.7; }
 
   /* --- Citát na pergamenu --- */
   .about-pull { text-align: center; overflow: hidden; border-block: 1px solid var(--color-paper-2); }
@@ -199,9 +211,9 @@ import { cs } from '../utils/typo.js';
     max-width: 22em;
     margin: 0 auto var(--sp-5);
     font-family: var(--font-display);
-    font-size: clamp(1.7rem, 4vw, 3rem);
-    line-height: 1.3;
-    letter-spacing: -0.012em;
+    font-size: clamp(1.8rem, 4.4vw, 3.4rem);
+    line-height: 1.25;
+    letter-spacing: -0.015em;
     color: var(--color-paper-ink);
     text-wrap: balance;
   }
@@ -215,9 +227,8 @@ import { cs } from '../utils/typo.js';
   }
 
   @media (max-width: 900px) {
-    .about__grid { grid-template-columns: 1fr; gap: var(--sp-6); }
+    .about__grid { grid-template-columns: 1fr; gap: var(--sp-7); }
     .about__image { margin-right: 16px; }
-    .about__grid--reverse .about__image { margin-right: 0; margin-left: 16px; }
-    .about__grid--reverse .about__image { order: 0; }
+    .about__grid--reverse .about__image { margin-right: 0; margin-left: 16px; order: 0; }
   }
 </style>
