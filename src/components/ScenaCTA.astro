@@ -4,9 +4,29 @@ import Picture from './Picture.astro';
 import Blade from './Blade.astro';
 import { cs } from '../utils/typo.js';
 import { contactEmail } from '../data/site.js';
+
+interface Props {
+  /** Štítek dějství v kickeru (default „Finále“) */
+  act?: string;
+  /** Téma v kickeru (default „Rezervace“) */
+  label?: string;
+  /** První řádek nadpisu */
+  title?: string;
+  /** Druhý řádek nadpisu (ohnivý gradient) */
+  titleAccent?: string;
+  subtitle?: string;
+}
+
+const {
+  act = 'Finále',
+  label = 'Rezervace',
+  title = 'Rezervujte si',
+  titleAccent = 'své představení',
+  subtitle = 'Městská slavnost, ples, firemní večírek nebo školní den – připravíme vystoupení přesně pro vaši akci.',
+} = Astro.props;
 ---
 
-<section class="scena-cta">
+<section class="scena-cta" aria-labelledby="cta-title">
   <div class="cta__bg" aria-hidden="true">
     <Picture
       src="/images/opt/hero-2.jpg"
@@ -15,23 +35,24 @@ import { contactEmail } from '../data/site.js';
       height={739}
       loading="lazy"
       sizes="100vw"
-      mobileSrc="/images/opt/hero-2-900.jpg"
+      mobileSrc="/images/opt/hero-2-portrait.jpg"
+      mobileMedia="(max-width: 760px) and (orientation: portrait)"
     />
     <div class="cta__veil"></div>
   </div>
   <div class="grain" aria-hidden="true"></div>
 
   <div class="container cta__inner">
-    <p class="kicker kicker--center reveal"><span class="kicker__act">Finále</span><span class="kicker__label">Rezervace</span></p>
-    <h2 class="cta__title reveal">
-      Rezervujte si<br />
-      <span class="fire-text">své představení</span>
+    <p class="kicker kicker--center reveal"><span class="kicker__act">{act}</span><span class="kicker__label">{label}</span></p>
+    <h2 class="cta__title reveal" id="cta-title">
+      {cs(title)}<br />
+      <span class="fire-text">{cs(titleAccent)}</span>
     </h2>
-    <p class="cta__subtitle reveal">{cs('Městská slavnost, ples, firemní večírek nebo školní den – připravíme vystoupení přesně pro vaši akci.')}</p>
+    <p class="cta__subtitle reveal">{cs(subtitle)}</p>
     <p class="cta__scope reveal">
-      <span>Městské slavnosti</span><i aria-hidden="true">·</i>
-      <span>školy</span><i aria-hidden="true">·</i>
-      <span>plesy</span><i aria-hidden="true">·</i>
+      <span>Městské slavnosti</span><i aria-hidden="true"></i>
+      <span>školy</span><i aria-hidden="true"></i>
+      <span>plesy</span><i aria-hidden="true"></i>
       <span>firemní akce</span>
     </p>
     <div class="cta__action reveal">
@@ -39,7 +60,7 @@ import { contactEmail } from '../data/site.js';
     </div>
     <Blade center class="cta__blade" />
     <p class="cta__mail reveal">
-      Nebo napište přímo na <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+      Nebo napište přímo na <a href={`mailto:${contactEmail}`} class="link-u"><span class="link-u__t">{contactEmail}</span></a>
     </p>
   </div>
 </section>
@@ -55,7 +76,16 @@ import { contactEmail } from '../data/site.js';
     overflow: hidden;
     isolation: isolate;
     border-top: 1px solid var(--line);
-    padding: var(--sp-9) 0;
+    padding: var(--sp-10) 0;
+  }
+  /* Reflektor shora na titulek + karmínová záře od podlahy jeviště */
+  .scena-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(ellipse 46% 62% at 50% 0%, rgba(242, 237, 228, 0.12), transparent 70%);
   }
 
   .cta__bg {
@@ -74,19 +104,31 @@ import { contactEmail } from '../data/site.js';
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(180deg, rgba(6, 6, 6, 0.62) 0%, rgba(6, 6, 6, 0.25) 38%, rgba(6, 6, 6, 0.72) 100%),
+      /* tmavá „podložka“ za textem: titulek, podtitul i řádek akcí mají AA kontrast přes rušnou fotku diváků */
+      radial-gradient(ellipse 62% 58% at 50% 46%, rgba(6, 6, 6, 0.62), transparent 78%),
+      linear-gradient(180deg, rgba(6, 6, 6, 0.66) 0%, rgba(6, 6, 6, 0.4) 38%, rgba(6, 6, 6, 0.78) 100%),
       radial-gradient(ellipse 70% 90% at 50% 100%, rgba(228, 6, 7, 0.2), transparent 65%);
   }
 
   .cta__inner {
     position: relative;
     z-index: 3;
-    max-width: 780px;
+    max-width: 900px;
   }
 
   .cta__title {
-    font-size: clamp(2.4rem, 6vw, 4.4rem);
+    font-size: clamp(2.7rem, 8vw, 6rem);
+    line-height: 0.98;
+    letter-spacing: -0.022em;
     margin-bottom: var(--sp-5);
+    text-shadow: 0 2px 30px rgba(0, 0, 0, 0.55);
+  }
+  /* gradientový text nesmí oříznout háčky a čárky; stín dáme filtrem */
+  .cta__title .fire-text {
+    display: inline-block;
+    padding: 0.06em 0.04em 0.1em;
+    text-shadow: none;
+    filter: drop-shadow(0 4px 22px rgba(0, 0, 0, 0.5));
   }
 
   .cta__subtitle {
@@ -101,27 +143,40 @@ import { contactEmail } from '../data/site.js';
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 0.8rem;
+    gap: 0.6rem 1.1rem;
     font-family: var(--font-ui);
     font-size: 0.78rem;
     font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--steel);
+    color: var(--color-ivory-2);
     margin-bottom: var(--sp-7);
   }
-  .cta__scope i { color: var(--crimson); font-style: normal; }
+  /* oddělovač = kosočtverec jako v kickeru (stejný jazyk jako hlavičky sekcí) */
+  .cta__scope i {
+    width: 5px;
+    height: 5px;
+    background: var(--crimson);
+    transform: rotate(45deg);
+  }
+  @media (max-width: 560px) {
+    /* 2×2 mřížka bez oddělovačů: kosočtverce by při zalomení zůstaly osiřelé na kraji řádku */
+    .cta__scope {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      justify-items: center;
+      gap: 0.7rem 1rem;
+      letter-spacing: 0.14em;
+      font-size: 0.72rem;
+    }
+    .cta__scope i { display: none; }
+  }
+  @media (max-width: 360px) {
+    .cta__scope { letter-spacing: 0.08em; font-size: 0.68rem; }
+  }
 
   .cta__action :global(.btn) { min-width: 240px; }
   .cta__inner :global(.cta__blade) { margin-top: var(--sp-7); margin-bottom: var(--sp-4); }
   .cta__mail { font-size: 0.95rem; color: var(--ink-2); }
-  .cta__mail a {
-    color: var(--ink);
-    border-bottom: 1px solid var(--crimson);
-    padding-block: 0.3rem;
-    word-break: break-word;
-    transition: color var(--t-fast) var(--ease);
-  }
-  .cta__mail a:hover,
-  .cta__mail a:focus-visible { color: var(--accent-text); }
+  .cta__mail a { word-break: break-word; }
 </style>
