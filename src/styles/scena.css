@@ -90,7 +90,7 @@
   --font-ui: 'Space Grotesk', 'Inter', sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
   --fs-h1: clamp(2.5rem, 6vw, 4.6rem);
-  --fs-h2: clamp(2rem, 4.4vw, 3.3rem);
+  --fs-h2: clamp(2.4rem, 5.6vw, 4.6rem);
   --fs-h3: clamp(1.3rem, 2.2vw, 1.7rem);
   --fs-lead: clamp(1.08rem, 1.6vw, 1.22rem);
   --fs-body: 1.02rem;
@@ -148,6 +148,10 @@
   --shadow-1: 0 6px 24px rgba(0, 0, 0, 0.45);
   --shadow-2: 0 24px 70px rgba(0, 0, 0, 0.6);
   --shadow-3: 0 12px 44px rgba(228, 6, 7, 0.32);
+  /* Hloubka karet: vrstvený stín (kontaktní + rozptýlený) a 1px hrana světla shora */
+  --edge-light: inset 0 1px 0 rgba(242, 237, 228, 0.09);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 10px 28px rgba(0, 0, 0, 0.42), 0 28px 60px rgba(0, 0, 0, 0.28);
+  --shadow-card-hover: 0 2px 4px rgba(0, 0, 0, 0.5), 0 18px 44px rgba(0, 0, 0, 0.55), 0 0 56px rgba(228, 6, 7, 0.2);
 
   --ring-inner: rgba(10, 10, 10, 0.9);
   --ring-outer: var(--color-crimson-bright);
@@ -270,8 +274,8 @@ h1 {
 }
 h2 {
   font-size: var(--fs-h2);
-  line-height: 1.08;
-  letter-spacing: -0.015em;
+  line-height: 1.02;
+  letter-spacing: -0.024em;
 }
 h3 {
   font-size: var(--fs-h3);
@@ -315,6 +319,10 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   box-shadow: 0 0 0 2px var(--ring-inner);
   border-radius: 1px;
 }
+
+/* Cíl „Zpět nahoru“ — nulová výška, fokus bez rámečku (není ovládací prvek) */
+.page-top { height: 0; overflow: hidden; }
+.page-top:focus-visible { outline: none; box-shadow: none; }
 
 /* Skip link */
 .skip-link {
@@ -378,24 +386,41 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 .act-label--center { justify-content: center; }
 
-.section-label {
-  display: block;
-  font-family: var(--font-ui);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: var(--sp-3);
+/* Hlavička sekce — jeden vzor pro celý web:
+   .section-head > .kicker + h2.section-title + (.blade) + (.section-subtitle) */
+.section-head { margin-bottom: clamp(2.5rem, 5.5vw, 4.25rem); }
+.section-title {
+  margin-bottom: var(--sp-4);
+  /* délka nadpisu nesmí přetéct ani na 320 px; žádné dělení slov */
+  overflow-wrap: break-word;
 }
-
-.section-head { margin-bottom: var(--sp-8); }
-.section-title { margin-bottom: var(--sp-4); }
 .section-subtitle {
   max-width: 620px;
   font-size: var(--fs-lead);
   line-height: 1.75;
   color: var(--ink-2);
+}
+
+/* Varianta „split“: ≥ 900 px titulek vlevo, doprovod (podtitul / odkaz) vpravo na účaří.
+   Na mobilu pod sebou. DOM: .section-head--split > .section-head__main + .section-head__aside */
+.section-head__aside { margin-top: var(--sp-2); }
+.section-head__aside .section-subtitle { margin-bottom: 0; }
+.section-head__aside .link-more { margin-top: var(--sp-3); }
+@media (min-width: 900px) {
+  .section-head--split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 24rem);
+    column-gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: end;
+  }
+  .section-head--split .section-title { margin-bottom: 0; }
+  .section-head--split .blade { margin-top: var(--sp-4); }
+  .section-head__aside {
+    margin-top: 0;
+    /* spodek asidu na účaří titulku (kompenzace dolního řádkového mezera nadpisu) */
+    padding-bottom: 0.35rem;
+  }
+  .section-head__aside--end { justify-self: end; text-align: right; }
 }
 
 
