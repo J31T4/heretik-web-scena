@@ -2,8 +2,13 @@
 import ScenaLayout from '../layouts/ScenaLayout.astro';
 import ScenaHeader from '../components/ScenaHeader.astro';
 import ScenaFooter from '../components/ScenaFooter.astro';
+import Blade from '../components/Blade.astro';
 import { page } from '../utils/paths.js';
+import { navigation } from '../data/site.js';
 import { cs } from '../utils/typo.js';
+
+// Odkazy na hlavní stránky bez úvodu (ten má vlastní tlačítko)
+const links = navigation.filter((item) => item.href !== page('/'));
 ---
 
 <ScenaLayout
@@ -16,10 +21,19 @@ import { cs } from '../utils/typo.js';
   <main id="obsah">
     <section class="section page-404">
       <div class="container page-404__inner">
-        <p class="act-label" aria-hidden="true">404</p>
-        <h1 class="page-404__title">{cs('Stránka nenalezena')}</h1>
-        <p class="page-404__text">{cs('Tato stránka neexistuje nebo byla přesunuta.')}</p>
-        <a class="btn btn--primary" href={page('/')}>Zpět na úvodní stránku</a>
+        <p class="page-404__numeral" aria-hidden="true">404</p>
+        <p class="kicker kicker--center reveal"><span class="kicker__act">Mimo scénář</span><span class="kicker__label">Chyba 404</span></p>
+        <h1 class="page-404__title reveal">{cs('Stránka nenalezena')}</h1>
+        <Blade center class="reveal" />
+        <p class="page-404__text reveal">{cs('Tahle scéna se dnes nehraje. Tato stránka neexistuje nebo byla přesunuta.')}</p>
+        <a class="btn btn--primary reveal" href={page('/')}>Zpět na úvodní stránku</a>
+        <nav class="page-404__links reveal" aria-label="Hlavní stránky">
+          <ul>
+            {links.map((item) => (
+              <li><a href={item.href} class="link-u"><span class="link-u__t">{item.label}</span></a></li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </section>
   </main>
@@ -28,30 +42,61 @@ import { cs } from '../utils/typo.js';
 
 <style>
   .page-404 {
-    min-height: 60vh;
+    position: relative;
+    min-height: 72vh;
     display: flex;
     align-items: center;
+    overflow: hidden;
+    isolation: isolate;
+    background:
+      radial-gradient(ellipse 55% 60% at 50% 45%, rgba(228, 6, 7, 0.12), transparent 65%),
+      var(--bg-0);
+  }
+  /* Obří obrysové 404 nad titulkem — dekorace, bez textové role */
+  .page-404__numeral {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(7rem, 26vw, 16rem);
+    line-height: 0.8;
+    letter-spacing: -0.03em;
+    margin-bottom: var(--sp-5);
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(242, 237, 228, 0.55);
+    user-select: none;
+  }
+  @supports not (-webkit-text-stroke: 1px #000) {
+    .page-404__numeral { color: var(--ink-3); }
   }
   .page-404__inner {
     text-align: center;
-    max-width: 560px;
+    max-width: 680px;
     margin: 0 auto;
   }
-  .page-404 .act-label {
-    justify-content: center;
-    font-size: clamp(4rem, 12vw, 7rem);
-    letter-spacing: 0.1em;
-    color: var(--crimson);
-    margin-bottom: var(--sp-5);
-  }
-  .page-404 .act-label::before { display: none; }
   .page-404__title {
-    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-size: clamp(2.4rem, 7vw, 4.4rem);
+    text-transform: uppercase;
     margin-bottom: var(--sp-4);
+    text-shadow: 0 4px 40px rgba(0, 0, 0, 0.7);
   }
+  .page-404 :global(.blade) { margin-bottom: var(--sp-5); }
   .page-404__text {
     font-size: var(--fs-lead);
-    color: var(--ink-2);
-    margin-bottom: var(--sp-7);
+    color: var(--ink);
+    max-width: 38ch;
+    margin: 0 auto var(--sp-6);
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.8);
   }
+  .page-404__links { margin-top: var(--sp-7); }
+  .page-404__links ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--sp-2) var(--sp-6);
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .page-404__links a { display: inline-block; padding-block: 0.6rem; }
 </style>
