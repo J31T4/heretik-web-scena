@@ -297,7 +297,7 @@ const tileSizes = (cols: number) =>
   .gallery__item:focus-visible .gallery__zoom { opacity: 1; }
   @media (hover: hover) and (pointer: fine) {
     .gallery__item:hover .gallery__zoom { opacity: 1; }
-    .gallery__zoom:hover { color: var(--crimson-bright); }
+    .gallery__zoom:hover { color: var(--accent-text); }
   }
 
   /* --- Lightbox --- */
@@ -315,6 +315,7 @@ const tileSizes = (cols: number) =>
     background: transparent;
     overflow: hidden;
     overscroll-behavior: contain;
+    touch-action: pan-y;
   }
   .lightbox[open] {
     display: flex;
@@ -351,6 +352,10 @@ const tileSizes = (cols: number) =>
     box-shadow: var(--shadow-2);
     background: var(--color-black);
   }
+  @media (prefers-reduced-motion: no-preference) {
+    .lightbox__stage img { transition: opacity 160ms var(--ease); }
+    .lightbox__stage img.is-swapping { opacity: 0; }
+  }
   .lightbox__meta {
     display: flex;
     justify-content: space-between;
@@ -365,10 +370,10 @@ const tileSizes = (cols: number) =>
   }
   .lightbox__num {
     font-family: var(--font-ui);
-    color: var(--crimson-bright);
+    color: var(--accent-text);
     letter-spacing: 0.2em;
   }
-  .lightbox__counter { color: var(--crimson-bright); letter-spacing: 0.3em; }
+  .lightbox__counter { color: var(--accent-text); letter-spacing: 0.3em; }
 
   .lightbox__btn {
     position: absolute;
@@ -385,7 +390,7 @@ const tileSizes = (cols: number) =>
   }
   .lightbox__btn:hover,
   .lightbox__btn:focus-visible {
-    color: var(--crimson-bright);
+    color: var(--accent-text);
     border-color: var(--crimson);
     background: rgba(228, 6, 7, 0.08);
   }

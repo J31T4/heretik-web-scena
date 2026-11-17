@@ -225,13 +225,39 @@
   if (box && lbImg) {
     const items = Array.from(doc.querySelectorAll('[data-lightbox]'));
     let current = 0;
+    let swapToken = 0;
+    const FADE_MS = 160;
+
+    // Přepnutí fotky: při otevřeném lightboxu jemný crossfade (opacity), bez animace při reduced motion.
+    const setPhoto = (src, alt) => {
+      swapToken += 1;
+      const token = swapToken;
+      lbImg.alt = alt;
+      if (!box.open || reduced.matches) {
+        lbImg.classList.remove('is-swapping');
+        lbImg.src = src;
+        return;
+      }
+      lbImg.classList.add('is-swapping');
+      setTimeout(() => {
+        if (token !== swapToken) return;
+        lbImg.src = src;
+        const reveal = () => {
+          if (token === swapToken) lbImg.classList.remove('is-swapping');
+        };
+        if (typeof lbImg.decode === 'function') lbImg.decode().then(reveal, reveal);
+        else reveal();
+      }, FADE_MS);
+    };
 
     const show = (i) => {
       current = (i + items.length) % items.length;
       const item = items[current];
       // Lightbox vždy používá plnou variantu (data-full-src), ne responzivní náhled.
-      lbImg.src = item.dataset.fullSrc || item.querySelector('img')?.currentSrc || item.querySelector('img')?.src;
-      lbImg.alt = item.querySelector('img')?.alt || '';
+      setPhoto(
+        item.dataset.fullSrc || item.querySelector('img')?.currentSrc || item.querySelector('img')?.src,
+        item.querySelector('img')?.alt || ''
+      );
       // Jen pořadové číslo a počítadlo — žádné textové popisky fotek.
       if (lbNum) lbNum.textContent = String(current + 1).padStart(2, '0');
       if (lbCounter) lbCounter.textContent = `${current + 1} / ${items.length}`;
@@ -270,8 +296,36 @@
     if (lbPrev) lbPrev.addEventListener('click', () => show(current - 1));
     if (lbNext) lbNext.addEventListener('click', () => show(current + 1));
 
+    // Swipe (dotyk/pero): vodorovný posun ≥ 50 px a převážně horizontální → další/předchozí.
+    // Svislé gesto se ignoruje; po swipe se potlačí následný „click“ (zavření na pozadí).
+    const SWIPE_MIN_PX = 50;
+    let swipeStart = null;
+    let swipeHandled = false;
+    box.addEventListener('pointerdown', (e) => {
+      swipeHandled = false;
+      swipeStart = e.pointerType === 'mouse' || e.target.closest('button')
+        ? null
+        : { id: e.pointerId, x: e.clientX, y: e.clientY };
+    });
+    box.addEventListener('pointerup', (e) => {
+      if (!swipeStart || swipeStart.id !== e.pointerId) return;
+      const dx = e.clientX - swipeStart.x;
+      const dy = e.clientY - swipeStart.y;
+      swipeStart = null;
+      if (Math.abs(dx) < SWIPE_MIN_PX || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+      swipeHandled = true;
+      show(dx < 0 ? current + 1 : current - 1);
+    });
+    box.addEventListener('pointercancel', () => {
+      swipeStart = null;
+    });
+
     // Kliknutí na prázdné místo (samotný dialog, ne obsah) zavře
     box.addEventListener('click', (e) => {
+      if (swipeHandled) {
+        swipeHandled = false;
+        return;
+      }
       if (e.target === box) close();
     });
 
@@ -289,7 +343,4 @@
       }
     });
   }
-
-  /* ---------- 6. Zvýraznění aktivní položky menu (progress-aware) ---------- */
-  // (aria-current se nastavuje v Astro komponentě při buildu — zde nic)
 })();
