@@ -13,9 +13,9 @@ const stories = [
     title: 'Husitská epopej',
     lead: 'Několik scén odehrávajících se v naší známé historické Praze – každý titul je zaměřený na jiné téma.',
     episodes: [
-      'O papežských vyslancích, prodávajících odpustky',
-      'Kazatelé, snažící se získat nové spojence',
-      'Zvláštní posel, dávající za vyučenou hříšníkům',
+      'O papežských vyslancích prodávajících odpustky',
+      'Kazatelé snažící se získat nové spojence',
+      'Zvláštní posel dávající za vyučenou hříšníkům',
     ],
   },
   {
@@ -33,6 +33,7 @@ const performances = [
     title: 'Městské slavnosti a historické dny',
     description: 'Vystoupení, která oživí atmosféru vaší akce a přenesou diváky do minulosti.',
     details: 'Historický a scénický šerm s vlastní choreografií',
+    alt: 'Šermířské vystoupení před diváky na městském nádvoří',
     image: '/images/opt/gallery-13',
     w: 1400,
     h: 646,
@@ -41,6 +42,7 @@ const performances = [
     title: 'Plesy a firemní večírky',
     description: 'Exkluzivní šermířský program pro reprezentativní i zábavné večery.',
     details: 'Elegantní vystoupení přímo na míru vaší akci',
+    alt: 'Večerní vystoupení na pódiu před publikem na náměstí',
     image: '/images/opt/gallery-19',
     w: 1400,
     h: 788,
@@ -49,6 +51,7 @@ const performances = [
     title: 'Oslavy narozenin',
     description: 'Neobvyklý zážitek, který udělá z vaší oslavy nezapomenutelnou událost.',
     details: 'Přizpůsobíme program oslavě',
+    alt: 'Dobové ležení se stanem a postavou v červeném kostýmu',
     image: '/images/opt/gallery-5',
     w: 1050,
     h: 1400,
@@ -57,6 +60,7 @@ const performances = [
     title: 'Dětské tábory a školy',
     description: 'Program pro děti, který je nejen pobaví, ale také přiučí novým věcem o historii.',
     details: 'Vzdělávací a zábavný program pro ZŠ i tábory',
+    alt: 'Šermíř v akrobatickém pádu a soupeř s mečem v humorné scéně',
     image: '/images/opt/gallery-25',
     w: 1400,
     h: 932,
@@ -65,7 +69,8 @@ const performances = [
 ---
 
 <ScenaLayout
-  title="Co nabízíme"
+  title="Vystoupení"
+  image={{ src: '/images/opt/gallery-16.jpg', width: 1400, height: 646, alt: 'Šermířské vystoupení SHŠ Heretik před diváky' }}
   description="Vystoupení na míru: městské slavnosti, historické dny, plesy, firemní večírky, oslavy narozenin i program pro školy a tábory."
 >
   <ScenaHeader />
@@ -73,8 +78,8 @@ const performances = [
     <ScenaPageHero
       variant="standard"
       act="I. dějství · Co nabízíme"
-      label="Co děláme"
-      title="CO NABÍZÍME"
+      label="Co nabízíme"
+      title="Vystoupení"
       subtitle="Vystoupení dle vašich potřeb"
       image={{
         jpg: '/images/opt/gallery-16.jpg',
@@ -89,7 +94,7 @@ const performances = [
       <span class="act-node" aria-hidden="true"></span>
       <div class="container">
         <div class="section-head reveal">
-          <p class="kicker"><span class="kicker__act">II. dějství</span><span class="kicker__label">Naše scény</span></p>
+          <p class="kicker"><span class="kicker__act">1. scéna</span><span class="kicker__label">Repertoár</span></p>
           <h2 class="section-title">Naše povídky</h2>
           <Blade />
         </div>
@@ -122,9 +127,9 @@ const performances = [
     <section class="section section--tint scena-perf">
       <div class="container">
         <div class="section-head reveal">
-          <p class="kicker"><span class="kicker__act">III. dějství</span><span class="kicker__label">Příležitosti</span></p>
-          <h2 class="section-title" data-reveal="curtain">Vystoupení pro vaši akci</h2>
-          <p class="section-subtitle">{cs('Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti, historické dny a v neposlední řadě také obstaráme program pro plesy, firemní večírky, oslavy narozenin, dětské tábory a dokonce i program pro ZŠ, který děti nejen pobaví, ale také přiučí novým věcem o historii.')}</p>
+          <p class="kicker"><span class="kicker__act">2. scéna</span><span class="kicker__label">Příležitosti</span></p>
+          <h2 class="section-title" data-reveal="curtain">Pro vaši akci</h2>
+          <p class="section-subtitle">{cs('Vystoupení připravíme dle vašich potřeb – od městských slavností a historických dnů po program pro základní školy.')}</p>
         </div>
 
         <div class="perf__list" data-reveal-group>
@@ -133,7 +138,7 @@ const performances = [
               <figure class="perf__image">
                 <Picture
                   src={`${perf.image}.jpg`}
-                  alt={perf.title}
+                  alt={perf.alt}
                   width={perf.w}
                   height={perf.h}
                   loading="lazy"
