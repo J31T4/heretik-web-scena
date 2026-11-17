@@ -52,10 +52,18 @@ const shows = [
 <section class="scena-shows act-section section" id="program">
   <span class="act-node" aria-hidden="true"></span>
   <div class="container">
-    <div class="section-head reveal">
-      <p class="kicker"><span class="kicker__act">I. dějství</span><span class="kicker__label">Co děláme</span></p>
-      <h2 class="section-title" data-reveal="curtain">{cs('Co hrajeme')}</h2>
-      <Blade />
+    <div class="section-head section-head--split">
+      <div class="section-head__main reveal">
+        <p class="kicker"><span class="kicker__act">I. dějství</span><span class="kicker__label">Co děláme</span></p>
+        <h2 class="section-title" data-reveal="curtain">{cs('Co hrajeme')}</h2>
+        <Blade />
+      </div>
+      <div class="section-head__aside section-head__aside--end reveal">
+        <a href={page('/akce')} class="link-more link-u">
+          <span class="link-u__t">Všechna vystoupení</span>
+          <span class="link-more__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
     </div>
 
     <div class="program" data-reveal-group>
@@ -81,10 +89,6 @@ const shows = [
         </article>
       ))}
     </div>
-
-    <p class="program__more reveal">
-      <a href={page('/akce')} class="btn btn--ghost">Všechna vystoupení <span class="btn__arrow" aria-hidden="true">→</span></a>
-    </p>
   </div>
 </section>
 
@@ -109,26 +113,24 @@ const shows = [
     overflow: hidden;
     background: var(--bg-3);
     border: 1px solid var(--line-2);
+    box-shadow: var(--edge-light), var(--shadow-card);
     transition: border-color var(--t-med) var(--ease), box-shadow var(--t-med) var(--ease);
   }
-  /* Karmínová linka shora (kreslí se při najetí) */
-  .show::after {
+  /* Karty nejsou interaktivní → reagují jen na hover (žádný focus stav není potřeba).
+     Při najetí se kolem fotky „rozsvítí“ tenký vnitřní rám jako rám jeviště. */
+  .show__media::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--crimson), rgba(178, 175, 63, 0.8));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform var(--dur-3) var(--ease-out);
-    z-index: 3;
+    inset: 10px;
+    border: 1px solid rgba(242, 237, 228, 0.34);
+    opacity: 0;
+    transform: scale(1.025);
+    transition: opacity var(--dur-3) var(--ease), transform var(--dur-4) var(--ease-out);
+    pointer-events: none;
   }
-  .show:focus-within::after { transform: scaleX(1); }
   @media (hover: hover) and (pointer: fine) {
-    .show:hover { border-color: rgba(228, 6, 7, 0.5); box-shadow: var(--shadow-1), var(--shadow-red); }
-    .show:hover::after { transform: scaleX(1); }
+    .show:hover { border-color: rgba(228, 6, 7, 0.5); box-shadow: var(--edge-light), var(--shadow-card-hover); }
+    .show:hover .show__media::after { opacity: 1; transform: scale(1); }
   }
 
   .show__media {
@@ -157,11 +159,13 @@ const shows = [
     position: relative;
     z-index: 1;
     padding: clamp(4.5rem, 9vw, 7rem) clamp(1.25rem, 2.6vw, 2.25rem) clamp(1.4rem, 2.6vw, 2.1rem);
-    background: linear-gradient(180deg, rgba(6, 6, 6, 0) 0%, rgba(6, 6, 6, 0.82) 38%, rgba(6, 6, 6, 0.96) 100%);
+    background: linear-gradient(180deg, rgba(6, 6, 6, 0) 0%, rgba(6, 6, 6, 0.86) 34%, rgba(6, 6, 6, 0.97) 100%);
   }
 
   .show__tag {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
     font-family: var(--font-ui);
     font-size: var(--fs-micro);
     font-weight: 600;
@@ -173,9 +177,34 @@ const shows = [
     padding: 0.3rem 0.7rem;
     margin-bottom: var(--sp-3);
   }
+  .show__tag::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    background: var(--crimson);
+    transform: rotate(45deg);
+  }
   .show__title {
-    font-size: clamp(1.55rem, 2.8vw, 2.15rem);
-    margin-bottom: var(--sp-3);
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    margin-bottom: var(--sp-4);
+  }
+  /* Krátká karmínová linka pod titulkem se při najetí prodlouží */
+  .show__title::after {
+    content: '';
+    display: block;
+    width: 100%;
+    max-width: 4.5rem;
+    height: 2px;
+    margin-top: var(--sp-3);
+    background: linear-gradient(90deg, var(--crimson), var(--gold));
+    transform: scaleX(0.45);
+    transform-origin: left;
+    transition: transform var(--dur-4) var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .show:hover .show__title::after { transform: scaleX(1); }
   }
   .show__desc {
     font-size: 0.97rem;
@@ -206,14 +235,11 @@ const shows = [
     .show:hover .show__num { -webkit-text-stroke-color: var(--accent-text); }
   }
 
-  .program__more { margin-top: var(--sp-7); display: flex; justify-content: flex-end; }
-
   @media (max-width: 1024px) {
     .program { grid-auto-rows: clamp(380px, 52vw, 460px); }
   }
   @media (max-width: 760px) {
     .program { grid-template-columns: 1fr; grid-auto-rows: minmax(420px, auto); }
     .show--wide, .show--narrow { grid-column: auto; }
-    .program__more { justify-content: flex-start; }
   }
 </style>
