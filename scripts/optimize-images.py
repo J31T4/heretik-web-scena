@@ -10,6 +10,7 @@ Reprodukovatelné: stejný vstup → stejný výstup (pevné kvality, LANCZOS).
 """
 from PIL import Image, ImageOps
 import os
+import sys
 
 LANCZOS = getattr(Image, 'Resampling', Image).LANCZOS
 
@@ -64,11 +65,44 @@ MOBILE_VARIANTS = {
 }
 
 
+# Portrétní výřezy hero fotek pro úzké telefony na výšku (mobileSrc + media
+# `(max-width: 760px) and (orientation: portrait)`). Širokou fotku 16:7 by
+# `object-fit: cover` na ~390×850 px roztáhl a rozmazal; výřez z originálu je ostrý.
+# (src, střed výřezu jako podíl šířky originálu, kvalita)
+PORTRAIT_RATIO = 9 / 16
+PORTRAIT_WIDTH = 780  # = 2× šířka telefonu 390 px; víc by webp přesáhlo ~200 kB
+PORTRAITS = {
+    # hero-1: stan a hlavní šermíř vpravo od středu
+    'hero-1.jpeg': (0.70, 64),
+    # hero-2: trojice šermířů, střed na prostředním (v bílé košili)
+    'hero-2.jpeg': (0.445, 64),
+}
+
+
 def save_variant(im, path, q):
     """Uloží obrázek jako WebP i JPEG se stejnou kvalitou."""
     im.save(path + '.webp', 'WEBP', quality=q, method=6)
     im.save(path + '.jpg', 'JPEG', quality=q, progressive=True, optimize=True)
 
+
+def make_portraits():
+    """Vygeneruje JEN hero-N-portrait.webp/.jpg — žádný jiný soubor se nepřepíše."""
+    for src, (center, q) in PORTRAITS.items():
+        im = ImageOps.exif_transpose(Image.open(os.path.join(SRC, src))).convert('RGB')
+        w, h = im.size
+        crop_w = round(h * PORTRAIT_RATIO)
+        left = min(max(round(w * center - crop_w / 2), 0), w - crop_w)
+        crop = im.crop((left, 0, left + crop_w, h))
+        out_h = round(PORTRAIT_WIDTH / PORTRAIT_RATIO)
+        crop = crop.resize((PORTRAIT_WIDTH, out_h), LANCZOS)
+        base = os.path.join(DST, os.path.splitext(src)[0] + '-portrait')
+        save_variant(crop, base, q)
+        print(f'{src} -> {base} {crop.size} webp {os.path.getsize(base + ".webp")//1024} kB, jpg {os.path.getsize(base + ".jpg")//1024} kB')
+
+
+if '--only-portrait' in sys.argv:
+    make_portraits()
+    sys.exit(0)
 
 total_before = total_after = 0
 for src, (max_dim, q) in PLAN.items():
@@ -111,5 +145,7 @@ for src, (max_dim, q) in PLAN.items():
         total_after += os.path.getsize(os.path.join(DST, f'{base}-{v}.webp')) + os.path.getsize(os.path.join(DST, f'{base}-{v}.jpg'))
 
     print(f'{src} → {full.size} (+ {VARIANTS})')
+
+make_portraits()
 
 print(f'\nPŮVODNÍ celkem: {total_before//1024//1024} MB | OPT celkem: {total_after//1024//1024} MB')
