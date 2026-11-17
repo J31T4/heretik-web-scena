@@ -6,6 +6,7 @@ import ScenaFooter from '../components/ScenaFooter.astro';
 import { socialLinks, contactEmail } from '../data/site.js';
 import Picture from '../components/Picture.astro';
 import { cs } from '../utils/typo.js';
+import { page } from '../utils/paths.js';
 ---
 
 <ScenaLayout
@@ -35,9 +36,11 @@ import { cs } from '../utils/typo.js';
       <div class="container contact__grid">
         <div class="contact__main reveal">
           <p class="kicker"><span class="kicker__label">Poptat vystoupení</span></p>
-          <h2 class="contact__heading">{cs('Ozvěte se nám – rádi odpovíme')}</h2>
+          <h2 class="section-title contact__heading">{cs('Ozvěte se nám, rádi odpovíme')}</h2>
+          <div class="contact__lead">
           <p class="contact__intro">{cs('Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti, historické dny, plesy, firemní večírky, oslavy narozenin, dětské tábory a také program pro základní školy.')}</p>
           <p class="contact__intro">{cs('Naše hlavní sídlo je v Mohelnici, ale rádi cestujeme po celé České republice. Nejrychleji nás zastihnete na e-mailu nebo přes sociální sítě.')}</p>
+          </div>
 
           <div class="contact__mail spot">
             <p class="contact__mail-label">
@@ -93,7 +96,7 @@ import { cs } from '../utils/typo.js';
         </div>
 
         <aside class="contact__side">
-          <div class="info-card">
+          <div class="info-card" data-reveal>
             <p class="info-card__label">Kde nás najdete</p>
             <p class="info-card__value">Mohelnice</p>
             <p class="info-card__text">Česká republika · rádi cestujeme po celé zemi</p>
@@ -107,6 +110,10 @@ import { cs } from '../utils/typo.js';
               <li>{cs('Oslavy narozenin')}</li>
               <li>{cs('Dětské tábory a program pro ZŠ')}</li>
             </ul>
+            <a href={page('/akce')} class="link-more link-u">
+              <span class="link-u__t">Všechna vystoupení</span>
+              <span class="link-more__arrow" aria-hidden="true">→</span>
+            </a>
           </div>
         </aside>
       </div>
@@ -126,18 +133,21 @@ import { cs } from '../utils/typo.js';
   }
 
   .contact__heading {
-    font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+    font-size: clamp(2.2rem, 4.4vw, 3.4rem);
     margin-bottom: var(--sp-5);
   }
 
+  /* Oba odstavce pod jednou svislou linkou (jeden blok) */
+  .contact__lead {
+    border-left: 3px solid var(--crimson);
+    padding-left: var(--sp-5);
+  }
   .contact__intro {
     font-size: 1.08rem;
     line-height: 1.8;
-    margin-bottom: var(--sp-5);
-    border-left: 3px solid var(--crimson);
-    padding-left: var(--sp-5);
     color: var(--ink-2);
   }
+  .contact__intro + .contact__intro { margin-top: var(--sp-4); }
 
   .contact__social {
     display: grid;
@@ -152,6 +162,7 @@ import { cs } from '../utils/typo.js';
     background: var(--bg-2);
     border: 1px solid var(--line-2);
     border-top: 2px solid var(--crimson);
+    box-shadow: var(--edge-light), var(--shadow-card);
   }
   .contact__mail-label {
     display: flex;
@@ -220,6 +231,7 @@ import { cs } from '../utils/typo.js';
     border: 1px solid var(--line);
     padding: var(--sp-5);
     min-height: 84px;
+    box-shadow: var(--edge-light), var(--shadow-card);
     position: relative;
     overflow: hidden;
     transition: border-color var(--t-med) var(--ease), transform var(--t-med) var(--ease-out), background var(--t-med) var(--ease);
@@ -246,6 +258,7 @@ import { cs } from '../utils/typo.js';
     .contact__social-card:hover {
       border-color: rgba(228, 6, 7, 0.5);
       background: var(--bg-3);
+      box-shadow: var(--edge-light), var(--shadow-card-hover);
       transform: translateY(-4px);
     }
     .contact__social-card:hover::before { transform: scaleY(1); }
@@ -312,8 +325,10 @@ import { cs } from '../utils/typo.js';
     background: var(--bg-2);
     border: 1px solid var(--line);
     border-top: 2px solid var(--crimson);
+    box-shadow: var(--edge-light), var(--shadow-card);
     padding: var(--sp-6);
   }
+  .info-card .link-more { margin-top: var(--sp-4); }
   .info-card__label {
     font-family: var(--font-ui);
     font-size: var(--fs-micro);

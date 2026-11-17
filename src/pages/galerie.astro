@@ -4,6 +4,8 @@ import ScenaHeader from '../components/ScenaHeader.astro';
 import ScenaPageHero from '../components/ScenaPageHero.astro';
 import ScenaGallery from '../components/ScenaGallery.astro';
 import ScenaFooter from '../components/ScenaFooter.astro';
+import ScenaCTA from '../components/ScenaCTA.astro';
+import { galleryCount } from '../data/gallery.js';
 ---
 
 <ScenaLayout
@@ -19,8 +21,13 @@ import ScenaFooter from '../components/ScenaFooter.astro';
       label="Fotografie"
       title="Galerie"
       subtitle="Momenty ze soubojů, táborů a našich vystoupení."
+      emblem={{ value: String(galleryCount), caption: 'fotografií v galerii' }}
     />
     <ScenaGallery act="" extended />
+    <ScenaCTA
+      title="Fotky jsou jen začátek"
+      titleAccent="pozvěte nás na svou akci"
+    />
   </main>
   <ScenaFooter />
 </ScenaLayout>
