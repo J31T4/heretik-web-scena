@@ -206,6 +206,11 @@ const year = new Date().getFullYear();
     margin-bottom: var(--sp-5);
     word-break: break-all;
   }
+  /* Vyšší specificita než .link-u:hover, aby barva nezávisela na pořadí v bundlu */
+  .footer__email:focus-visible { color: var(--accent-text); }
+  @media (hover: hover) and (pointer: fine) {
+    .footer__email:hover { color: var(--accent-text); }
+  }
 
   .footer__social {
     display: flex;
