@@ -206,6 +206,12 @@ const isActive = (href) => normalizePath(href) === normalizePath(Astro.url.pathn
   .header__burger.active span:nth-child(2) { opacity: 0; }
   .header__burger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+  /* Úzké displeje: podtitul by se podlezl pod burger (48 px) */
+  @media (max-width: 399px) {
+    .header__brand { gap: 0.6rem; }
+    .header__tagline { letter-spacing: 0.1em; }
+  }
+
   @media (max-width: 1160px) {
     .scena-header { padding: 0.55rem 0; }
     .scena-header.is-scrolled { padding: 0.4rem 0; }
@@ -247,7 +253,7 @@ const isActive = (href) => normalizePath(href) === normalizePath(Astro.url.pathn
     html:not(.js) .header__nav-cta { display: none; }
     html:not(.js) .header__nav-foot { display: none; }
 
-    .header__burger { display: flex; }
+    .header__burger { display: flex; flex-shrink: 0; }
 
     .header__nav {
       position: fixed;
