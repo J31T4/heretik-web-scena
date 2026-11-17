@@ -18,7 +18,8 @@ import { cs } from '../utils/typo.js';
       loading="eager"
       fetchpriority="high"
       sizes="100vw"
-      mobileSrc="/images/opt/hero-1-900.jpg"
+      mobileSrc="/images/opt/hero-1-portrait.jpg"
+      mobileMedia="(max-width: 760px) and (orientation: portrait)"
     />
   </div>
 
@@ -32,7 +33,11 @@ import { cs } from '../utils/typo.js';
   <div class="container hero__content">
     <p class="hero__eyebrow">
       <span class="hero__eyebrow-dash" aria-hidden="true"></span>
-      {cs('Historický a scénický šerm · Mohelnice')}
+      <span class="hero__eyebrow-text">
+        <span>{cs('Historický a scénický šerm')}</span>
+        <i class="hero__eyebrow-sep" aria-hidden="true"></i>
+        <span>Mohelnice</span>
+      </span>
     </p>
 
     <div class="hero__glint" aria-hidden="true"><i></i></div>
@@ -94,9 +99,12 @@ import { cs } from '../utils/typo.js';
     position: absolute;
     inset: 0;
     z-index: 1;
+    /* poslední vrstva: „konec opony“ — spodek splyne přesně s barvou další sekce (--bg-0), bez hrany;
+       první vrstva: teplá karmínová záře na podlaze jeviště pod titulkem */
     background:
+      radial-gradient(ellipse 52% 36% at 20% 86%, rgba(228, 6, 7, 0.16), transparent 72%),
       linear-gradient(90deg, rgba(6, 6, 6, 0.9) 0%, rgba(6, 6, 6, 0.66) 34%, rgba(6, 6, 6, 0.12) 64%, rgba(6, 6, 6, 0.4) 100%),
-      linear-gradient(180deg, rgba(6, 6, 6, 0.6) 0%, rgba(6, 6, 6, 0) 22%, rgba(6, 6, 6, 0.1) 52%, rgba(6, 6, 6, 0.96) 100%);
+      linear-gradient(180deg, rgba(6, 6, 6, 0.6) 0%, rgba(6, 6, 6, 0) 22%, rgba(6, 6, 6, 0.1) 46%, rgba(6, 6, 6, 0.82) 80%, #060606 100%);
   }
 
   .hero__curtain {
@@ -107,14 +115,31 @@ import { cs } from '../utils/typo.js';
     z-index: 1;
     pointer-events: none;
   }
+  /* Sametové záhyby opony: jemné svislé pruhy přes okraj, zeslabené maskou do průhledna */
   .hero__curtain--l {
     left: 0;
     background: linear-gradient(90deg, rgba(3, 3, 3, 0.9) 0%, rgba(3, 3, 3, 0.3) 55%, transparent 100%);
   }
+  .hero__curtain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.28) 0 9px, transparent 9px 21px);
+  }
+  .hero__curtain--l::before {
+    -webkit-mask-image: linear-gradient(90deg, #000 30%, transparent 100%);
+    mask-image: linear-gradient(90deg, #000 30%, transparent 100%);
+  }
+  .hero__curtain--r::before {
+    -webkit-mask-image: linear-gradient(270deg, #000 30%, transparent 100%);
+    mask-image: linear-gradient(270deg, #000 30%, transparent 100%);
+  }
+  /* Karmínová linka opony: leží vždy ZA levým okrajem textu (okraj kontejneru + gutter − 1,6 rem),
+     takže na žádné šířce desktopu neprochází textem. Počítá se z viewportu, ne z šířky opony. */
   .hero__curtain--l::after {
     content: '';
     position: absolute;
-    right: 0;
+    left: max(22px, calc((100vw - var(--container)) / 2 + var(--gutter) - 1.6rem));
     top: 0;
     bottom: 0;
     width: 1px;
@@ -170,7 +195,7 @@ import { cs } from '../utils/typo.js';
     z-index: 5;
     width: 100%;
     padding-top: calc(var(--sp-8) + 1rem);
-    padding-bottom: clamp(2rem, 5vh, 3.5rem);
+    padding-bottom: clamp(2.5rem, 7vh, 4.5rem);
   }
 
   .hero__eyebrow {
@@ -183,13 +208,27 @@ import { cs } from '../utils/typo.js';
     letter-spacing: 0.32em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: var(--sp-5);
+    margin-bottom: var(--sp-4);
   }
   .hero__eyebrow-dash {
+    flex: none;
     width: 34px;
     height: 1px;
     background: currentColor;
     opacity: 0.75;
+  }
+  /* Dvě části (obor / místo): na desktopu jedna řádka s kosočtvercem, na úzkém displeji dva řádky bez oddělovače */
+  .hero__eyebrow-text {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+  .hero__eyebrow-sep {
+    flex: none;
+    width: 5px;
+    height: 5px;
+    background: var(--crimson);
+    transform: rotate(45deg);
   }
 
   /* Glint — záblesk na čepeli pod eyebrow */
@@ -257,9 +296,10 @@ import { cs } from '../utils/typo.js';
 
   .hero__subtitle {
     font-size: var(--fs-lead);
-    color: rgba(242, 237, 228, 0.9);
-    max-width: 500px;
+    color: rgba(242, 237, 228, 0.92);
+    max-width: 520px;
     margin-bottom: var(--sp-6);
+    text-shadow: 0 1px 14px rgba(0, 0, 0, 0.6);
   }
 
   .hero__cta {
@@ -310,7 +350,18 @@ import { cs } from '../utils/typo.js';
     .hero__bg :global(img),
     .hero__bg :global(video) { object-position: 66% 30%; }
   }
+  /* Portrétní telefon dostává výřez 9:16 (hero-N-portrait), takže děj leží u pravého okraje výřezu */
+  @media (max-width: 760px) and (orientation: portrait) {
+    .hero__bg :global(img) { object-position: 72% 30%; }
+  }
   @media (max-width: 560px) {
+    .hero__eyebrow { letter-spacing: 0.24em; align-items: flex-start; }
+    .hero__eyebrow-dash { margin-top: 0.55em; }
+    .hero__eyebrow-text { flex-direction: column; align-items: flex-start; gap: 0.35rem; }
+    .hero__eyebrow-sep { display: none; }
+  }
+  @media (max-width: 360px) {
+    .hero__eyebrow { font-size: 0.72rem; letter-spacing: 0.16em; }
     .hero__spotlight { display: none; }
     .hero__title-main { font-size: clamp(3.4rem, 19vw, 5.2rem); }
     .hero__content { padding-bottom: var(--sp-6); }
