@@ -82,11 +82,11 @@ npm run preview
 heretik-web/
 ├── src/
 │   ├── components/      # Header, Footer, Hero, Picture, Instagram feed, atd.
-│   ├── data/            # Sdílená data (site.js – navigace, kontakty, sociální sítě)
+│   ├── data/            # Sdílená data (site.js – navigace, kontakty, sociální sítě; gallery.js – fotky galerie)
 │   ├── layouts/         # ScenaLayout (hlavní layout)
 │   ├── pages/           # Domů, O nás, Akce, Galerie, Kontakt, 404, robots.txt, sitemap.xml
 │   ├── scripts/         # site.js, reveal.js (progresivní vylepšení)
-│   ├── styles/          # scena.css (tokeny + základ), scena-components.css (kicker, pergamen, ticker, FAB)
+│   ├── styles/          # scena.css (tokeny + základ), scena-components.css (kicker, pergamen, FAB, .link-u, .link-more)
 │   └── utils/           # paths.js (base-prefix), typo.js (česká mikrotypografie)
 ├── public/
 │   ├── images/opt/      # Optimalizované webové assety (webp + jpg, generované skriptem)
@@ -94,9 +94,55 @@ heretik-web/
 ├── assets-src/
 │   └── originals/       # Původní fotografie (zůstávají v Gitu, nekopírují se do dist/)
 ├── scripts/
-│   └── optimize-images.py  # Generuje responzivní varianty obrázků (480/800/1200/plná)
+│   └── optimize-images.py  # Generuje responzivní varianty obrázků (480/800/1200/plná) a portrétní výřezy hero
 └── dist/                # Build výstup (po npm run build)
 ```
+
+## Divadelní systém a design
+
+**Navigace:** Domů, Vystoupení (`/akce`), O nás, Galerie, Kontakt (`src/data/site.js`).
+
+**Dějství a scény.** Každá stránka je jedno dějství (kicker v hlavičce): úvod a `/akce`
+„I. dějství“, `/o-nas` „II. dějství“, `/galerie` „III. dějství“, `/kontakt` „Finále“.
+Sekce uvnitř podstránky jsou „1. scéna“, „2. scéna“… Kicker je `.kicker > .kicker__act + .kicker__label`.
+
+**Vzor hlavičky sekce** (`scena.css`): `.section-head` → `.kicker` → `h2.section-title`
+→ volitelně `<Blade />` → `.section-subtitle`. Modifikátor `.section-head--split`
+(od 900 px titulek vlevo, `.section-head__aside` s podtitulkem/odkazem vpravo;
+`.section-head__aside--end` zarovná doprava).
+
+**Pomocné třídy** (`scena-components.css`):
+- `.link-u` + `.link-u__t` – textový odkaz s animovaným podtržením,
+- `.link-more` – odkaz „víc“ (text + šipka v rámečku), používá se s `.link-u`,
+- `.paper` – pergamenová plocha, `.spot` – spotlight za ukazatelem, `.sr-only`.
+
+**Tokeny** (`scena.css`): `--accent-text` (karmín pro text/čáry na tmavém, ≈ 6 : 1),
+`--edge-light` (světlá hrana shora), `--shadow-card`, `--shadow-card-hover` (hloubka karet).
+Obrysová čísla (`-webkit-text-stroke`) jsou dekorativní, `aria-hidden`.
+
+**ScenaPageHero** (`variant`: `standard` | `split` | `minimal`) má volitelný prop `emblem`
+`{ value, caption }` – obrysový údaj (na `/o-nas` rok vzniku 2020, na `/galerie` počet fotek
+spočítaný z `src/data/gallery.js`). H1 je ve všech variantách verzálkami (CSS).
+
+**ScenaCTA** (finále, rezervace) – props `act` (default „Finále“), `label` („Rezervace“),
+`title`, `titleAccent`, `subtitle`. Používá se na úvodu, `/akce`, `/o-nas`
+a `/galerie` (s vlastními titulky). `/kontakt` a 404 jsou bez CTA a bez plovoucího tlačítka
+(`fab={false}` v `ScenaLayout`).
+
+**ScenaLayout** má prop `image` `{ src, width, height, alt }` pro `og:image` / `twitter:image`
+(default `hero-1.jpg`); každá stránka předává fotku odpovídající obsahu.
+
+**Hero – portrétní výřezy.** Pro mobilní portrét se generují výřezy 9:16 pro `hero-1` a `hero-2`:
+
+```bash
+python3 scripts/optimize-images.py --only-portrait
+```
+
+**Tisk.** `@media print` v `scena.css` skryje dekorace (zrno, opona, lightbox, Instagram…),
+vynutí tmavý text na bílém a zamezí lámání karet přes stránky.
+
+**Galerie** nezobrazuje popisky fotek (alt texty slouží jen čtečkám); lightbox ukazuje
+číslo/počítadlo a prochází jen prvky s `data-lightbox`.
 
 ## Editace obsahu
 
@@ -131,7 +177,7 @@ PUBLIC_SITE_URL=https://j31t4.github.io PUBLIC_BASE_PATH=/heretik-web-scena npm 
 
 ## Status
 
-✅ 5 stránek (Domů, O nás, Akce, Galerie, Kontakt) — „PŘEDSTAVENÍ ZAČÍNÁ"
+✅ 5 stránek (Domů, Vystoupení, O nás, Galerie, Kontakt) + 404 — „PŘEDSTAVENÍ ZAČÍNÁ"
 ✅ Responzivní design, tmavý divadelní motiv, vlastní fonty (swap)
 ✅ Lightbox, mobilní menu (focus trap + no-JS fallback), reduced-motion, WCAG AA
 ✅ Responzivní obrázky (srcset/sizes), IG feed s ošetřením chyb
