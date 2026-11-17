@@ -10,6 +10,7 @@ import { cs } from '../utils/typo.js';
 
 <ScenaLayout
   title="Kontakt"
+  image={{ src: '/images/opt/gallery-15.jpg', width: 1400, height: 646, alt: 'Šermíř s rozpřaženýma rukama uprostřed hrané scény, za ním diváci' }}
   description="Domluvte si vystoupení SHŠ Heretik. Sídlíme v Mohelnici a rádi cestujeme po celé České republice."
   fab={false}
 >
@@ -19,7 +20,7 @@ import { cs } from '../utils/typo.js';
       variant="standard"
       act="Finále · Kontakt"
       label="Spojení"
-      title="KONTAKT"
+      title="Kontakt"
       subtitle="Domluvte si s námi vystoupení"
       image={{
         jpg: '/images/opt/gallery-15.jpg',
@@ -34,7 +35,7 @@ import { cs } from '../utils/typo.js';
       <div class="container contact__grid">
         <div class="contact__main reveal">
           <p class="kicker"><span class="kicker__label">Poptat vystoupení</span></p>
-          <h2 class="contact__heading">{cs('Ozvěte se nám — rádi odpovíme')}</h2>
+          <h2 class="contact__heading">{cs('Ozvěte se nám – rádi odpovíme')}</h2>
           <p class="contact__intro">{cs('Dle vašich potřeb jsme schopni připravit vystoupení pro městské slavnosti, historické dny, plesy, firemní večírky, oslavy narozenin, dětské tábory a také program pro základní školy.')}</p>
           <p class="contact__intro">{cs('Naše hlavní sídlo je v Mohelnici, ale rádi cestujeme po celé České republice. Nejrychleji nás zastihnete na e-mailu nebo přes sociální sítě.')}</p>
 
@@ -179,9 +180,9 @@ import { cs } from '../utils/typo.js';
     background: linear-gradient(var(--crimson), var(--crimson)) left bottom / 0 2px no-repeat;
     transition: background-size var(--t-med) var(--ease-out), color var(--t-fast) var(--ease);
   }
-  .contact__mail-link:focus-visible { background-size: 100% 2px; color: var(--crimson-bright); }
+  .contact__mail-link:focus-visible { background-size: 100% 2px; color: var(--accent-text); }
   @media (hover: hover) and (pointer: fine) {
-    .contact__mail-link:hover { background-size: 100% 2px; color: var(--crimson-bright); }
+    .contact__mail-link:hover { background-size: 100% 2px; color: var(--accent-text); }
   }
   .contact__copy {
     position: relative;
@@ -262,12 +263,12 @@ import { cs } from '../utils/typo.js';
     transition: color var(--t-med) var(--ease), border-color var(--t-med) var(--ease);
   }
   .contact__social-card:focus-visible .contact__social-icon {
-    color: var(--crimson-bright);
+    color: var(--accent-text);
     border-color: var(--crimson);
   }
   @media (hover: hover) and (pointer: fine) {
     .contact__social-card:hover .contact__social-icon {
-      color: var(--crimson-bright);
+      color: var(--accent-text);
       border-color: var(--crimson);
     }
   }
@@ -296,12 +297,12 @@ import { cs } from '../utils/typo.js';
   }
   .contact__social-card:focus-visible .contact__social-arrow {
     transform: translateX(5px);
-    color: var(--crimson-bright);
+    color: var(--accent-text);
   }
   @media (hover: hover) and (pointer: fine) {
     .contact__social-card:hover .contact__social-arrow {
       transform: translateX(5px);
-      color: var(--crimson-bright);
+      color: var(--accent-text);
     }
   }
 

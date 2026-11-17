@@ -121,7 +121,7 @@ const actName = act.split(' · ')[0];
       linear-gradient(90deg, rgba(6, 6, 6, 0.6) 0%, transparent 62%);
   }
   .scena-page-hero--standard .container { position: relative; z-index: 2; width: 100%; }
-  /* Na fotce je karmínová nečitelná — kicker přebírá slonovinu a zlatou */
+  /* Na fotce (různá světlost pod textem) kicker záměrně zůstává slonovinový – bezpečný kontrast */
   .scena-page-hero--standard .kicker { text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9); }
   .scena-page-hero--standard .kicker__act { color: var(--ink); }
 
@@ -203,6 +203,7 @@ const actName = act.split(' · ')[0];
   .page-hero__title {
     font-size: clamp(2.8rem, 7.5vw, 5.4rem);
     font-weight: 500;
+    text-transform: uppercase;
     letter-spacing: -0.01em;
     margin-bottom: var(--sp-4);
   }

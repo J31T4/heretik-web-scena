@@ -110,6 +110,8 @@
   --accent: var(--color-crimson);
   --accent-hover: var(--color-crimson-deep);
   --accent-glow: var(--color-crimson-glow);
+  /* Karmínový TEXT/čáry na tmavém pozadí (≈6 : 1); --accent-hover je tmavá karmín jen pro pozadí */
+  --accent-text: var(--color-crimson-bright);
   --brand-gold: var(--color-gold);
   --brand-gold-soft: var(--color-gold-soft);
   --brand-steel: var(--color-steel);
@@ -165,7 +167,7 @@
   --ink-2: var(--text-muted);
   --ink-3: var(--text-faint);
   --crimson: var(--accent);
-  --crimson-bright: var(--accent-hover);
+  --crimson-bright: var(--accent-text);
   --crimson-glow: var(--accent-glow);
   --gold: var(--brand-gold);
   --gold-soft: var(--brand-gold-soft);
@@ -364,7 +366,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   font-weight: 600;
   letter-spacing: 0.34em;
   text-transform: uppercase;
-  color: var(--crimson-bright);
+  color: var(--accent-text);
   margin-bottom: var(--sp-3);
 }
 .act-label::before {
@@ -478,14 +480,14 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 .btn--ghost:focus-visible {
   border-color: var(--crimson);
-  color: var(--crimson-bright);
+  color: var(--accent-text);
   background: rgba(228, 6, 7, 0.06);
   transform: translateY(-2px);
 }
 @media (hover: hover) and (pointer: fine) {
   .btn--ghost:hover {
     border-color: var(--crimson);
-    color: var(--crimson-bright);
+    color: var(--accent-text);
     background: rgba(228, 6, 7, 0.06);
     transform: translateY(-2px);
   }
@@ -685,4 +687,33 @@ html.enhanced .grain--animated { animation: grain-shift 1.2s steps(4) infinite; 
     transition-delay: 0ms !important;
   }
   .grain--animated { animation: none !important; }
+}
+
+/* ============ Tisk ============ */
+@media print {
+  html, body { background: #fff !important; color: #111 !important; }
+  body * {
+    color: #111 !important;
+    background: transparent !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+    -webkit-text-fill-color: currentColor !important;
+  }
+  /* Dekorace, interaktivní ovládání, lightbox, Instagram */
+  .scene-grain, .scene-vignette, .scroll-progress, .fab, .grain,
+  .header__burger, .header__nav, #scenaMenu, .lightbox, dialog, .scena-ig,
+  .hero__bg, .hero__veil, .hero__curtain, .hero__spotlight, .hero__beam, .hero__glint, .hero__frame,
+  .page-hero__veil, .act-node, .skip-link { display: none !important; }
+  /* Reveal prvky vždy viditelné */
+  .reveal, [data-reveal], [data-reveal-group] > * {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  /* Karty se nelámou přes stránky */
+  article, figure, .scene-card, .perf__card, .show, .fact, .gallery__item { break-inside: avoid; }
+  a { text-decoration: underline; }
+  a[href^="mailto:"]::after { content: " (" attr(href) ")"; font-size: 0.85em; }
 }

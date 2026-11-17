@@ -19,7 +19,7 @@ const year = new Date().getFullYear();
         <p class="footer__tagline">{cs('Historický a scénický šerm z Mohelnice.')}<br />{cs('Umění, které přežívá století.')}</p>
       </div>
 
-      <nav class="footer__nav" aria-label="Patička — navigace">
+      <nav class="footer__nav" aria-label="Patička – navigace">
         <p class="footer__heading">Navigace</p>
         {navigation.map((l) => (
           <a href={l.href}>{l.label}</a>
@@ -122,7 +122,7 @@ const year = new Date().getFullYear();
     font-weight: 600;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: var(--crimson-bright);
+    color: var(--accent-text);
     margin-bottom: var(--sp-4);
   }
 
@@ -189,7 +189,7 @@ const year = new Date().getFullYear();
     word-break: break-all;
   }
   .footer__email:hover,
-  .footer__email:focus-visible { color: var(--crimson-bright); }
+  .footer__email:focus-visible { color: var(--accent-text); }
 
   .footer__social {
     display: flex;

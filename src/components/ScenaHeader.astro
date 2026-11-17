@@ -19,7 +19,7 @@ const isActive = (href) => normalizePath(href) === normalizePath(Astro.url.pathn
 
 <header class="scena-header">
   <div class="container header__inner">
-    <a href={page('/')} class="header__brand" aria-label="SHŠ Heretik — úvodní stránka">
+    <a href={page('/')} class="header__brand" aria-label="SHŠ Heretik – úvodní stránka">
       <img src={asset('/logo.svg')} alt="" class="header__logo" width="44" height="36" />
       <span class="header__brandtext">
         <span class="header__name">SHŠ Heretik</span>
@@ -165,7 +165,7 @@ const isActive = (href) => normalizePath(href) === normalizePath(Astro.url.pathn
   .header__nav-num {
     font-family: var(--font-ui);
     font-size: 0.62rem;
-    color: var(--crimson-bright);
+    color: var(--accent-text);
     opacity: 0;
     transition: opacity var(--t-fast) var(--ease);
   }
@@ -299,8 +299,8 @@ const isActive = (href) => normalizePath(href) === normalizePath(Astro.url.pathn
       color: var(--crimson);
       transform: translateY(-0.5em);
     }
-    .header__nav a.is-active { color: var(--crimson-bright); }
-    .header__nav a.is-active .header__nav-num { color: var(--crimson-bright); }
+    .header__nav a.is-active { color: var(--accent-text); }
+    .header__nav a.is-active .header__nav-num { color: var(--accent-text); }
 
     :global(.header__nav-cta) {
       display: inline-flex;

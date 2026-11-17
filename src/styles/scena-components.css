@@ -21,7 +21,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  color: var(--crimson-bright);
+  color: var(--accent-text);
 }
 .kicker__act::before {
   content: '';
