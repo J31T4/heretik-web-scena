@@ -70,7 +70,7 @@ MOBILE_VARIANTS = {
 # `object-fit: cover` na ~390×850 px roztáhl a rozmazal; výřez z originálu je ostrý.
 # (src, střed výřezu jako podíl šířky originálu, kvalita)
 PORTRAIT_RATIO = 9 / 16
-PORTRAIT_WIDTH = 780  # = 2× šířka telefonu 390 px; víc by webp přesáhlo ~200 kB
+PORTRAIT_WIDTH = 900  # = 2× šířka telefonu 390 px + rezerva pro DPR 2 (1600 px na výšku)
 PORTRAITS = {
     # hero-1: stan a hlavní šermíř vpravo od středu
     'hero-1.jpeg': (0.70, 64),
